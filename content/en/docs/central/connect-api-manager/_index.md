@@ -33,6 +33,8 @@ The related APIs are published to AMPLIFY Central in either disconnected mode (c
 
 ![Service Discovery](/Images/central/ServiceDiscoveryAPIM.png)
 
+test change
+
 ### Traceability Agent
 
 The Traceability Agent is used to filter the logs and prepare the transaction events that are sent to AMPLIFY Central.
