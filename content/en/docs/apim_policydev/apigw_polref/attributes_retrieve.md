@@ -312,23 +312,24 @@ Click the **Add** button to add an XPath expression. You can add and remove exis
 
 ## Retrieve attribute from database filter
 
-The API Gateway can retrieve user attributes from a specified database, or write user attributes to a specified database. It can do this by running an SQL query on the database, or by invoking a stored procedure call. The query results are represented as a list of properties. Each element in the list represents a query result row returned from the database for the specified SQL query or stored procedure call. These properties represent pairs of attribute names and values for each column in the row.
+Use the **Retrieve from or write to database** filter to retrieve user attributes from a specified database, or write user attributes to a specified database. API Gateway can do this by running an SQL query on the database, or by invoking a stored procedure call. The query results are represented as a list of properties. Each element in the list represents a query result row returned from the database for the specified SQL query or stored procedure call. These properties represent pairs of attribute names and values for each column in the row.
 
-{{< alert title="Note" color="primary" >}} It is important to be aware of the following:
+{{< alert title="Note" color="primary" >}}
+It is important to be aware of the following:
 
-* The user cannot use a selector expression in a retrieve from or write to database filter to select a table name to make the query dynamic. For example, putting "SELECT * FROM ${my_table} WHERE ..." into a retrieve from or write to database filter will fail.
-* All selector expressions, like ${my_table}, are turned into parameters for a prepared statement in order to prevent SQL injection attacks. Using selector expressions in places where SQL syntax does not permit parameters, like table names, will not work and is not supported.
-* The user can use attribute only as parameter to compare with data stored in table. For example,  select FirstName from Persons where LastName=${att1};
+* You cannot use a selector expression in a **Retrieve from or write to database** filter to select a table name to make the query dynamic. For example, putting `SELECT * FROM ${my_table} WHERE ...` into the filter will fail.
+* All selector expressions (for example `${my_table}`) are turned into parameters for a prepared statement in order to prevent SQL injection attacks. Using selector expressions in places where SQL syntax does not permit parameters (for example, table names) will not work and is not supported.
+* You can use an attribute only as a parameter to compare with data stored in a table. For example, `select FirstName from Persons where LastName=${att1};`.
 
-   {{< /alert >}}
+{{< /alert >}}
 
 ### Configure database settings
 
 Configure the following fields on the **Database** tab:
 
-**Database Location**: The API Gateway searches the selected database for the user's attributes. Click the browse button to select the database to search. To use an existing database connection (for example, `Default Database Connection`), select it in the tree. To add a database connection, right-click the **Database Connections** tree node, and select **Add DB connection**. Alternatively, you can add database connections under the **Environment Configuration** > **External Connections** node in the Policy Studio tree view.
+**Database Location**: The API Gateway searches the selected database for the user's attributes. Click the browse button to select the database to search. To use an existing database connection (for example, `Default Database Connection`), select it in the tree. To add a database connection, right-click the **Database Connections** tree node, and select **Add DB connection**. Alternatively, you can add database connections under the **Environment Configuration** > **External Connections** node in the Policy Studio tree view. For more details, see [Configure database connections](/docs/apim_policydev/apigw_external_connections/common_db_conf/).
 
-**Database Statements**: The **Database Statements** table lists the currently configured SQL queries or stored procedure calls. These queries and calls retrieve certain user attributes from the database selected in the **Database Location** field. You can edit and delete existing queries by selecting them from the list and clicking the **Edit** and **Delete** buttons. Queries are executed in the order they are listed in the filter. You can change the order of execution using the **Up** and **Down** buttons.
+**Database Statements**: The **Database Statements** table lists the currently configured SQL queries or stored procedure calls. These queries and calls retrieve certain user attributes from the database selected in the **Database Location** field. You can edit and delete existing queries by selecting them from the list and clicking the **Edit** and **Delete** buttons. Queries are executed in the order they are listed in the filter. You can change the order of execution using the **Up** and **Down** buttons. For details, see [Configure database queries](/docs/apim_policydev/apigw_external_connections/common_db_conf/#configure-database-queries).
 
 ### Configure advanced settings
 
@@ -362,7 +363,7 @@ Configure the following fields on the **Result Set Options** section:
 
 ## Retrieve attribute from directory server filter
 
-The API Gateway can leverage an existing directory server by querying it for user profile data. The **Retrieve From Directory Server** filter can look up a user and retrieve that user's attributes represented as a list of search results. Each element of the list represents a list of multivalued attributes returned from the directory server.
+The API Gateway can leverage an existing directory server by querying it for user profile data. The **Retrieve from Directory Server** filter can look up a user and retrieve that user's attributes represented as a list of search results. Each element of the list represents a list of multivalued attributes returned from the directory server.
 
 ### Configure database settings for directory server
 
