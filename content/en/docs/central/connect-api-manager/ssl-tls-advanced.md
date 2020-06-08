@@ -14,7 +14,8 @@ description: By default, the connection from the agents to AMPLIFY Central is
 
 TLS 1.0, TLS 1.1 and **TLS 1.2** (default)
 
-These version can be set up in any agent configuration variable refering to ssl.minVersion or ssl.maxVersion  
+These versions can be set up in any agent configuration variable refering to `ssl.minVersion` or `ssl.maxVersion`.\
+In case `ssl.minVersion` and `ssl.maxVersion` are incompatble, the agent will not starts.
 
 ## Default Cipher Suites
 
@@ -60,6 +61,6 @@ TLS-AES-128-GCM-SHA256\
 TLS-AES-256-GCM-SHA384\
 TLS-CHACHA20-POLY1305-SHA256
 
-## Customize ssl.InsecureSkipVerify option
+## Customize `ssl.InsecureSkipVerify` option
 
-This option controls whether a client verifies the server’s certificate chain and host name. If true, then TLS accepts any certificate presented by the server and any host name in that certificate. In this mode, TLS is susceptible to man-in-the-middle attacks.
+This option controls whether a client verifies the server’s certificate chain and host name. If true, then TLS accepts any certificate presented by the server and any host name in that certificate. In this mode, TLS is susceptible to man-in-the-middle attacks. if false (by default) then TLS accepts only the certificate containing the hostname that match the server hostname.
