@@ -39,7 +39,7 @@ tag.<tagName>.Exists() == true | false
 tag.Any() == | != <tagValue>
 ```
 
-> Sample to discover all API having a tag that have Finance in its value: ```filter: tag.Any() == Finance```|\
+> Sample to discover all API having a tag that have Finance in its value: ```filter: tag.Any() == Finance```\
 > Sample to discover all API having a tag that does not have Finance in its value: ```filter: tag.Any() != Finance```
 
 ## Filter based on tag name and tag value
