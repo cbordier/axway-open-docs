@@ -21,6 +21,10 @@ This section describes the operating system requirements for API Gateway.
 * Red Hat Enterprise Linux 6.x, 7.x, 8.x
 * SUSE Linux Enterprise Server 11.x, 12.x
 
+{{< alert title="Note" color="primary" >}}
+CentOS 8.x and Red Hat Enterprise Linux 8.x are supported from 7.7.20200530 (May 2020) update and later updates only.
+{{< /alert >}}
+
 **Software prerequisites**:
 
 In CentOS 8.x and Red Hat Enterprise Linux 8.x `glibc` no longer includes `libnsl`. This was included in earlier releases and is required by the API Gateway.

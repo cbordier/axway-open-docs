@@ -14,9 +14,15 @@ Docker deployment is supported on Linux. For a summary of the system requirement
 
 ## New features and enhancements
 
-No new features and enhancements are available in this update.
+The following new features and enhancements are available in this update.
 
 <!-- Add the new features here -->
+
+### Improved installation procedure
+
+An update script is provided to apply the update to each API Gateway or API Manager installation. This automates some of the previous manual steps. It supports backups and can run in unattended mode. For more information about the usage of the script see the [installation steps](#installation) and the `--help` output.
+
+Update scripts are also provided for Policy Studio and Configuration Studio updates.
 
 ## Important changes
 
@@ -26,7 +32,7 @@ It is important, especially when upgrading from an earlier version, to be aware 
 
 ### TLS v1.3 support
 
-This update supports TLS v1.3 protocol for HTTPS listeners and connection filters. All communication between Node Managers, API Gateways, and other services now uses TLSv1.3 protocol by default.
+This update supports TLS v1.3 protocol for HTTPS listeners and connection filters. All communication between Node Managers, API Gateways, and other services now uses TLS v1.3 protocol by default.
 
 ### Filebeat v6.2.2
 
@@ -414,7 +420,7 @@ To install the update on your existing API Gateway Analytics 7.7 installation, p
 3. Remove old JRE versions by deleting the following directories:
 
    ```
-   INSTALL_DIR/apigateway/platform/jre
+   INSTALL_DIR/analytics/platform/jre
    ```
 4. Verify the owners of API Gateway binaries before extracting the update.
 

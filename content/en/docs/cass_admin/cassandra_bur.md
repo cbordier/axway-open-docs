@@ -57,6 +57,14 @@ Using `kpsadmin`, choose: `option 30) Show Configuration`, and enter the API Gat
 
 ![Find keyspaces using kpsadmin](/Images/CassandraAdminGuide/kpsadmin_keyspace.png)
 
+### Back up a keyspace schema using cqlsh
+
+To export the keyspace schema, run the following command:
+
+```
+cqlsh IP_ADDRESS -u username -p password -e "DESC keyspace KEYSPACE_NAME" > KEYSPACE_NAME_schema_backup.cql
+```
+
 ## Back up a keyspace
 
 To back up a keyspace, you will use the `nodetool snapshot` command to create hard links, run a custom script to back up these links, and then archive that backup.
@@ -137,7 +145,21 @@ do
 done
 ```
 
-## Restore a keyspace
+## Restore a keyspace schema using cqlsh
+
+The keyspace schema is created when an API Gateway is deployed with KPS tables. For the restore to be successful, the backup snapshot data must only contain data from the tables and columns in the keyspace schema.
+
+To restore a keyspace schema, open `cqlsh` in the directory that contains the CQL file containing the backup, and run the following command:
+
+```
+source 'KEYSPACE_NAME_schema_backup.cql';
+```
+
+{{% alert title="Note" %}}
+This is only necessary if the schema is not already present, for example, if setting up a new cluster as a copy of an existing one.
+{{% /alert %}}
+
+## Restore API Management and KPS keyspaces
 
 This section explains how to restore API Management and KPS keyspaces and provides an example script to restore the files.
 
@@ -145,7 +167,7 @@ This section explains how to restore API Management and KPS keyspaces and provid
 If you are restoring a keyspace to the same cluster that the backup was taken from, skip to [Steps to restore a keyspace](#steps-to-restore-a-keyspace).
 {{% /alert %}}
 
-Before you restore a keyspace in a new Cassandra cluster, you must ensure that the following:
+Before you restore a keyspace in a new Cassandra cluster, you must ensure the following:
 
 * The Cassandra cluster must be created to the API Gateway HA specifications. For more details, see [Configure a highly available Cassandra cluster](/docs/cass_admin/cassandra_config/).
 * All API Gateway groups must have their schema created in the new cluster, and the replication factor must be the same as the cluster size (normally 3).

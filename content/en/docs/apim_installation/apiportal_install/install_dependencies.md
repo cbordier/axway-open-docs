@@ -108,7 +108,7 @@ CentOS also does not offer the latest PHP version in the default repositories. T
 2. Install Apache HTTP Server and its SSL module:
 
     ```bash
-    sudo yum install httpd httpd-mod_ssl
+    sudo yum install httpd mod_ssl
     ```
 3. Enable and start the Apache service:
 

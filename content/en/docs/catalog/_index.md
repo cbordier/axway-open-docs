@@ -2,12 +2,49 @@
 title: AMPLIFY Unified Catalog
 linkTitle: AMPLIFY Unified Catalog
 weight: 150
-date: 2020-04-28
-description: Normalize discovery for APIs from multiple gateways, classify your services to support multiple audiences (partners, IT, business), control consumer subscription to access your APIs, and extend your APIs to be reused in other integration ﬂows.
+date: 2020-04-28T00:00:00.000Z
+description: "Normalize discovery for APIs from multiple gateways, classify your
+  services to support multiple audiences (partners, IT, business), control
+  consumer subscription to access your APIs, and extend your APIs to be reused
+  in other integration flows."
 ---
+AMPLIFY Unified Catalog is a SaaS based service that is part of the AMPLIFY platform management layer, AMPLIFY Central.
 
-The AMPLIFY Central and Catalog work together to help customers to have a common place to import their APIs from all of their distributed API gateways throughout their enterprise.
+AMPLIFY Central and AMPLIFY Unified Catalog work together to provide a common place for all integration assets from all of your distributed gateways through the enterprise. AMPLIFY Unified Catalog enables sophisticated integration ﬂows combining cloud and public on-premise APIs together. Alongside API interfaces, you can find Managed File Transfer (MFT) flows that move data across your enterprise and outside its boundaries.
 
-The AMPLIFY Catalog provides a common view of all endpoints belonging to an organization. It enables more sophisticated integration ﬂows combining cloud and public on-premise APIs together. Alongside API interfaces, you can find Managed File Transfer (MFT) and B2B connectors that move data across your enterprise and outside its boundaries. The endpoints in the catalog can be in different environments such as in the cloud, on-premise, within a microservice mesh, or at the edge (DMZ) of the organization.
+The endpoints in the catalog are hosted in different environments, such as in the cloud, on-premise, within a microservice mesh, or at the edge (DMZ) of the organization. AMPLIFY Central manages multiple gateway environments that feed the Unified Catalog service. These gateways can be Axway gateways (for example, API Manager) or another vendors (for example, AWS or Azure), or they can also be repositories such as GitHub and SwaggerHub.
 
-AMPLIFY Catalog allows developers to discover and understand the endpoints and protocols that they can use to integrate quickly with your services. It simplifies access and increases the speed of building, integrating, and deploying new services and apps. Platform administrators can limit content access to specific users or teams and manage subscriptions.
+![Automate the population of the Unified Catalog from multiple source](/Images/catalog/automate-the-population-of-the-unified-catalog-from-multiple-sources.png "Automate the population of the Unified Catalog from multiple source")
+
+## Unified Catalog capabilities
+
+The Unified Catalog capabilities include:
+
+* Event-driven subscriptions management: You can create custom subscription flows for each registered environment enabling complex approval flows and integration with existing systems to streamline experience and reduce time for approval.
+* Customized documentation for each catalog asset. The documentation is written using Markdown.
+* Selective sharing of integration assets with teams and users.
+* Tagging and categorization to create views for different type of audiences (providers and consumers).
+
+## Use cases for discovering assets
+
+Use cases to find and discover assets in the Unified Catalog include:
+
+* Line of Business Managers and Digital Strategists looking for how they can innovate and take advantage of the value your APIs are unlocking.
+* Providers (IT Planners and Product Managers) looking for how your APIs and integration assets can support reuse, and the data to which they need access to deliver new digital and mobile experiences.
+* Consumers (Application Developers, Integration Specialists) looking to use your APIs directly and get access so they can innovate and build digital products with speed and control.
+* Managed File Transfer Providers looking for easily and efficiently onboard new partners to exchange files, by removing all the human-to-human contact and manual processes.
+* Managed File Transfer Consumers, Relationship managers or Partners looking to exchange files.
+* Searching and filtering.
+* Management of the apps that consume the APIs or other integration assets.
+* Measuring the popularity of an asset using views, subscriptions, and transactions.
+
+## Supported Asset Types
+
+The Unified Catalog supports the following type of assets:
+
+* REST APIs: OpenAPI Specification (OAS) file that describes the structure of the REST API.
+* SOAP APIs: WSDL specification file that describes the definition of the SOAP API.
+* gRPC APIs: Protocol Buffer file that describes the definition of gRPC APIs.
+* AsyncAPI: Supported as "Unstructured" type to publish the specification of the API.
+* MFT flows: Manage File Transfer Service definitions.
+* Custom: Custom assets, such as API Definitions that are technology agnostic, SDKs, tutorials, etc.

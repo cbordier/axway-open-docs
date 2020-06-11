@@ -36,6 +36,8 @@ For API design, Axway works with Stoplight, which offers a form-based API design
 
 To learn more about API design with Stoplight, see [API design and prototyping with Stoplight](/docs/api_mgmt_overview/api_mgmt_components/stoplight/).
 
+Stoplight is only one option and any API design tool can be used and integrated if it generates standard API specifications based on OpenAPI 3.0 or Swagger 2.0 or 1.2.
+
 ## Mock
 
 When using the API-first approach it makes sense to think about how to quickly and easily mock new APIs. Mocks help to separate the API service provider from the service consumer, and give potentially interested customers an understanding of what this new API will deliver.

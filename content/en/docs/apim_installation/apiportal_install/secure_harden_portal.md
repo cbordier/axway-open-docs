@@ -8,7 +8,7 @@
 Perform the following steps after installation to ensure that your API Portal environment is secure from internal and external threats:
 
 1. Apply the latest service pack (SP) available for this version, as it might contain important security updates. For details, see [Update API Portal](/docs/apim_installation/apiportal_install/install_service_pack/).
-2. Search Axway Support at [https://support.axway.com](https://support.axway.com/) for any KB articles relating to this version, as these might contain valuable security recommendations.
+2. Search [Axway Support](https://support.axway.com/) for any KB articles relating to this version, as these might contain valuable security recommendations.
 3. Change the default Joomla! administrator credentials for logging in to the Joomla! Administrator Interface (JAI) (`https://<API Portal host>/administrator`). Use a different user name and a strong password.
 4. Complete all of the procedures detailed in the following sections.
 
@@ -31,7 +31,6 @@ On an API Portal software installation, the Apache web server has TLS versions 
    ```
    sslscan <API Portal IP address>:<your https port>
    ```
-
 2. To disable TLS 1.0. and 1.1, open the following file: `/etc/httpd/conf.d/apiportal.conf`
 3. Add the following SSL protocol definition for the secure connection:
 
@@ -52,7 +51,7 @@ On an API Portal software installation, the Apache web server has TLS versions 
 
 To counter a session fixation vulnerability in Joomla!, it is recommended that you protect the Joomla! Administrator Interface (JAI) from direct Internet access.
 
-1. Open the file `/etc/httpd/conf.d/security.conf`.
+1. Open the `/etc/httpd/conf.d/security.conf` file.
 2. Add an access restriction directive for the `/administrator` location. Specify the internal IP address range that is allowed to access JAI. For example:
 
    ```
@@ -84,6 +83,7 @@ If you did not choose to encrypt your database password during the installation 
    ```
    # sh apiportal_db_pass_encryption.sh
    ```
+
     When you execute the script, you are prompted to enter a passphrase and your database password. The script uses the passphrase to encrypt the database password, which is now stored encrypted in the `<API_Portal_install_path>/configuration.php` file, and to decrypt the database password on each connection request.
 
     Only the password is decrypted on each connection request, not the whole payload, so no significant performance impact is expected.
@@ -98,11 +98,11 @@ To protect API Portal and Joomla! from brute force attacks, you can limit the nu
 2. Click **Yes** to enable login protection for API Portal.
 3. Enter a value for the number of failed login attempts before a ReCaptcha is displayed.
 4. Enter a value for the number of failed login attempts before the user account is locked.
-5. Enter a value in seconds for how long the user account is locked.
+5. Enter a value, in seconds, for how long the user account is locked.
 6. Click **Yes** to enable locking by IP address. When this setting is enabled login attempts are blocked from the same IP address for the lock time specified even if correct user credentials are entered.
-
-   You can enable user account locking and IP address locking independently or in combination. For example, if you enable user account locking and IP address locking for 5 minutes after 2 failed login attempts, `UserA` will be locked for 5 minutes after entering 2 incorrect passwords, and any other user (for example, `UserB`) will also be unable to log in for 5 minutes from the same IP address, even if they provide correct user credentials.
 7. Click **Save**.
+
+You can enable **user account** locking and **IP address** locking independently or in combination. For example, if you enable user account locking and IP address locking for 5 minutes after 2 failed login attempts, `UserA` will be locked for 5 minutes after entering 2 incorrect passwords, and any other user (for example, `UserB`) will also be unable to log in for 5 minutes from the same IP address, even if they provide correct user credentials.
 
 ## Add trusted OAuth hosts
 
@@ -142,11 +142,8 @@ In the virtual host directive add the following headers:
 
 ```
 Header always append X-Frame-Options SAMEORIGIN
-
 Header set X-XSS-Protection "1; mode=block"
-
 Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"
-
 Header set X-Content-Type-Options nosniff
 ```
 
@@ -154,17 +151,13 @@ You should only use the HSTS header if you have configured SSL.
 
 ### Update security.conf
 
-Ensure that the `security.conf` file (also located in `/etc/httpd/conf.d/`) exists and that it contains the following directives:
+Ensure that the `security.conf` file (located at `/etc/httpd/conf.d/`) exists and that it contains the following directives:
 
 ```
 ServerTokens ProductOnly
-
 ServerSignature Off
-
 HostnameLookups Off
-
-TraceEnable off
-
+TraceEnable Off
 UseCanonicalName Off
 ```
 
@@ -190,17 +183,11 @@ Update the file with the following options:
 
 ```
 - expose_php = 0
-
 - display_errors = 0
-
 - disable_functions = exec,passthru,shell_exec,system
-
 - allow_url_include = 0
-
 - session.cookie_httponly = 1
-
 - session.cookie_secure = On
-
 - open_basedir = “/opt/axway/apiportal/htdoc:/tmp”
 ```
 
@@ -216,7 +203,7 @@ After updating `php.ini`, restart Apache.
 
 ## Configure MySQL
 
-MySQL comes with a hardening script to check database server security and remove some default settings. You can run it with the command:
+MySQL comes with a hardening script to check database server security and remove some default settings. To run the script:
 
 ```
 mysql_secure_installation
@@ -228,7 +215,7 @@ If you do not need to access your database from another machine, bind the MySQL 
 bind-address = 127.0.0.1
 ```
 
-The user for API Portal should only have access to those databases that it needs to run.
+API Portal users should only have access to the databases that they need to run.
 
 ## Configure Joomla! Administrator Interface (JAI)
 
@@ -298,6 +285,12 @@ To protect the integrity of the application generated logs:
 This approach ensures that you can detect and prevent tampering.
 
 API Portal logs are located in the `logs` folder in the API Portal root directory.
+
+## Utilize synchronized time source
+
+We recommend that you synchronize API Portal server with an internal or external Network Time Protocol (NTP) server.
+
+It is important to use unified and synchronized time source throughout the environment to correlate logs and data from different internal and external systems and preserve forensic quality of the logs. Accurate time is also essential when identifying and analyzing application events, including attacks.
 
 ## Develop a log retention policy and archival procedures
 

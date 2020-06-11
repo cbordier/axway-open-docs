@@ -39,3 +39,5 @@ The following video demonstrates the possible integration and how the process lo
 {{< youtube jKfpCE64vHc >}}
 
 Learn more about [how to integrate API management into a CI/CD pipeline](/docs/api_mgmt_overview/api_mgmt_components/pipeline/).
+
+In principle, this type of integration is possible with any API design tool that generates standard API specifications (OpenAPI or Swagger) and is ideally based on a Git repository.
