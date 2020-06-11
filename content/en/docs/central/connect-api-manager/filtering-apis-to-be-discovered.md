@@ -30,8 +30,8 @@ Learn how to set filtering based on tag name, tag value, partial value and Match
 tag.<tagName>.Exists() == true | false
 ```
 
-> Sample to discover all API having a tag name API_TYPE: ```filter: tag.API_TYPE.Exist() == true```<br>
- Sample to discover all API not having a tag name API_TYPE: ```filter: tag.API_TYPE.Exist() == false```  
+> Sample to discover all API having a tag name API_TYPE: ```filter: tag.API_TYPE.Exist() == true```  
+Sample to discover all API not having a tag name API_TYPE: ```filter: tag.API_TYPE.Exist() == false```  
 
 ## Filter based on tag value
 
@@ -48,7 +48,7 @@ Sample to discover all API having a tag that does not have Finance in its value:
 tag.<tagName> == | != <tagValue>
 ```
 
-> Sample to discover all API having a tag name API_TYPE that have 'Finance' in its value: ```filter: tag.API_TYPE == Finance```
+> Sample to discover all API having a tag name API_TYPE that have 'Finance' in its value: ```filter: tag.API_TYPE == Finance```  
 Sample to discover all API having a tag name API_TYPE that does not have 'Finance' in its value: ```filter: tag.API_TYPE !=  Finance```
 
 ## Filter based on partial value
@@ -58,7 +58,7 @@ tag.<tagName>.contains(<value>) == true |  false
 ```
 
 > Sample to  discover all API having a tag name containing API: ```tag.API_TYPE.contains(API) == true```  
-> Sample to  discover all API having a tag name not containing API: ```tag.API_TYPE.contains(API) == false```  
+Sample to  discover all API having a tag name not containing API: ```tag.API_TYPE.contains(API) == false```  
 
 ## Filter using MatchRegEx
 
