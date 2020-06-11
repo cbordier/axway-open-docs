@@ -73,7 +73,7 @@ Logical operators are used for evaluating multiple conditions. These can be comb
 | Operator | Description                                                                |   |
 |----------|----------------------------------------------------------------------------|---|
 | `&&`      | Logical AND operator, returns true if conditions on both sides are true.   |   |
-| `||`       | Logical OR operator, returns true if the condition on either side is true. |   |
+| \|\|       | Logical OR operator, returns true if the condition on either side is true. |   |
 
 ## Comparative operators
 
