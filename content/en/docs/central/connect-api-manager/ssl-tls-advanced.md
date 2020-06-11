@@ -6,7 +6,7 @@ weight: 90
 description: By default, the connection from the agents to AMPLIFY Central is
   SSL secured using TLS1.2 and the appropriate secured default Cipher Suite.
   However, you can choose to change the default behavior and use different variable values
-  for protocols and supported Cipher Suites that meet your own requirements. See details below:
+  for protocols and supported Cipher Suites that meet your own requirements. See details below
 ---
 {{< alert title="Note" color="primary" >}}TLS 1.3 is not yet supported by AMPLIFY Central.{{< /alert >}}
 
