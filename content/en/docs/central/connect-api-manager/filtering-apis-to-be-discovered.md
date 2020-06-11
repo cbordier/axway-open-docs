@@ -30,7 +30,7 @@ Learn how to set filtering based on tag name, tag value, partial value and Match
 tag.<tagName>.Exists() == true | false
 ```
 
-> Sample to discover all API having a tag name API_TYPE: ```filter: tag.API_TYPE.Exist() == true```  
+Sample to discover all API having a tag name API_TYPE: ```filter: tag.API_TYPE.Exist() == true```  
 Sample to discover all API not having a tag name API_TYPE: ```filter: tag.API_TYPE.Exist() == false```  
 
 ## Filter based on tag value
@@ -39,7 +39,7 @@ Sample to discover all API not having a tag name API_TYPE: ```filter: tag.API_TY
 tag.Any() == | != <tagValue>
 ```
 
-> Sample to discover all API having a tag that have Finance in its value: ```filter: tag.Any() == Finance```  
+Sample to discover all API having a tag that have Finance in its value: ```filter: tag.Any() == Finance```  
 Sample to discover all API having a tag that does not have Finance in its value: ```filter: tag.Any() != Finance```  
 
 ## Filter based on tag name and tag value
@@ -48,8 +48,8 @@ Sample to discover all API having a tag that does not have Finance in its value:
 tag.<tagName> == | != <tagValue>
 ```
 
-> Sample to discover all API having a tag name API_TYPE that have 'Finance' in its value: ```filter: tag.API_TYPE == Finance```  
-Sample to discover all API having a tag name API_TYPE that does not have 'Finance' in its value: ```filter: tag.API_TYPE !=  Finance```
+Sample to discover all API having a tag name API_TYPE that have 'Finance' in its value: ```filter: tag.API_TYPE == Finance```  
+Sample to discover all API having a tag name API_TYPE that does not have 'Finance' in its value: ```filter: tag.API_TYPE !=  Finance```  
 
 ## Filter based on partial value
 
@@ -57,7 +57,7 @@ Sample to discover all API having a tag name API_TYPE that does not have 'Financ
 tag.<tagName>.contains(<value>) == true |  false
 ```
 
-> Sample to  discover all API having a tag name containing API: ```tag.API_TYPE.contains(API) == true```  
+Sample to  discover all API having a tag name containing API: ```tag.API_TYPE.contains(API) == true```  
 Sample to  discover all API having a tag name not containing API: ```tag.API_TYPE.contains(API) == false```  
 
 ## Filter using MatchRegEx
@@ -84,4 +84,4 @@ Comparative operators are used for comparing two values. These can be combined w
 | `==`       | Equal to operator, returns true if values on both sides are equal.                                             |   |
 | `!=`       | Not equal to operator, returns true if the value on the left side is not equal to the value on the right side. |   |
 
-> Sample of a composite expression to discover API having Math as a tag name OR API having a tag name API_TYPE whose value is 'Healthcare' and exclude API having a tag name API_TYPE whose value is 'SOAP': ```tag.Math.Exists() == true || tag.API_TYPE == Healthcare || tag.API_TYPE != SOAP```
+Sample of a composite expression to discover API having Math as a tag name OR API having a tag name API_TYPE whose value is 'Healthcare' and exclude API having a tag name API_TYPE whose value is 'SOAP': ```tag.Math.Exists() == true || tag.API_TYPE == Healthcare || tag.API_TYPE != SOAP```
