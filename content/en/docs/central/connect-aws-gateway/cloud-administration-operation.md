@@ -192,28 +192,28 @@ Resource key data that needs to be inputted into agent config file(s):
 
 ### Agents AWS Cost
 
-The AWS cost of the agent will depend on your traffic usage. More traffic you have and more it will cost you.
+The AWS cost of the agent will depend on your traffic usage. The more traffic you have the more it will cost.
 You can follow your cost using the AWS [Cost management service](https://console.aws.amazon.com/cost-management/home#/dashboard).
-Following is the cost of AWS service the Agents rely on:
+The following are the costs of the AWS services the Agents rely on:
 
 * AWS [Cloud formation pricing](https://aws.amazon.com/cloudformation/pricing/)</br>
-The 2 CloudFormation templates do not add additional charges as they are used only once and create only AWS:: resources.
+The two CloudFormation templates do not add additional charges, as they are used only once and create only AWS:: resources.
 * AWS [S3 bucket pricing](https://aws.amazon.com/s3/pricing/)</br>
-We need one bucket at installation time for storing a lambda. The file size is less than 4Mo. This bucket will be accessed only once at the installation time.
+One bucket is needed at installation time for storing a lambda. The file size is less than 4Mo. This bucket is accessed only once at the installation time.
 It has negligible cost.
 * AWS [Config pricing](https://aws.amazon.com/config/pricing/)</br>
-You pay $0.003 per configuration item recorded in your AWS account per AWS Region. This is dependant of the number of changes in API / stage you will perform in a month. We don't set up any rules nor conformance pack. Here is the list of Resources the agent needs to monitor: _ApiGateway:RestAPI_, _ApiGateway:Stage_, _ApiGatewayV2:RestAPI_ and _ApiGateway:Stage_.
+You pay $0.003 per configuration item recorded in your AWS account per AWS Region. This is dependant on the number of changes in API / stage you will perform in a month. We don't set up  rules or conformance pack. Here is the list of resources the agent needs to monitor: _ApiGateway:RestAPI_, _ApiGateway:Stage_, _ApiGatewayV2:RestAPI_ and _ApiGateway:Stage_.
 * AWS [Lambda pricing](https://aws.amazon.com/lambda/pricing/)</br>
-You are charged based on the number of requests for your functions and the duration, the time it takes for your code to execute. Our traceability lambda is called each time one of the discovered API is consumed. The amount of allocated memory for the lambda is 128Mo. The lambda runs in average in .5 second. You have 1 million request for free.</br>
-After the free million request, you have monthly cost charges **( lambda memory * _0.0009765625_ * # lambda call * lambda average time execution * _0.001_ * _0.0000166667_)** + monthly requests charge **(# lambda call * _0.0000002_)**.</br>
-2 million call: monthly cost ($2.08) + monthly request charge ($0.40) = $2.48</br>
-5 million call: monthly cost ($5.21) + monthly request charge ($1.00) = $6.21
+You are charged based on the number of requests for your functions and the duration (the time it takes for your code to execute). Our traceability lambda is called each time one of the discovered APIs is consumed. The amount of allocated memory for the lambda is 128Mo. The lambda runs on average .5 second. You have 1 million requests for free.</br>
+After the free million requests, you have monthly cost charges **( lambda memory * _0.0009765625_ * # lambda call * lambda average time execution * _0.001_ * _0.0000166667_)** + monthly requests charge **(# lambda call * _0.0000002_)**.</br>
+2 million calls: monthly cost ($2.08) + monthly request charge ($0.40) = $2.48</br>
+5 million calls: monthly cost ($5.21) + monthly request charge ($1.00) = $6.21
 * AWS [CloudWatch pricing](<https://aws.amazon.com/cloudwatch/pricing/>)</br>
-You should be able to operate with the free tier as the agent requires only 1 monitoring metrics (APIGW_Traceability_Logs)
+You should be able to operate with the free tier, as the agent requires only one monitoring metrics (APIGW_Traceability_Logs).
 * AWS [Simple Queue Service pricing](https://aws.amazon.com/sqs/pricing/)</br>
-2 standard queues are set up: one for discovery agent and one for traceability agent. The discovery agent queue will contains every stage deployment. The traceability agent queue will contain every call to discovered API. 1 million Amazon SQS requests for free each month. After free tier, it cost $0.40 per million requests.
+Two standard queues are set up: one for Discovery Agent and one for Traceability Agent. The Discovery Agent queue will contains every stage deployment. The Traceability Agent queue will contain every call to discovered APIs. One million Amazon SQS requests for free each month. After free tier, it cost $0.40 per million requests.
 * AWS [API Gateway pricing](https://aws.amazon.com/api-gateway/pricing/)</br>
-The Amazon API Gateway free tier includes one million API calls received for REST APIs, one million API calls received for HTTP APIs, and one million messages and 750,000 connection minutes for WebSocket APIs per month for up to 12 months. If you exceed this number of calls per month, you will be charged the API Gateway usage rates. there are different rate based on the API type (HTTP / REST / Websocket)
+The Amazon API Gateway free tier includes one million API calls received for REST APIs, one million API calls received for HTTP APIs, and one million messages and 750,000 connection minutes for WebSocket APIs per month for up to 12 months. If you exceed this number of calls per month, you will be charged the API Gateway usage rates. There are different rates based on the API type (HTTP / REST / Websocket).
 
 Summary:
 
@@ -224,7 +224,7 @@ Summary:
 | Config                     | 0.003 * (# config)                                                                                                             |
 | Lambda execution           | (lambda memory *0.0009765625* # lambda call *lambda average time execution* 0.001 *0.0000166667) + (# lambda call* 0.0000002)  |
 | CloudWatch                 | 0                                                                                                                              |
-| Simple Queue Service       | 1 million request free or $0.40 per million requests after                                                                     |
+| Simple Queue Service       | One million requests free or $0.40 per million requests thereafter                                                                     |
 | API Gateway                | refer to [API Gateway pricing](https://aws.amazon.com/api-gateway/pricing/) for details                                        |
 
 ### Troubleshooting
