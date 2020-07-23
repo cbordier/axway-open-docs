@@ -33,10 +33,7 @@ A Service Account authenticates your agents without requiring any user informati
     openssl genpkey -algorithm RSA -out ./aws_agent_private_key.pem -pkeyopt rsa_keygen_bits:2048
     openssl rsa -pubout -in ./aws_agent_private_key.pem -out ./aws_agent_public_key.pem
     openssl rsa -pubout -in ./aws_agent_private_key.pem -out ./aws_agent_public_key.der -outform der
-    (optional) base64 ./public_key.der > ./public_key
     ```
-
-    {{< alert title="Note" color="primary" >}}The public key can be either of type .der format or of type base64 encoded of the .der format.{{< /alert >}}
 
 2. Create a new Service Account user in AMPLIFY Central using the key pair from above. You may name this Service Account for instance AWS-EMEA-Agent. For additional information, see [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account). There is no need to download the Service Account JSON-File.
 
