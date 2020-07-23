@@ -94,6 +94,11 @@ The agents use HTTPS connections to its API servers for communication between a 
 
 Authentication to the servers is enforced through tokens, username/password, or public/private keys, depending upon what is required by the particular server. All JWT tokens and private keys and secrets stay within the environment of the agent. Public keys are registered in AMPLIFY Central. Configuration details for these settings can be found at [Discovery Agent variables](/docs/central/connect-api-manager/discovery-agent-variables/) and [Traceability Agent variables](/docs/central/connect-api-manager/traceability-agent-variables/). For the AWS API Gateway Discovery and Traceability agents, the configuration details are at [Deploy your agents](/docs/central/connect-aws-gateway/deploy-your-agents-1).
 
+## Agent configuration file: securing AWS access
+
+The agents are using an AWS access key and an AWS secret key to execute AWS APIs. The values for these keys are stored in clear in the configuration file used to run the agent Docker image.</br>
+In order to remove them from the file, you can create corresponding Docker secret and reference them in variables (`AWS_AUTH_ACCESSKEY` / `AWS_AUTH_SECRETKEY`).
+
 ## Agent security scans
 
 All of Axway’s software is developed under a Secure Software Development Lifecycle; therefore, the agents undergo regular security analysis.
