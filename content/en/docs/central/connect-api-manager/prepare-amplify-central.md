@@ -4,11 +4,10 @@ linkTitle: Prepare AMPLIFY Central
 draft: false
 weight: 20
 description: >-
-  Learn how to represent Axway API Gateway inside AMPLIFY Central by using an
-  environment,
-
-  secure the connection between AMPLIFY Central and the agents using a Service Account.
----
+  Learn how to:
+  * Virtualize Axway API Gateway within AMPLIFY Central by using an environment
+  * Secure the connection between AMPLIFY Central and the agents using a Service Account
+  ---
 
 ## Before you start
 
@@ -16,7 +15,7 @@ description: >-
 * You will need a basic knowledge of Axway API Manager
 * Verify that @axway/amplify-central-cli version is at minimum 0.1.4 (Get the [CLI](/docs/central/cli_central/cli_install/))
     * Check the installed version with `amplify central -v`
-* openssl installed
+* Install OpenSSL
 
 ## Objectives
 
@@ -24,9 +23,7 @@ Learn how to create a Service Account and an environment for Axway API Gateway w
 
 ## Create a Service Account
 
-In order to secure the connection between agents and AMPLIFY Central, a Service Account is required.
-
-A Service Account authenticates your agents without requiring any user information but uses a public/private key pair.
+A Service Account is required to secure the connection between the agents and AMPLIFY Central. The Service Account authenticates your agents using public/private key pairs, so no user information is required.
 
 1. Generate a private and public key pair:
 
@@ -36,7 +33,7 @@ A Service Account authenticates your agents without requiring any user informati
     openssl rsa -pubout -in ./private_key.pem -out ./public_key.der -outform der
     ```
 
-2. Create a new Service Account user in AMPLIFY Central using the key pair from above. You may name this Service Account for instance v7-Agent. For additional information, see [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account). There is no need to download the Service Account JSON-File.
+2. Create a new Service Account user in AMPLIFY Central using the key pair from above. You may name this Service Account (for example, v7-Agent). For additional information, see [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account). There is no need to download the Service Account JSON-File.
 
 ## Create an environment
 
