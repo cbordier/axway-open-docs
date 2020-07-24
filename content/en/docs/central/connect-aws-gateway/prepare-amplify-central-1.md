@@ -15,7 +15,7 @@ description: >-
 * Read [AMPLIFY Central AWS API Gateway connected overview](/docs/central/connect-aws-gateway/)
 * You will need a basic knowledge of AWS API Gateway
 * Verify that @axway/amplify-central-cli version is at minimum 0.1.4 (Get the [CLI](/docs/central/cli_central/cli_install/))
-  * Check the installed version with `amplify central -v`
+    * Check the installed version with `amplify central -v`
 * openssl installed
 
 ## Objectives
