@@ -3,15 +3,20 @@ title: Prepare AMPLIFY Central
 linkTitle: Prepare AMPLIFY Central
 draft: false
 weight: 20
-description: Learn how to create an environment and Service Account for Axway
-  API Gateway within AMPLIFY Central.
+description: >-
+  Learn how to represent Axway API Gateway inside AMPLIFY Central by using an
+  environment,
+
+  secure the connection between AMPLIFY Central and the agents using a Service Account.
 ---
 
 ## Before you start
 
 * Read [AMPLIFY Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
 * You will need a basic knowledge of Axway API Manager
-* Verify that @axway/amplify-central-cli version is at minimum 0.1.3-dev.3
+* Verify that @axway/amplify-central-cli version is at minimum 0.1.4 (Get the [CLI](/docs/central/cli_central/cli_install/))
+  * Check the installed version with `amplify central -v`
+* openssl installed
 
 ## Objectives
 
@@ -19,19 +24,19 @@ Learn how to create a Service Account and an environment for Axway API Gateway w
 
 ## Create a Service Account
 
-Create a Service Account in AMPLIFY Central.
+In order to secure the connection between agents and AMPLIFY Central, a Service Account is required.
+
+A Service Account authenticates your agents without requiring any user information but uses a public/private key pair.
 
 1. Generate a private and public key pair:
 
     ```
     openssl genpkey -algorithm RSA -out ./private_key.pem -pkeyopt rsa_keygen_bits:2048
-
     openssl rsa -pubout -in ./private_key.pem -out ./public_key.pem
-
     openssl rsa -pubout -in ./private_key.pem -out ./public_key.der -outform der
     ```
 
-2. Create a new Service Account user in API Central UI using the key pair from above. For additional information, see [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account).
+2. Create a new Service Account user in AMPLIFY Central using the key pair from above. You may name this Service Account for instance v7-Agent. For additional information, see [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account). There is no need to download the Service Account JSON-File.
 
 ## Create an environment
 
@@ -39,7 +44,7 @@ Create an environment object in AMPLIFY Central that represents the effective Ax
 
 Each discovered API or Traffic is associated to this environment and eases the filtering.
 
-You can create your environment using either the UI, API or CLI.
+You can create your environment using either the UI or CLI.
 
 ### Create environment using the UI
 
@@ -48,8 +53,10 @@ Create an environment in **AMPLIFY Central UI > Topology > Environments > create
 Example:
 
 ```
-https:/<AMPLIFY Central URL>/topology/environments/apigtw-v77
+https:/<AMPLIFY Central URL>/topology/environments/**apigtw-v77**
 ```
+
+**Bold** characters are your environment name.
 
 ### Create environment using the CLI
 
@@ -65,36 +72,27 @@ Options:
 
 ```
 -o, --output = yaml | json
-
 -f, --file = (filename.yml, filename.yaml, or filename.json)
 ```
 
-Sample file:
+#### Sample environment file
 
-```
+```yaml
 ---
 group: management
 apiVersion: v1alpha1
 kind: Environment
-name: My beautifull environment name
-title: Any usefull title
-metadata:
-  id: e4e084a66f86a7ea016f8c2ba1a40005
-  audit:
-    createTimestamp: '2020-01-09T21:17:47.302+0000'
-    createUserId: DOSA_91cdec76c1084d86a6ee48f19bc
-    modifyTimestamp: '2020-01-09T21:17:47.302+0000'
-    modifyUserId: DOSA_91cdec76c1084d86a6ee48f19bc
-  resourceVersion: '6'
-  references: []
+name: my-v7-environment-for-testing
+title: Any useful title
 attributes:
   attr1: value1
   attr2: value2
+  createdBy: CLI
 tags:
   - Testing
   - another tag
 spec:
-  description: My wonderfull description to help me.
+  description: A wonderful description to help me.
   icon:
     contentType: image/png
     data: "[optional base64 encoded image]"
