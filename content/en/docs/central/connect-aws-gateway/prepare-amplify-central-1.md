@@ -3,8 +3,7 @@ title: Prepare AMPLIFY Central
 linkTitle: Prepare AMPLIFY Central
 draft: false
 weight: 10
-description: >-
-Learn how to virtualize Axway API Gateway within AMPLIFY Central by using an environment. Secure the connection between AMPLIFY Central and the agents by using a Service Account.
+description: Learn how to virtualize Axway API Gateway within AMPLIFY Central by using an environment. Secure the connection between AMPLIFY Central and the agents by using a Service Account.
 ---
 
 ## Before you start
