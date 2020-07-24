@@ -15,7 +15,7 @@ description: >-
 * Read [AMPLIFY Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
 * You will need a basic knowledge of Axway API Manager
 * Verify that @axway/amplify-central-cli version is at minimum 0.1.4 (Get the [CLI](/docs/central/cli_central/cli_install/))
-  * Check the installed version with `amplify central -v`
+    * Check the installed version with `amplify central -v`
 * openssl installed
 
 ## Objectives
