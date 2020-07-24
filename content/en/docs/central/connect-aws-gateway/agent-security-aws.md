@@ -97,7 +97,8 @@ Authentication to the servers is enforced through tokens, username/password, or 
 ## Agent configuration file: securing AWS access
 
 The agents are using an AWS access key and an AWS secret key to execute AWS APIs. The values for these keys are stored in clear in the configuration file used to run the agent Docker image.</br>
-In order to remove them from the file, you can create corresponding Docker secret and reference them in variables (`AWS_AUTH_ACCESSKEY` / `AWS_AUTH_SECRETKEY`).
+
+In order to remove them from the file, you can create a corresponding Docker secret and reference them in variables (`AWS_AUTH_ACCESSKEY` / `AWS_AUTH_SECRETKEY`).
 
 ## Agent security scans
 
