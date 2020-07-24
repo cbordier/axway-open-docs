@@ -7,7 +7,7 @@ description: >-
   Learn how to:
   * Virtualize Axway API Gateway within AMPLIFY Central by using an environment
   * Secure the connection between AMPLIFY Central and the agents using a Service Account
-  ---
+---
 
 ## Before you start
 
