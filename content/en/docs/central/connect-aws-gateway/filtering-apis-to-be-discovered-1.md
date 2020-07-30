@@ -1,6 +1,6 @@
 ---
-title: Filtering APIs to be discovered
-linkTitle: Filtering APIs to be discovered
+title: Discover APIs
+linkTitle: Discover APIs
 draft: false
 weight: 40
 description: >-

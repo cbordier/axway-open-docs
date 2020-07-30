@@ -1,6 +1,6 @@
 ---
-title: Cloud administration/operation
-linkTitle: Cloud administration/operation
+title: Administer AWS Gateway cloud
+linkTitle: Administer AWS Gateway cloud
 draft: false
 weight: 90
 description: As a Cloud Administrator / Operator, you are responsible for
@@ -32,7 +32,7 @@ In order for the Discovery Agent to receive the API details, the following AWS s
 
 The AWS Discovery Agent discovers newly created, previously undiscovered REST APIs, as well as changes to the API’s stage(s), which then updates the logging that enables the Traceability Agent (see below).
 
-The agent only publishes APIs that pass the tagging criteria that is configured in the agent configuration file, see [Filtering APIs to be discovered](/docs/central/connect-aws-gateway/filtering-apis-to-be-discovered-1/). The agent will use the tags which are associated with the stage that is associated with the API.
+The agent only publishes APIs that pass the tagging criteria that is configured in the agent configuration file, see [Discover APIs](/docs/central/connect-aws-gateway/filtering-apis-to-be-discovered-1/). The agent will use the tags which are associated with the stage that is associated with the API.
 
 As soon as an API is published to AMPLIFY Central, a new tag (APIC_ID) is added to the stage so that the Discovery Agent will not publish it again. The value of the APIC_ID tag is the ID of the resource representing the API in Central. It only discovers published APIs where the stage has one or more tags as defined in the agent configuration file.
 
@@ -188,7 +188,7 @@ Resource key data that needs to be inputted into agent config file(s):
 
 * [Prepare AWS API Gateway](/docs/central/connect-aws-gateway/prepare-aws-api-gateway/)
 * [Prepare AMPLIFY Central](/docs/central/connect-aws-gateway/prepare-amplify-central-1/)
-* [Deploy your agents](/docs/central/connect-aws-gateway/deploy-your-agents-1/)
+* [Deploy agents](/docs/central/connect-aws-gateway/deploy-your-agents-1/)
 
 ### Agents AWS Cost
 
@@ -231,7 +231,7 @@ Summary:
 
 | Question                                        | Answer                                                                                                                                                                                                          |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Why isn’t my API discovered?                    | Check that the tag set on the stage has a correct name and value based on the AWS_FILTER variable. See [Filtering APIs to be discovered](/docs/central/connect-aws-gateway/filtering-apis-to-be-discovered-1/). |
+| Why isn’t my API discovered?                    | Check that the tag set on the stage has a correct name and value based on the AWS_FILTER variable. See [Discover APIs](/docs/central/connect-aws-gateway/filtering-apis-to-be-discovered-1/). |
 | Why can’t my agents connect to AWS API Gateway? | Go to AWS console / IAM service and make sure that `AWS_REGION`, `AWS_AUTH_ACCESSKEY` and `AWS_AUTH_SECRETKEY` are valid and not inactivated.                                                                   |
 | Why can’t my agents connect to AMPLIFY Central? | Go to **AMPLIFY Central UI > Access > Service Accounts** and make sure that the Service Account is correctly named and valid. Make sure that the tenantID and teamID are correct.                               |
 | Why don’t I see traffic in AMPLIFY Central?     | Make sure that the Condor URL is accessible from the machine where Traceability Agent is installed.                                                                                                             |

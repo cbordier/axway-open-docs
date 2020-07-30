@@ -1,6 +1,6 @@
 ---
-title: Network traffic - AWS Gateway
-linkTitle: Network traffic - AWS Gateway
+title: Administer AWS Gateway network traffic
+linkTitle: Administer AWS Gateway network traffic
 draft: false
 weight: 70
 description: Traffic is always initiated by the Agent to AWS and AMPLIFY

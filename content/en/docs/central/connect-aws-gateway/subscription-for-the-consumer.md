@@ -1,8 +1,8 @@
 ---
-title: Subscription for the consumer
-linkTitle: Subscription for the consumer
+title: Manage subscription workflow
+linkTitle: Manage subscription workflow
 draft: false
-weight: 55
+weight: 60
 description: A subscription provides the consumer, or subscriber, with the
   required security, quota and endpoint materials to correctly consume the API.
 ---

@@ -1,6 +1,6 @@
 ---
-title: Agent security - AWS Gateway
-linkTitle: Agent security - AWS Gateway
+title: Administer AWS Gateway agent security
+linkTitle: Administer AWS Gateway agent security
 draft: false
 weight: 80
 description: This section describes the main security features of the AWS API Gateway agents.

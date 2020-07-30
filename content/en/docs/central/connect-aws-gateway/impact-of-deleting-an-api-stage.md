@@ -1,5 +1,8 @@
 ---
-title: Impact of deleting an API stage or an API
+title: Delete an API Stage or API
+linkTitle: Delete an API Stage or API
+draft: false
+weight: 50
 description: Understand the implications of deleting an API stage or an API in
   AWS API Gateway in each of the two centralModes (publishToCatalog or
   publishToEnvironmentAndCatalog), especially as it relates to subscriptions and

@@ -47,7 +47,7 @@ For additional logging information, see <https://docs.aws.amazon.com/apigateway/
 
 ## Minimum requirements
 
-An AMPLIFY Central Service Account. See [See create Service Account](/docs/central/connect-aws-gateway/prepare-amplify-central-1/#create-a-service-account).
+An AMPLIFY Central Service Account. See [Create Service Account](/docs/central/connect-aws-gateway/prepare-amplify-central-1/#create-a-service-account).
 
 * API Key credentials on AWS. Allow for CLI access
 * Amazon CloudWatch Service
