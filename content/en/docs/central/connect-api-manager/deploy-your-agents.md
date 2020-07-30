@@ -37,7 +37,7 @@ The binary agent can run in the following modes:
 
     * **Default**: located in the same directory as the agent binary.
     * **Optional**: use a dedicated folder where the configuration file is located (use the –pathConfig flag in the agent command line to access the file path).
-    * **Advanced configuration**: properties inside the configuration file can reference environment variables. This enables you to set up only one configuration file that addresses different behaviors (depending on the environment variables). See [Discovery Agent variables](/docs/central/connect-api-manager/discovery-agent-variables/).
+    * **Advanced configuration**: properties inside the configuration file can reference environment variables. This enables you to set up only one configuration file that addresses different behaviors (depending on the environment variables). See [Agent variables](/docs/central/connect-api-manager/agent-variables/).
 
 * With command line arguments. See [Discovery Agent flags](/docs/central/connect-api-manager/discovery-agent-flags/).
 
@@ -123,7 +123,7 @@ The containerized agent can run in the following mode:
 
 ##### To install the Dockerized Discovery Agent
 
-Create your Discovery Agent environment file, `env_vars`. See [Discovery Agent variables](/docs/central/connect-api-manager/discovery-agent-variables/) for a reference to variable descriptions.
+Create your Discovery Agent environment file, `env_vars`. See [Agent variables](/docs/central/connect-api-manager/agent-variables/) for a reference to variable descriptions.
 After customizing all the sections, your `env_vars` file should look like this example file:
 
 ```shell
@@ -179,7 +179,7 @@ The agent can run in the following modes:
 
     * Default: located in the same directory as the agent binary.
     * Optional: use a dedicated folder where the configuration file is located (use the --path.config flag in the agent command line to access the file path).
-    * Advanced configuration: properties inside the configuration file can reference environment variables. This enables you to set up only one configuration file that addresses different behaviors (depending on the environment variables). See [Discovery Agent variables](/docs/central/connect-api-manager/discovery-agent-variables/).
+    * Advanced configuration: properties inside the configuration file can reference environment variables. This enables you to set up only one configuration file that addresses different behaviors (depending on the environment variables). See [Agent variables](/docs/central/connect-api-manager/agent-variables/).
 * With command line argument. See [Traceability Agent flags](/docs/central/connect-api-manager/traceability-agent-flags/).
 
 ### Installing the Traceability Agent
@@ -267,7 +267,7 @@ To install the binary Traceability Agent:
 
    * The value for *tenantID* can be found in AMPLIFY Central Platform > Organization.
    * The value for *clientId* can be found in Service Account. See [Create a Service in AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/).
-   * Traceability Agent variables can be found at [Traceability Agent variables](/docs/central/connect-api-manager/traceability-agent-variables/).
+   * Traceability Agent variables can be found at [Agent variables](/docs/central/connect-api-manager/agent-variables/).
 5. Once the YAML file is updated, start the Traceability Agent. If the YAML file is in the same folder, run `./traceability_agent` script. Otherwise, pass the command-line flags that are documented at [Traceability Agent flags](/docs/central/connect-api-manager/traceability-agent-flags/).
 6. The Traceability Agent parses through the files based on the `event-file` path and pattern provided. Depending on the data found, the agent pushes it to AMPLIFY Central.
 7. Go to AMPLIFY Central and open the API Observer tab to verify that the agent is working. You should see the monitoring data for the APIs discovered earlier. If you don’t see any data, then invoke a few different API methods in the exposed API.
@@ -275,7 +275,7 @@ To install the binary Traceability Agent:
 
 #### To install the Docker Traceability Agent
 
-Create your Discovery Agent environment file, `env_vars`. See [Traceability Agent variables](/docs/central/connect-api-manager/traceability-agent-variables/) for a reference to variable descriptions.
+Create your Discovery Agent environment file, `env_vars`. See [Agent variables](/docs/central/connect-api-manager/agent-variables/) for a reference to variable descriptions.
 After customizing all the sections, your `env_vars` file should look like this example file:
 
 ```shell
