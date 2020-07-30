@@ -9,7 +9,7 @@ description: Use the following environment variables to control your Discovery a
 
 As the Discovery and Traceability agents share many parameters, it is more efficient to use environment variables and reference these parameters, instead of declaring parameters twice.
 
-To maintain a shareable collection of environment files, one approach is to create an `env_vars` file per environment, which contains simple key value pairs.  By default agent configuration files are looking for corresponding environment variables before looking on the configuration file property. This file can be used for both mode of the agent (binary VS Docker container).
+To maintain a shareable collection of environment files, one approach is to create an `env_vars` file per environment, which contains simple key value pairs.  By default, agent configuration files are looking for corresponding environment variables before looking on the configuration file property. This file can be used for both modes of the agent (binary VS Docker container).
   
 Note that the agent (binary mode) is expecting system environment variables, which you can create based on the `env_vars` file with either this command: `export $(grep -v '^#' env_vars | xargs)` or if you prefer: `set -a && source env_vars && set +a`.
 
@@ -45,11 +45,11 @@ CENTRAL_ENVIRONMENT=AMPLIFYCentralEnvironmentName
 CENTRAL_TEAMID=AMPLIFYCentralTeamId
 ```
 
-In case you struggle with a variable value or you want to benefit the advanced agents features (API filtering / SSL security / proxy access / logging), the following section describe all the variables the agents (discovery / traceability) rely on.
+If you are either struggling with a variable value or you want to benefit from the advanced agents features (API filtering / SSL security / proxy access / logging), the following section describe all the variables the agents (discovery / traceability) rely on.
 
 ## Complete variable list for advance features
 
-You can extend the previous minimum variable list with the following variables. Some are common to all agents and sone are specific to an agent.
+You can extend the previous minimum variable list with the following variables. Some are common to all agents and some are specific to an agent.
 
 ### Common variables to both agents
 
@@ -109,7 +109,7 @@ You can extend the previous minimum variable list with the following variables. 
 | LOG_OUTPUT                              | The output for the log lines (stdout, file, both).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |   |
 | LOG_PATH                                | The path (relative or absolute) to save logs files, if output type file or both.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |   |
 
-Note: for logging, it is recommended to set it up in the agent configuration file to keep the log separated for each agent.
+Note: For logging, it is recommended to set it up in the agent configuration file to keep the log separated for each agent.
 
 ### Specific variables for Discovery Agent
 
@@ -121,7 +121,7 @@ Note: for logging, it is recommended to set it up in the agent configuration fil
 | CENTRAL_ADDITIONALTAGS                  | Additional tag names to publish while publishing the API. Could help to identified the API source. It is a comma separated list.                                                                                                                                                                                                                                                                                                                                                                                                        |   |
 | STATUS_PORT                             | Port used for checking the health status of the running agent.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |   |
 
-### Specific variables for traceability Agent
+### Specific variables for Traceability Agent
 
 | Variable name                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |   |
 |-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
