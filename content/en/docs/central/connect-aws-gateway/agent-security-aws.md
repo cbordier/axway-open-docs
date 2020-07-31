@@ -86,7 +86,7 @@ The Traceability Agents also communicate to the AMPLIFY search logs service usin
 
 ## Proxying
 
-The agents are configured to use a TLS-encrypted HTTP connection by default. Customers can also configure the agents to use a proxy. HTTP, HTTPS, and SOCKS5 proxies are supported. For general information on proxying see [Security concerns](/docs/central/connect-api-manager/security-concerns/). For specific proxy configuration, consult the documentation for your proxy.
+The agents are configured to use a TLS-encrypted HTTP connection by default. Customers can also configure the agents to use a proxy. HTTP, HTTPS, and SOCKS5 proxies are supported. For general information on proxying see [Network traffic API Manager](/docs/central/connect-api-manager/network-traffic-apimanager#using-proxies). For specific proxy configuration, consult the documentation for your proxy.
 
 ## Agent client/server
 

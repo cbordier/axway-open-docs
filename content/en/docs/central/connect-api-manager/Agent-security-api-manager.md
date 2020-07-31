@@ -84,9 +84,13 @@ TLS_CHACHA20_POLY1305_SHA256
 
 The Traceability Agents also communicate to the AMPLIFY search logs service using the Lumberjack protocol over a TCP connection. The connection URL and port can be configured by changing the LOGSTASH_URL in your configuration file. See [Traceability Agent variables](/docs/central/connect-api-manager/traceability-agent-variables/).
 
+## Certificate host validation
+
+`ssl.InsecureSkipVerify` option controls whether a client verifies the server’s certificate chain and host name. If true, then TLS accepts any certificate presented by the server and any host name in that certificate. In this mode, TLS is susceptible to man-in-the-middle attacks. If false (by default), then TLS accepts only the certificate containing the hostname that matches the server hostname.
+
 ## Proxying
 
-The agents are configured to use a TLS-encrypted HTTP connection by default. Customers can also configure the agents to use a proxy. HTTP, HTTPS, and SOCKS5 proxies are supported. For general information on proxying see [Security concerns](/docs/central/connect-api-manager/security-concerns/). For specific proxy configuration, consult the documentation for your proxy.
+The agents are configured to use a TLS-encrypted HTTP connection by default. Customers can also configure the agents to use a proxy. HTTP, HTTPS, and SOCKS5 proxies are supported. For general information on proxying see [Network traffic API Manager](/docs/central/connect-api-manager/network-traffic-apimanager#using-proxies). For specific proxy configuration, consult the documentation for your proxy.
 
 ## Agent client/server
 
