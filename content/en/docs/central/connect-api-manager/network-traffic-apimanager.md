@@ -36,18 +36,18 @@ Use variable `apimanager.filter` to select which API should be sent to Axway AMP
 
 Only traffic related to discovered APIs is sent to the platform.
 
-The agent reads the logs written on the file system (\[INSTALL_DIR]/apigateway/events/group-X_instance-Y.log) by the Gateway(s) to get transaction summary:
+The agent reads the logs written on the file system (\[INSTALL_DIR]/apigateway/events/group-X_instance-Y.log) by the Gateway(s) to get the transaction summary:
 
-* transaction HTTP status
-* transction URLs (frontend / backend API)
-* transaction duration and timestamp
-* transaction service called: method (POST / GET...) + uri path
+* Transaction HTTP status
+* Transction URLs (frontend / backend API)
+* Transaction duration and timestamp
+* Transaction service called: method (POST / GET...) + uri path
 
-In order to submit details of the transaction, the Traceability Agent reads the Gateway system to get transaction details:
+In order to submit details of the transaction, the Traceability Agent reads the Gateway system to get the transaction details:
 
-* request/response headers from each API call  
+* Request/response headers from each API call  
 
-{{< alert title="Note" color="primary" >}}It is possible to disable the headers sending using the following property:  `output.traceability.agent.apigateway.getHeaders: false.` By default, the property is set to true. If the headers collecting is disabled, they will not be visible in Axway AMPLIFY platform observability module, as the Traceability Agent will send only the transaction summary data (status / url / duration / timestamp / transaction service called) to the platform.{{< /alert >}}
+{{< alert title="Note" color="primary" >}}You can disable the headers by using the following property:  `output.traceability.agent.apigateway.getHeaders: false.` By default, the property is set to true. If collecting the headers is disabled, they will not be visible in Axway AMPLIFY platform Observability module, as the Traceability Agent will send only the transaction summary data (status / url / duration / timestamp / transaction service called) to the platform.{{< /alert >}}
 
 Once the information is extracted it is sent to the Axway platform using the TLS encryption.
 
