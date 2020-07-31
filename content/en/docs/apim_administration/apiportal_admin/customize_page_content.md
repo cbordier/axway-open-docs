@@ -32,7 +32,7 @@ You must have a Google user name and password to add reCaptcha. For more details
 6. Click **System > Global Configuration > Users**.
 7. On the **User Options** tab, set the Captcha field to **Captcha - ReCaptcha**, and click **Save & Close**.
 
-To verify the change, go to API Portal home page, and click **Sign In > Sign up**. The reCaptcha functionality is displayed on the sign up page.
+To verify the change, go to API Portal home page and click **Sign In > Sign up**. The reCaptcha functionality is displayed on the sign up page.
 
 ![API Portal sign up page with ReCaptcha](/Images/APIPortal/reCaptcahsigunp.png)
 
@@ -44,7 +44,7 @@ To send emails from API Portal (for example, for user registration or email vali
 
 ## Customize user registration emails
 
-You can customize the emails that are sent to API Portal users on sign up. All API Portal user emails are sent from API Manager, so to customize them follow the instructions in [Customize API Manager generated email](/docs/apim_administration/apimgr_admin/api_mgmt_custom/#customize-api-manager-generated-email).
+You can customize the emails that are sent to API Portal users on sign up. All API Portal user emails are sent from API Manager, so to customize emails see [Customize API Manager generated email](/docs/apim_administration/apimgr_admin/api_mgmt_custom/#customize-api-manager-generated-email).
 
 ## Customize API Portal user login
 
@@ -59,7 +59,7 @@ You can change the API Portal page users see when they first log in successfully
 
 To change this, follow these steps:
 
-1. In the Joomla! Administrator Interface (JAI), click **Components > API Portal > Additional Settings**.
+1. In JAI, click **Components > API Portal > Additional Settings**.
 2. In the **Redirect after login** field, enter a menu link (for example, `/index.php?option=com_apiportal&view=home`) or a menu alias (for example, `/home`) to redirect the user to after successful login.
 3. Click **Save**.
 
@@ -67,7 +67,7 @@ To change this, follow these steps:
 
 You can customize API Portal user login to display a ReCaptcha and lock the user account after a number of failed login attempts:
 
-1. In the JAI, click **Components > API Portal > Login Protection**.
+1. In JAI, click **Components > API Portal > Login Protection**.
 2. Click **Yes** to enable login protection for API Portal.
 3. Enter a value for the number of failed login attempts before a ReCaptcha is displayed.
 4. Enter a value for the number of failed login attempts before the user account is locked.
@@ -86,7 +86,7 @@ You can add a customized message to the API Portal login page. You can use this 
 
 To enable this feature follow these steps:
 
-1. In the JAI, click **Extensions > Modules**.
+1. In JAI, click **Extensions > Modules**.
 2. Click **New** to create a new module.
 3. From the list of module types click **Custom**.
 4. Enter a title for the message.
@@ -99,9 +99,9 @@ To enable this feature follow these steps:
 
 To ensure compliance with security polices, you can enforce password policies by asking your API Portal users to change their password at first login, as well as after an expired interval. These settings are available in API Manager, and they are enabled by default.
 
-To disable the **Enable password expiry** and **Days before passwords expire** settings, follow these steps in API Manager:
+To disable the **Enable password expiry** and **Days before passwords expire** settings, follow these steps:
 
-1. Click **Settings > API Manager settings.**
+1. In API Manager, click **Settings > API Manager settings.**
 2. Disable **Enable password expiry** and **Days before passwords expire** fields.
 
 {{< alert title="Note" color="primary" >}} If you disable **Enable password expiry**, which forces users to change password at first login, and a new user logs in after that, then this user will not be asked to change password if you decide to enable this setting again.{{< /alert >}}
@@ -128,13 +128,12 @@ You can customize what your API consumers can see in the Applications view of AP
 
 To change the settings:
 
-1. In to the Joomla! Administrator Interface (JAI), click **Menus > Main Menu**.
+1. In JAI, click **Menus > Main Menu**.
 2. Click **Applications**.
 3. Click the **Applications** tab.
-
-    ![Customize application settings](/Images/APIPortal/jai_customize_apps.png)
-
 4. Change the settings as required and click **Save & Close**.
+
+![Customize application settings](/Images/APIPortal/jai_customize_apps.png)
 
 ## Customize application sharing settings
 
@@ -142,10 +141,9 @@ You can hide the list of users when sharing an application in API Portal. When t
 
 To change the settings:
 
-1. Log in to the Joomla! Administrator Interface (JAI) (`https://<API Portal_host>/administrator`).
-2. Click **Components > Main Menu**.
-3. Click **API Portal > Additional Settings**.
-4. In the **Enable user listing** field, click **No** to hide the user listing, or click **Yes** to show it. The default is to hide the user listing.
+1. In JAI, click click **Components > Main Menu**.
+2. Click **API Portal > Additional Settings**.
+3. In the **Enable user listing** field, click **No** to hide the user listing, or click **Yes** to show it. The default is to hide the user listing.
 
 When the **Enable user listing** setting is set to **Yes**, an application developer can see the details (user name and email) of all other users that an application is shared with, and to share the application with another user they can select the user from a list of all users in the organization.
 
@@ -184,9 +182,9 @@ API Portal also creates a privacy policy system group and a privacy policy categ
 
 ### Create a new privacy policy
 
-You must create your customized privacy policy before enabling it in API Portal. Follow these steps in the Joomla! Administrator Interface (JAI):
+You must create your customized privacy policy before enabling it in API Portal:
 
-1. Click **Content > Articles > New**
+1. In JAI, click **Content > Articles > New**
 2. Enter a meaningful name for your policy, and the text of the privacy policy.
 3. Select `Privacy Policy` from the **Category** list.
 4. Click **Save & Close**.
@@ -195,12 +193,10 @@ To meet GDPR compliance regulations, JAI does not allow you to edit a privacy po
 
 ### Enable your new privacy policy
 
-Enable a policy article:
+Enable a policy article. This displays a dialog box asking new users to read and agree with the policy on sign up.
 
-1. Click **Components > API Portal > Additional settings** and select the desired policy from the list in the **Privacy Policy** field.
+1. In JAI, click **Components > API Portal > Additional settings** and select the desired policy from the list in the **Privacy Policy** field.
 2. Click **Save**.
-
-This will display a dialog asking to new users to read and agree with the policy on sign up.
 
 ### Privacy policy agreement for existing users
 
@@ -219,3 +215,12 @@ API Portal supports custom properties for the following entities:
 * **API**: You can only view the values of the custom properties defined for APIs. The values of the custom properties of the SOAP APIs are not displayed on the API Details page.
 
 API Portal does not support custom properties defined for organizations.
+
+## Absolute session timeout
+
+User sessions that remain active for extended periods of time are exposed to attacks, and they provide big opportunities for a malicious actor to exploit a compromised session. You can set an absolute session timeout (hard limit) on user sessions, even when the user is, or appears to be, actively using the application, to mitigated the attacks.
+
+1. In JAI, click **Components > API Portal > Additional settings** and choose the maximum amount of time that a session can stay open (in hours) in the **Absolute session timeout**. The default is 24 hours.
+2. Click **Save**.
+
+Since the session is destroyed after the specified period of time, the potential footprint of the session is eliminated, which helps to minimize attacks.

@@ -9,35 +9,60 @@ This section does not describe how to upgrade API Gateway. For information on up
 
 ## Upgrade prerequisites
 
-Before you upgrade, complete the following prerequisites. These prerequisites apply for all installations: software installation and Docker containers.
+Before you upgrade, complete the following prerequisites. These prerequisites apply for both software installation and Docker containers installation.
 
 * If you intend to use the EasyBlog and EasyDiscuss plugins, you must install them before you start the upgrade. For more details, see [Install API Portal](/docs/apim_installation/apiportal_install/install_software/).
 * Stop and back up the existing API Portal files and database. There is no option to roll back after you start the upgrade.
 * To back up an API Portal software installation, perform a file system backup and export the database.
 
+{{< alert title="Note" color="primary" >}} Currently, API Portal upgrade from CentOS 7 to CentOS 8 is not supported. You can only apply a clean install on CentOS 8. {{< /alert >}}
+
 ## Upgrade API Portal
 
-If you have a 7.6.2 API Portal installation, you can upgrade to API Portal 7.7 without having to repeat the initial installation setup.
+You can use the [cumulative upgrade script](#upgrade-api-portal-using-the-cumulative-upgrade-script) to upgrade your 7.5.5 or 7.6.2 API Portal installation (including all service packs) directly to [7.7 July](/docs/apim_relnotes/20200730_apip_relnotes/), or you can upgrade versions incrementally:
 
-The following table shows the path for upgrading API Portal versions:
+| From        | To                                                                                                                                                   | Download Package |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| 7.5.5       | [7.6.2](https://docs.axway.com/bundle/APIPortal_762_ReleaseNotes_allOS_en_HTML5/page/Content/ReleaseNotesPortal/APIPortal_ReleaseNotes_allOS_en.htm) | [7.5.5 to 7.6.2 Upgrade](https://support.axway.com/en/search/index/type/Downloads/sort/created%7Cdesc/ipp/10/product/545/version/2997/subtype/44)     |
+| 7.6.2       | [7.7 GA](/docs/apim_relnotes/201904_release/apip_relnotes/)                                                       | [7.6.2 to 7.7 Upgrade](https://support.axway.com/en/downloads/download-details/id/1443352)                                                            |
+| 7.7 GA      | [7.7.x](/docs/apim_relnotes/20200130_apip_relnotes/) (Including all Service Packs)                                | [7.7 GA to 7.7 Latest Update](https://support.axway.com/en/search/index/type/Downloads/sort/created%7Cdesc/ipp/10/product/545/version/3036/subtype/90) |
 
-| From   | To                                  |
-| ------ | ----------------------------------- |
-| Any previous version  | 7.6.2               |
-| 7.6.2  | [7.7 GA](https://axway-open-docs.netlify.app/docs/apim_relnotes/201904_release/apip_relnotes/)                              |
-| 7.7 GA | [7.7.x](https://axway-open-docs.netlify.app/docs/apim_relnotes/20200130_apip_relnotes/) (Including all Service Packs) |
+### Upgrade API Portal using the cumulative upgrade script
 
-To upgrade your API Portal software installation, follow these steps:
+If you have a **7.5.5** or **7.6.2** API Portal installation, you can upgrade directly to API Portal **7.7 July** by using the cumulative script, without having to install any other version before **7.7 July**.
+
+1. Download the [API Portal cumulative upgrade package](https://support.axway.com/en/search/index/type/Downloads/sort/created%7Cdesc/ipp/10/product/545).
+2. Change to the directory where you saved the upgrade package, and extract it:
+
+    ```
+    tar xpzvf <package_name>.tgz
+    ```
+
+3. Give executable permissions to the script `apiportal_cumulative_upgrade.sh`:
+
+    ```
+    chmod +x apiportal_cumulative_upgrade.sh
+    ```
+
+4. Execute the script:
+
+    ```
+    sh apiportal_cumulative_upgrade
+    ```
+
+### Upgrade from API Portal 7.6.2
+
+If you have a 7.6.2 API Portal installation, you can upgrade to [API Portal 7.7 GA](/docs/apim_relnotes/201904_release/apip_relnotes/) without having to repeat the initial installation setup.
 
 1. Download the API Portal upgrade package from the [Axway Support](https://support.axway.com).
-2. Go to the the directory where you saved the upgrade package and extract it:
+2. Change to the directory where you saved the upgrade package, and extract it:
 
    ```
    tar xpvzf <package_name>.tgz
    ```
 3. Extract the Joomla! update package (for example, `joomla-update-package-3.9.14-package.zip`) from the API Portal upgrade package to your local file system.
 4. Log in to the Joomla! Administrator Interface (JAI) (`https://<API Portal host>/administrator`).
-5. Click **Components > Joomla! Update**, and go to the **Upload & Update** tab. If **Joomla! Update** is not visible in the menu, connect to your user database and execute the following query for API Portal database:
+5. Click **Components > Joomla! Update**, and click the **Upload & Update** tab. If **Joomla! Update** is not visible in the menu, connect to your user database and execute the following query for API Portal database:
 
    ```
    update s8f7h_menu set menutype='main' where title like 'com_joomlaupdate'
@@ -47,7 +72,7 @@ To upgrade your API Portal software installation, follow these steps:
 8. Enter the following to run the upgrade script:
 
    ```
-   ./apiportal_upgrade.sh
+   sudo ./apiportal_upgrade.sh
    ```
 
 ## Post-upgrade steps
@@ -97,7 +122,7 @@ Similarly, the original `.htaccess` file is backed up to `${apiportal-install-di
 If you are using the Public API mode in API Portal you must run a script to encrypt the Public API mode user password and specify a directory to store the encryption key.
 
 ```
-sh ./apiportal_encryption.sh
+sudo sh ./apiportal_encryption.sh
 ```
 
 The directory is created along with a file. The last segment of the directory is the file name, for example: `/sample/directory/for/encryption/key` creates an empty file named "key" in the desired directory.

@@ -16,6 +16,8 @@ Use the **Remote Host Settings** to configure the way in which API Gateway conne
 
 You can add remote hosts *per-instance* to the API Gateway instance in the Policy Studio tree. For example, select **Environment Configuration** > **Listeners** > **API Gateway** >, right-click this instance, and select **Add Remote Host**. The tabs in the **Remote Host Settings** configuration window are described in the following sections.
 
+You can use the **Remote Host Settings** to override incoming connection parameters (see [Configure an incoming remote host](#configure-an-incoming-remote-host)).
+
 ## General settings
 
 You can configure the following settings on the **General** tab:
