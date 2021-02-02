@@ -1,7 +1,7 @@
 {
   "title":"Troubleshooting API Portal in Docker",
   "linkTitle":"Troubleshooting",
-  "weight":"4",
+  "weight":"60",
   "date":"2019-08-09",
   "description":"Troubleshoot problems you might encounter when running API Portal in Docker containers."
 }

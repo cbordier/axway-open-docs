@@ -6,15 +6,18 @@
 "description": "Learn how entity types are described in a YAML configuration."
 }
 
-The `_types.yaml` located under the `META-INF` directory of a YAML configuration contains the definition of all the entity types in the Entity Store model. An [entity type](/docs/apigtw_devguide/entity_store/#entity-types) is a description of an entity in the Entity Store.
+The `types` directory located under the `META-INF` directory of a YAML configuration contains the definition of all the entity types in the Entity store model, and its subdirectories are organized in a hierarchical tree structure that represents the inheritance relationships between types.
 
-The YAML Entity Store supports all entity types but custom types.
+An [entity type](/docs/apigtw_devguide/entity_store/#entity-types) is a description of an entity in the Entity store.
+
+The YAML Entity store supports all entity types and custom types.
 
 ## Simple type
 
 ```yaml
 name: JMSSession                       # name used in YAML entity file
 version: 5
+class: com.vordel.dwe.jms.JMSSession
 constants:
   descriptorClass:
     type: string
@@ -52,45 +55,61 @@ components:
   JMSConsumer: '?'                     # an entity of this type JSMSession can have 1 children of type JMSConsumer
 keyFields:
 - name
-class: com.vordel.dwe.jms.JMSSession
 loadorder: 1000100
 ```
 
-{{% pageinfo color="primary" %}}
-`{}` is YAML syntax for an empty list.
-{{% /pageinfo %}}
+{{% alert title="Note" color="" %}}
+`{}` is YAML syntax for an empty list as all fields can potentially be a list of values.
+{{% /alert %}}
 
 ## Types with inheritance
+
+Consider the following types: `Process`, `JavaProcess` and `NetService`:
 
 ```yaml
 name: Process
 version: 0
-abstract: true                 # abstract means you cannot use it in YAML entity file
-keyFields:
-- name
 fields:
-  name:                        # only field the type
+  name:
     type: string
     defaultValues:
     - {}
     cardinality: 1
-children:
-- name: JavaProcess            # JavaProcess inherits from Process hence its key field "name"
-  version: 0
-  abstract: true
-  children:
-  - name: NetService           # NetService inherits from JavaProcess hence its key field "name"
-    version: 5
-    constants:
-      executableImage:        # this an immutable field user cannot change.
-        type: string
-        value: vshell
-    components:               # NetService is a concrete type, with other fields than "name (key field)
-      LoadableModule: '?'     # It is a container for a LoadableModule or ClassLoader entity
-      ClassLoader: '?'
+keyFields:
+- name
+abstract: true
 ```
 
+```yaml
+name: JavaProcess
+version: 0
+abstract: true
+```
+
+```yaml
+name: NetService
+version: 5
+constants:
+  executableImage:
+    type: string
+    value: vshell
+components:
+  LoadableModule: '?'
+  ClassLoader: '?'
+```
+
+and, the following directory structure:
+
+![types example](/Images/apim_yamles/yamles_types_example.png)
+
+We can say that:
+
+* As `JavaProcess.yaml` file is contained within `Process` directory, then `JavaProcess` is a child type of `Process` type.
+* As `NetService.yaml` file is contained within `JavaProcess` directory, then `NetService` is a child type of `JavaProcess` type.
+
 ## Cardinality
+
+The following table shows the meaning of the cardinality symbol found in entity type definitions located in the `META-INF/types` directory:
 
 | Symbol | Min | Max | Mandatory |
 |:------:|:---:|:---:|:---------:|
@@ -99,15 +118,113 @@ children:
 |   ?    |  0  |  1  |    No     |
 |   *    |  0  |  ∞  |    No     |
 
-## Navigate in _types.yaml
+## YAML custom types
 
-To create a 'NetService' type
+You can add custom types by creating a YAML file definition of an entity type, and placing the file in the correct subdirectory, under `META-INF/types`.
 
-* Search for `"name: NetService"`
-* In order to know what fields can can used, move up the type hierarchy.
-* Search for components (note that some can be defined in the ancestor).
-* `NetService` has two components.
-    * Search for `"name: LoadableModule"` and/or for `"name: ClassLoader"`.
-    * Do first steps again to get all required and optional fields for each entity type.
+### Filter type
 
-{{% alert color="warning" %}}Despite what is in the model, some fields are said to be mandatory (cardinality=1 and no default value) are not mandatory. Double check with Policy Studio if in doubt.{{% /alert %}}
+This section extends the [Create the TypeDoc](/docs/apigtw_devguide/custom_filter_extension_kit/#create-the-typedoc) section to add a new filter when using YAML.
+
+For a custom filter to be usable, it must inherit from `Filter` or a subtype of `Filter`. To add a new filter, create a YAML file within `META-INF/types/Entity/Filter/`. Note that if you place the YAML file under `META-INF/types/Entity/Filter/AWSFilter`, it will inherit from `AWSFilter` fields.
+
+The following is an example that takes a value from the query string or a HTTP header, and echoes it back using a size threshold and an extended MIME type.
+
+```yaml
+---
+name: EchoFilter
+version: 0
+class: com.acme.apim.filters.EchoFilterImpl
+fields:
+  from:
+    type: string
+    defaultValues:
+    - queryString
+    cardinality: 1
+  paramName:
+    type: string
+    defaultValues:
+    - echo
+    cardinality: 1
+components:
+  ThresholdRange: '?'
+  ExtendedMimeType: '?'
+```
+
+After you save the file, for example, `META-INF/types/Entity/Filter/EchoFilter.yaml`, proceed as usual to add the implementation of this custom filter.
+
+## Other custom types
+
+In the [Filter Type](#filter-type) example, the `EchoFilter` filter has child entities of type `ThresholdRange` and `ExtendedMimeType` that can be set. You must add the type definitions for these types to the `types` directory in the same way.
+
+A type definition for child type `ThresholdRange` can be added to `META-INF/types/Entity/RootChild/ThresholdRange.yaml` as shown below. This example entity can be used as independent entity elsewhere.
+
+```yaml
+---
+name: ThresholdRange
+version: 0
+fields:
+  minThreshold:
+    type: integer
+    defaultValues:
+    - data: 100
+    cardinality: 1
+  maxThreshold:
+    type: integer
+    defaultValues:
+    - data: 1000
+    cardinality: 1
+  description:
+    type: string
+    defaultValues:
+    - data: {}
+    cardinality: '?'
+keyFields:
+- minThreshold
+- maxThreshold
+```
+
+The child entity type definition for `ExtendedMimeType` could be added to `META-INF/types/Entity/RootChild/LoadableModule/MimeType/ExtendedMimeType.yaml` which means that it extends the `MimeType` definition. The example below shows that a `description` field has been added.
+
+```yaml
+---
+name: ExtendedMimeType
+version: 0
+fields:
+  description:
+    type: string
+    defaultValues:
+    - {}
+    cardinality: '?'
+```
+
+### Example of how to use custom filters in a policy
+
+The following is a complete example of how you can use a custom filter in a policy when all of the type definitions are setup in the `types` directory.
+
+```yaml
+---
+type: FilterCircuit
+fields:
+  name: Custom policy
+  start: ./echo
+  description: Test of my new shiny filter
+children:
+- type: EchoFilter
+  fields:
+    name: echo                            # Name field is inherited from
+    from: header
+    paramName: X-ACME-ECHO
+  logging:                                # Same form logging
+    success: Successfully echoed from header X-ECHO                         
+  children:
+  - type: ThresholdRange
+    fields:
+      minThreshold: 0
+      description: From 0 to 1000       # max uses the default value (1000)
+  - type: ExtendedMimeType
+    fields:
+      mimeType: txt
+      description: Text based echo
+    
+```

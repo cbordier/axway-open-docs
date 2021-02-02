@@ -11,10 +11,10 @@ description: Learn how to deploy your agents using AMPLIFY CLI so that you can
 * Read [AMPLIFY Central AWS API Gateway connected overview](/docs/central/connect-aws-gateway/)
 * You will need information on AWS
 
-    * the region that the AWS API Gateway resources are hosted in
-    * the bucket that the Resources will be uploaded to
-    * the logging configuration setup on AWS API Gateway
-    * the configuration of AWS Config Service
+    * The region that the AWS API Gateway resources are hosted in
+    * The bucket that the Resources will be uploaded to
+    * The logging configuration setup on AWS API Gateway
+    * The configuration of AWS Config Service
 * It is recommended that you have access to the AWS CLI command line to run the necessary setup commands
 
 ## Objectives
@@ -78,7 +78,7 @@ The installation procedure prompts for the following:
 3. AWS Configuration Setup options:
    * **Deployment Type** select between `EC2`, `ECS Fargate`, or `Docker Container Only`
    * **Region** of the AWS API Gateway resources
-   * **S3 Bucket Name** within the same region as the AWS API Gateway resouces
+   * **S3 Bucket Name** within the same region as the AWS API Gateway resources
    * **API Gateway Cloud Watch Setup** defaulted to `Yes`, sets up the IAM role and configures API Gateway to log API Gateway transactions to CloudWatch
    * **APIGW Log Group** defaulted to `aws-apigw-traffic-logs`, where API Gateway transactions will be logged within CloudWatch
    * **Config Service Setup** defaulted to `Yes`, set to `No` if this is already in use
@@ -201,15 +201,15 @@ To complete the install, run the following AWS CLI command:
     AWS_AUTH_SECRETKEY=Your_SecretAccessKey
 
   - Pull the latest image of the Discovery Agent:
-    docker pull axway-docker-public-registry.bintray.io/agent/aws-apigw-discovery-agent:latest
+    docker pull axway.jfrog.io/ampc-public-docker-release/agent/aws-apigw-discovery-agent:latest
   - Pull the latest image of the Traceability Agent:
-    docker pull axway-docker-public-registry.bintray.io/agent/aws-apigw-traceability-agent:latest
+    docker pull axway.jfrog.io/ampc-public-docker-release/agent/aws-apigw-traceability-agent:latest
   - Run the latest Discovery Agent:
     docker run --env-file "$(pwd)"/da_env_vars.env -v "$(pwd)":/keys \
-        axway-docker-public-registry.bintray.io/agent/aws-apigw-discovery-agent:latest
+        axway.jfrog.io/ampc-public-docker-release/agent/aws-apigw-discovery-agent:latest
   - Run the latest Traceability Agent:
     docker run --env-file "$(pwd)"/ta_env_vars.env -v "$(pwd)":/keys \
-        axway-docker-public-registry.bintray.io/agent/aws-apigw-traceability-agent:latest
+        axway.jfrog.io/ampc-public-docker-release/agent/aws-apigw-traceability-agent:latest
 ```
 
 * Create, if necessary, and upload all files to your S3 bucket:
@@ -218,7 +218,7 @@ To complete the install, run the following AWS CLI command:
     * This command creates the Access and Secret Key Pair.
 * Add the results from the Key Pair creation above into the environment files, da_env_vars.env & ta_env_vars.env, after the appropriate variables, `AWS_AUTH_ACCESSKEY=` and `AWS_AUTH_SECRETKEY=`.
 * Pull the latest images of the Discovery/Traceability Agents:
-    * These two commands pull the latest released agents from axway-docker-public-registry.bintray.io.
+    * These two commands pull the latest released agents from axway.jfrog.io/ampc-public-docker-release/agent.
 * Run the latest images of the Discovery/Traceability Agents:
     * These two commands run the Docker Containers using the created environment files, and mounting the directory of the location of the appropriate keys, `public_key.pem` & `private_key.pem`, which were either generated during the installation, or available from an existing service account.
 

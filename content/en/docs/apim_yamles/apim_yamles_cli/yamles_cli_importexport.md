@@ -24,7 +24,9 @@ The following options in the YAML CLI are related to import and export of YAML c
 
 ## Control data export with the _fragment.yaml file
 
-The `_fragment.yaml` file is used to control what data is exported from a source configuration to create a YAML configuration fragment. It is also used to determine how to import a YAML configuration fragment into another configuration. The following is an example of a `_fragment.yaml` file:
+The `_fragment.yaml` file is used to control what data is exported from a source configuration to create a YAML configuration fragment. It is also used to determine how to import a YAML configuration fragment into another configuration.
+
+The following is an example of a `_fragment.yaml` file:
 
 ```yaml
 ---
@@ -45,11 +47,15 @@ cutBranchIfPresent:
 - /Policies/Policy Library/WS-Policy/Test Timestamp is Absent
 ```
 
-### How the _fragment.yaml file is used for export
+### How the _fragment.yaml file is used to export
 
-The `export` option uses the `_fragment.yaml` file passed in the `--export-descriptor` parameter to determine what data to export from the source configuration. The configuration fragment that `export` generates contains a `META-INF/_fragment.yaml` file with the same content as the one passed to it in the `--export-descriptor` parameter, with some minor modifications to enable required flags, if they are not already enabled.
+The `export` option uses the `_fragment.yaml` file passed in the `--export-descriptor` parameter to determine what data to export from the source configuration.
+
+The configuration fragment that `export` generates contains a `META-INF/_fragment.yaml` file with the same content as the one passed to it in the `--export-descriptor` parameter, with some minor modifications to enable required flags, if they are not already enabled.
 
 The YamlPKs listed in `addIfAbsent` and `addOrReplace` are combined to provide the list of selected entities to export. If an entity is listed in either section, they are included in the exported YAML configuration. All child entities of these selected entities are also exported, even if they are not explicitly listed. All parent entities of the selected entities are also exported.
+
+You can also export all entities, along with their related types, using a `_fragment.yaml` with flags set to EXPORT_ENTITIES and with the root PK `/` specified in `addIfAbsent`.
 
 The flags have the following meaning at export time:
 
@@ -62,7 +68,9 @@ The flags have the following meaning at export time:
 
 `EXPORT_TYPES` and `EXPORT_TRUNKS` are always enabled, meaning that they are set even if they are not provided in the file provided through the `--export-descriptor` parameter to the `export` command.
 
-The `EXPORT_TYPES` flag ensures all the type information for the selected entities is exported. Type information for the parent entities and the child entities is also included. The type information is stored at `META-INF/_types.yaml`. If this flag is disabled, only entity types for the selected entities are exported.
+The `EXPORT_TYPES` flag ensures all the type information for the selected entities is exported. Type information for the parent entities and the child entities is also included. The type information is stored at `META-INF/types/`. If this flag is disabled, only entity types for the selected entities are exported.
+
+You can also export all the type definitions only from a YAML configuration by supplying a `_fragment.yaml` with flags set to EXPORT_TYPES and no `addIfAbsent` or `addOrReplace` entries.
 
 If `EXPORT_CLOSURE` is enabled, all entities referred to by the selected entities and their children are also exported. The type information for these entities will also be included. If this flag is disabled, the fragment might not contain all entities that are referred to from those included in the fragment. In this case, the YAML configuration can only be validated with the `--allow-invalid-ref` parameter. For more information, see [how to allow unresolved references](/docs/apim_yamles/apim_yamles_cli/yamles_cli_validate/#disable-entity-reference-check).
 
@@ -70,7 +78,7 @@ The `EXPORT_TRUNKS` flag ensures that all parent entities of the selected entiti
 
 The `cutBranchIfPresent` field is not used during export, but it can be set at export time to control what entities might get removed when the fragment is imported.
 
-### How the _fragment.yaml file is used for import
+### How the _fragment.yaml file is used to import
 
 A source configuration gets imported into a target configuration. The `META-INF/_fragment.yaml` file in the source configuration is optional for import. If it does not exist, all entities in the source are added to the target configuration only if they do not already exist in the target. This is equivalent to having YamlPKs for all entities listed in the `addIfAbsent` field.
 

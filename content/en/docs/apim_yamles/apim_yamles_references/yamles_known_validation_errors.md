@@ -6,42 +6,48 @@
 "description": "Learn how to fix errors that might occur when validating your YAML configuration."
 }
 
-This section covers examples of issues that may be found using the `validate` option of the `yamles` CLI tool.
-All ERRORs are shown on stdout.
+This section covers examples of issues that might occurs while using the `validate` option of the `yamles` CLI tool. All errors are shown on `stdout`.
 
-Note that WARNINGs will only be listed on stdout if there are other ERRORs.
-If only WARNINGs are found, they are listed in the trace file only.
+Note that `WARNINGs` will only be listed on `stdout` if there are other `ERRORs`.
+If only `WARNINGs` are found, they are listed in the trace file only.
 
-## DbConnection - initialSize
-
-**Severity**: ERROR
-
-`entity=/External Connections/DB Connections/MySQL/local, type=DbConnection, field='initialSize', file=/home/user/yaml/External Connections/DB Connections/MySQL.yaml, message='Expected to find data of type <integer> but value is <4.5>'`
-
-Look in the file named /home/user/yaml/External Connections/DB Connections/MySQL.yaml. It contains an entity of type DbConnection named "local" with a field named "initialSize". Its value is set to 4.5 but an integer is expected by the model. Fix the field value to be an valid integer.
-
-## DbConnection - maxWait
+## Incorrect value for an integer field
 
 **Severity**: ERROR
 
-`entity=/External Connections/DB Connections/MySQL/local, type=DbConnection, field='maxWait', file=/home/user/yaml/External Connections/DB Connections/MySQL.yaml, message='Expected fo find data of type <long> but value is <9999999999999999999999999999999999>'`
+```
+entity=/External Connections/DB Connections/MySQL/local, type=DbConnection, field='initialSize', file=/home/user/yaml/External Connections/DB Connections/MySQL.yaml, message='Expected to find data of type <integer> but value is <4.5>'
+```
 
-Look in the file named `/home/user/yaml/External Connections/DB Connections/MySQL.yaml`. It contains an entity of type `DbConnection` named `local` with a field named `maxWait`. Its value is set to `9999999999999999999999999999999999` but a long is expected by the model. Fix the field value to be an valid long. Max long value is `9.223372e+18 2⁶³-1`.
+Look into the file named `/home/user/yaml/External Connections/DB Connections/MySQL.yaml`. It contains an entity of type DbConnection named `local`, with a field named `initialSize`. Its value is set to `4.5`, and an integer is expected by the model. Fix the field value to be a valid integer.
 
-## DbConnection - password
+## Incorrect value for a long field
 
 **Severity**: ERROR
 
-`entity=/External Connections/DB Connections/MySQL/local, type=DbConnection, field='password', file=/home/yaml/External Connections/DB Connections/MySQL.yaml, message='Value for field of type encrypted is not a legal base64 string. Value: *#{[]#}#&&'`
+```
+entity=/External Connections/DB Connections/MySQL/local, type=DbConnection, field='maxWait', file=/home/user/yaml/External Connections/DB Connections/MySQL.yaml, message='Expected fo find data of type <long> but value is <9999999999999999999999999999999999>'
+```
 
-Look in the file named `/home/user/yaml/External Connections/DB Connections/MySQL.yaml`. It contains an entity of type `DbConnection` named local` with a field named `password`. Its value is set to '*#{[]#}#&&' but a base64 encoded string is expected. If your YAML entity store is unencrypted, fix this by simply base64 encoding the database connection password at the command line as follows:
+Look into the file named `/home/user/yaml/External Connections/DB Connections/MySQL.yaml`. It contains an entity of type `DbConnection` named `local`, with a field named `maxWait`. Its value is set to `9999999999999999999999999999999999`, and a `long` is expected by the model. Fix the field value to be an valid `long`. Max long value is `9.223372e+18 2⁶³-1`.
+
+## Incorrect value for an encrypted field
+
+**Severity**: ERROR
+
+```
+entity=/External Connections/DB Connections/MySQL/local, type=DbConnection, field='password', file=/home/yaml/External Connections/DB Connections/MySQL.yaml, message='Value for field of type encrypted is not a legal base64 string. Value: *#{[]#}#&&'
+```
+
+Look into the file named `/home/user/yaml/External Connections/DB Connections/MySQL.yaml`. It contains an entity of type `DbConnection` named `local`, with a field named `password`. Its value is set to `'*#{[]#}#&&'` but a base64 encoded string is expected. If your YAML entity store is unencrypted, fix this by encoding the database connection password with base64 as follows:
 
 ```
 echo -n 'changeme' | openssl base64
-Y2hhbmdlbWU=
 ```
 
-Then set the value for the `password` field to be `Y2hhbmdlbWU=` as follows:
+It will output: `Y2hhbmdlbWU=`
+
+Then, set the value for the `password` to be `Y2hhbmdlbWU=` as follows:
 
 ```yaml
 ---
@@ -51,17 +57,17 @@ fields:
   password: Y2hhbmdlbWU=
 ```
 
-Or you may set the field value for the `password` field as follows:
+Or, you can set the value for the `password` as follows:
 
 ```yaml
 ---
 type: DbConnection
 fields:
   .....
-  password: {{ base64 "changeme" }}
+  password: '{{base64 "changeme"}}'
 ```
 
-If your entity store is encrypted you must encrypt the `password` and base64 encode it. Use the yamles CLI encrypt option for this:
+If your entity store is encrypted, you must encrypt the `password` and encode it with base64. Use the yamles CLI encrypt option for this:
 
 ```
 ./yamles encrypt --text "mydatabasepassword" --passphrase "myentitystorepassphrase"
@@ -70,7 +76,7 @@ Your encrypted base64 encoded string content is:-
 7ScBASwwV19S+dgmMVbirMxkqGE4bl9nyyvw6nLyzfI=
 ```
 
-Then set the value for the `password` field to be `7ScBASwwV19S+dgmMVbirMxkqGE4bl9nyyvw6nLyzfI=` as follows:
+Then, set the value for the `password` to be `7ScBASwwV19S+dgmMVbirMxkqGE4bl9nyyvw6nLyzfI=` as follows:
 
 ```yaml
 ---
@@ -80,7 +86,7 @@ fields:
   password: 7ScBASwwV19S+dgmMVbirMxkqGE4bl9nyyvw6nLyzfI=
 ```
 
-## Certificate - content
+## Incorrect value for a certificate
 
 **Severity**: ERROR
 
@@ -103,35 +109,45 @@ TZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pcmaHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a9
 3mB/ufNPRJLvKrcYPqcZ2Qt9sTdBQrC6YB3y/gkRsPCHe6ed[`
 ```
 
-Look in the file named `/home/user/yaml/Environment Configuration/Certificate Store/Whatever.yaml`. It contains an entity of type Certificate named `Whatever` with a field named `content`. Its value is set to a filename that holds the base64 encoded content of your certificate. Check it contains base64 encoded content only.
+Look into the file named `/home/user/yaml/Environment Configuration/Certificate Store/Whatever.yaml`. It contains an entity of type `Certificate`, named `Whatever`, with a field named `content`. Its value is set to a filename that holds the base64 encoded content of your certificate. Check it contains base64 encoded content only.
 
-## FilterCircuit - category
+## Reference field refers to an entity that does not exist
 
 **Severity**: ERROR / WARNING
 
 `entity=/Policies/My policy/Sample policy, type=FilterCircuit, field='category', file=/home/user/yaml/Policies/My policy/Sample policy.yaml, message='Cannot resolve reference: /System/Policy Categories/invalidcategory'`
 
-Look in the file named `/home/user/yaml/Policies/My policy/Sample policy.yaml`. An entity of type `FilterCircuit` named `Sample Policy` has a field named `category` that is pointing at an entity that does not exist in the configuration. Fix the YamlPk value in the field `category` to be something like `/System/Policy Categories/authentication`. In this case removing the field would also fix the issue as long as the default value of `/System/Policy Categories/miscellaneous` is what you want.
+Look into the file named `/home/user/yaml/Policies/My policy/Sample policy.yaml`. It contains an entity of type `FilterCircuit`, named `Sample Policy`, with a field named `category`, that is pointing to an entity that does not exists in the configuration. Fix the `YamlPK` value in the `category` field to something like `/System/Policy Categories/authentication`. In this case, removing the field would also fix the issue as long as the default value of `/System/Policy Categories/miscellaneous` is what you want.
 
-If you are validating a configuration project that points to entities that are contained in another project that will be merged together later, you can use the `--allow-invalid-ref` parameter, to downgrade these issues from an ERROR to a WARNING in the trace file. The same message with a severity of WARNING will appear in this case.
+If you are validating a configuration project that points to entities that are contained in another project, that will be merged together later. You can use the `--allow-invalid-ref` parameter to downgrade these issues from an ERROR to a WARNING in the trace file. The same message with a severity of WARNING will show in this case.
 
-## GenerateSignatureFilter - signingCert
+## Reference field refers to a selector
+
+**Severity**: WARNING
+
+`entity=/Environment Configuration/Services/5555, type=SSLInterface, field='serverCert', file=/home/user/yaml/Environment Configuration/Services/5555.yaml, message='${env.SSL.CERT} is used as a reference. Make sure envSettings.props or system.properties is populated accordingly'`
+
+A shorthand key must be set in `envSettings.props` for `env.SSL.CERT`, for example, `env.SSL.CERT=/[Certificates]name=Certificate Store/[Certificate]dname=O=listener\,CN=localhost`, for the gateway to pick up the certificate at startup. If a selector starts with `${system.`, you must add a setting to the `system.properties` file.
+
+This allows users to environmentalize a certificate for a given instance rather than for the entire API Gateway group which shares the same configuration.
+
+## Invalid value for environmentalized certificate reference field
 
 **Severity**: ERROR / WARNING
 
 `entity=/Policies/cert/XML Signature Generation, type=GenerateSignatureFilter, field='signingCert', file=/home/user/yaml/Policies/cert.yaml, message='Cannot resolve reference: /Environment Configuration/Certificate Store/invalid field'`
 
-Look in the file named `/home/user/yaml/Policies/cert.yaml`. An entity of type `GenerateSignatureFilter` has a field named `signingCert` that is pointing at a certificate via a reference that does not exist in the configuration. The reference may be environmentalized using a YamlPK like this: `/Environment Configuration/Certificate Store/{{ env "CERT" }}` which has resulted in the "invalid field" in the error message. This will occur if you try to validate in an environment where the system environment variable `CERT` does not exist. To avoid errors, use the `--allow-invalid-ref` option, or set a dummy value for the environment variable `CERT` in the validating environment.
+Look into the file named `/home/user/yaml/Policies/cert.yaml`. It contains an entity of type `GenerateSignatureFilter`, with a field named `signingCert`, which points to a certificate via a reference that does not exist in the configuration. The reference might be environmentalized using a YamlPK like this: `/Environment Configuration/Certificate Store/{{env "CERT"}}`, which has resulted in the "invalid field" in the error message. This issue occurs when you try to validate an environment where the system environment variable `CERT` does not exist. To avoid errors, use the `--allow-invalid-ref` option, or set a dummy value for the environment variable `CERT` in the validating environment.
 
-## FilterCircuit - wrong type
+## Reference field refers to an entity of the wrong type
 
 **Severity**: ERROR
 
 `entity=/Policies/My policy/Sample policy, type=FilterCircuit, field='category', file=/home/user/yaml/Policies/My policy/Sample policy.yaml, message='Reference '/Policies/My policy/Sample policy/My IP Filter' leads to an entity of type IpFilter instead of PolicyCategory'`
 
-Look in the file named `/home/user/yaml/Policies/My policy/Sample policy.yaml`. An entity of type `FilterCircuit` named `Sample Policy` has a field named `category` that is pointing at an entity that exists in the configuration but is of the wrong type. Its is pointing at an entity of type `IPFilter`,  but needs an entity of type `PolicyCategory`. Fix the YamlPk value in the field `category` to be something like `/System/Policy Categories/authentication`. In this case removing the field would also fix the issue as long as the default value of `/System/Policy Categories/miscellaneous` is what you want.
+Look into the file named `/home/user/yaml/Policies/My policy/Sample policy.yaml`. It contains an entity of type `FilterCircuit`, named `Sample Policy`, with a field named `category`, which points to an entity that exists in the configuration but is of the wrong type. It is pointing to an entity of type `IPFilter`, but it needs an entity of type `PolicyCategory`. Fix the YamlPk value in the field `category` to something like `/System/Policy Categories/authentication`. In this case, removing the field would also fix the issue as long as the default value of `/System/Policy Categories/miscellaneous` is what you want.
 
-## IpFilter - missing field
+## Missing required field
 
 **Severity**: ERROR
 
@@ -140,7 +156,7 @@ ERROR: EntityStoreException: com.vordel.es.EntityStoreException: No field found 
 Cause: com.vordel.es.EntityStoreException: No field found with name 'test' for type 'IpFilter' for child entity of /Policies/My policy/Sample policy
 ```
 
-Look in the file named `/home/user/yaml/Policies/My policy/Sample policy.yaml`. An entity of type `IpFilter` in policy named `Sample Policy` has a field named `test`, but a field named `test` does not exist in the model for this entity type. To fix, remove the field `test`.
+Look into the file named `/home/user/yaml/Policies/My policy/Sample policy.yaml`. It contains an entity of type `IpFilter`, named `Sample Policy`, with a field named `test`, but a field named `test` does not exist in the model for this entity type. To fix, remove the field `test`.
 
 ## YAML format - indentation error
 
@@ -194,7 +210,7 @@ body: *** Welcome ***
 ^
 ```
 
-In this case a field in the file  `/home/user/yamlconfig/Policies/Policy Library/Health Check.yaml` is set as follows:
+In this case, a field in the file `/home/user/yamlconfig/Policies/Policy Library/Health Check.yaml` is set as follows:
 
 ```yaml
 body: *** Welcome ***
@@ -206,7 +222,7 @@ but should be changed to
 body: "*** Welcome ***"
 ```
 
-as the `*` character needs to be contained within double quotes. Refer to the [YAML standard](https://yaml.org/spec/1.2/spec.html#Characters) to discover what characters are considered as special characters in YAML.
+As the `*` character needs to be contained within double quotation. Refer to the [YAML standard](https://yaml.org/spec/1.2/spec.html#Characters) to discover what characters are considered as special characters in YAML.
 
 ## No value to substitute for {{env XYZ}}
 
@@ -214,36 +230,26 @@ as the `*` character needs to be contained within double quotes. Refer to the [Y
 
 `No value to substitute for {{env "MY_ENV_VARIABLE"}}`
 
-You may see this in the `yamles` trace file at validation time because the validation environment does not have the environment variable `MY_ENV_VARIABLE` defined. This is not a problem. The environment variable `MY_ENV_VARIABLE` only needs to be defined in the runtime environment where the API Gateway is running. If you see this at deployment time in the API Gateway trace you should create the environment variable in the API Gateway's environment and restart the API Gateway.
+You might see this in the `yamles` trace file at validation time because the validation environment does not have the environment variable `MY_ENV_VARIABLE` defined. This is not a problem. The environment variable `MY_ENV_VARIABLE` only needs to be defined in the runtime environment where the API Gateway is running. If you see this at deployment time in the API Gateway trace, create the environment variable in the API Gateway's environment and restart the API Gateway.
 
-## DbConnection - setPoolPreparedStatements
+## Invalid value for boolean field
 
 **Severity**: WARNING
 
 `entity=/External Connections/DB Connections/MySQL/local, type=DbConnection, field='setPoolPreparedStatements', file=/home/user/yaml/External Connections/DB Connections/MySQL.yaml, message='Value will be set to 'false' but is neither falsy or truthy. Value: truex'`
 
-Look in the file named `/home/user/yaml/External Connections/DB Connections/MySQL.yaml`. It contains an entity of type `DbConnection` named `local` with a field named `setPoolPreparedStatements`. Its value is set to `truex` but an boolean is expected by the model. Fix the field value to be an valid boolean i.e. `true` or `false`. The value will default to `false`.
+Look into the file named `/home/user/yaml/External Connections/DB Connections/MySQL.yaml`. It contains an entity of type `DbConnection`, named `local`, with a field named `setPoolPreparedStatements`. Its value is set to `truex`, but a boolean is expected by the model. Fix the field value to be an valid boolean (`true` or `false`). The value defaults to `false`.
 
-## Entities of different types at same level with same PK for parent PK
+## Entities of different types at same level with same PK
 
 **Severity**: WARNING
 
 ```
-WARNING: Found entities of different types at same level with same PK for parent PK :'/Server Settings/Logging Configuration' PK end with: (XMLRollOverLogger)Text Rollover File Logger
-WARNING: Found entities of different types at same level with same PK for parent PK :'/Server Settings/Logging Configuration' PK end with: (TextRollOverLogger)Text Rollover File Logger
+WARNING: Found entities of different types at same level with same PK for parent PK :'/Path/to/parent' PK end with: (EntityTypeA)MyEntityName
+WARNING: Found entities of different types at same level with same PK for parent PK :'/Path/to/parent' PK end with: (EntityTypeB)MyEntityName
 ```
 
-This is also generated at conversion time using the `fed2yaml` option. To fix after converting, edit the `/Server Settings/Logging Configuration(XmlRollOverLogger)Text Rollover File Logger.yaml` file and set the name to `XML Rollover File Logger`.
-
-```yaml
----
-type: XMLRollOverLogger
-fields:
-  format: ${level} ${timestamp} ${id} '${text}' ${filterType} ${filterName}
-  name: XML Rollover File Logger
-```
-
-The fix is optional.
+These errors could be generated at conversion time using the `fed2yaml` or `frag2yaml` options if the original XML has entities of different types at the same level with the same PK. To fix after converting, edit the YAML files so that the entities have different values for their key field(s). In general this means editing the `name` field if `name` is the only key field for the entity, and the YAML file name.
 
 ## Filter with same name
 
@@ -254,7 +260,7 @@ WARNING: Found entities of different types at same level with same PK for parent
 WARNING: Found entities of different types at same level with same PK for parent PK :'/Policies/Some Policies/Test' PK end with: (Reflector)Same name filter
 ```
 
-This is also generated at conversion time using the fed2yaml option. To fix after converting, edit the policy file in this case `/Policies/Some Policies/Test.yaml`, and rename one of the filters. Update all references to the filters so that the correct YamlPK is used:
+This is generated at conversion time using the `fed2yaml` option. To fix after converting, edit the policy file (`/Policies/Some Policies/Test.yaml`), and rename one of the filters.  Update all references to the filters so that the correct YamlPK is used:
 
 ```yaml
 ---

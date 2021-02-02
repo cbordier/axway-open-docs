@@ -114,7 +114,7 @@ For example, if a policy developer is using JMS, and wants to indicate that priv
 For more details, enter `keystoreadmin` in the following directory, and perform the instructions at the command prompt:
 
 ```
-INSTALL_DIR/apigateway/posix/bi
+INSTALL_DIR/apigateway/posix/bin
 ```
 
 When you enter `keystoreadmin` without arguments, this displays an interactive menu with the following options:
@@ -216,12 +216,14 @@ You can configure the gateway to start and initialize the HSM by invoking a comm
 
 To configure an automatic PIN passphrase, perform the following steps:
 
-1. Edit the API Gateway instance’s `vpkcs11.xml` configuration file. For example:
+1. Edit the vpkcs11.xml instance configuration file of API Gateway. For example:
 
    ```
    apigateway/groups/group-2/instance-1/conf/vpkcs11.xml
    ```
-2. Add a `PASSPHRASE_EXEC` command that contains the full path to the script that executes and obtains the passphrase. The script should write the passphrase to stdout, and should have the necessary operating system file and execute protection settings to prevent unauthorized access to the PIN passphrase. The following example shows a `vpkcs11.xml` file that invokes the `hsmpin.sh` to echo the passphrase:
+2. Add a `PASSPHRASE_EXEC` command that contains the full path to the script that executes and obtains the passphrase. The script must have user execute permission to write the passphrase to stdout, and it must have the necessary operating system protection settings to prevent unauthorized access to the PIN passphrase.
+
+   The following example shows a vpkcs11.xml file that invokes the hsmpin.sh to echo the passphrase:
 
    ```
    <?xml version="1.0" encoding="utf-8"?>

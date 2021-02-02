@@ -8,9 +8,17 @@
 
 ## Prerequisites
 
-* Install or upgrade an existing system to [API Gateway version v7.7.0-20200930](/docs/apim_relnotes/20200930_apimgr_relnotes/).
-* Run client tools on a linux-based system.
-* Before converting your XML federated configuration you must upgrade it using [upgradeconfig](/docs/apim_installation/apigw_upgrade/upgrade_analytics/#upgradeconfig-options) or [projupgrade](/docs/apim_reference/devopstools_ref/).
+* Install or upgrade your API Gateway to its [latest version](/docs/apim_relnotes/).
+* Upgrade your XML federated configuration using [upgradeconfig](/docs/apim_installation/apigw_upgrade/upgrade_analytics/#upgradeconfig-options) or [projupgrade](/docs/apim_reference/devopstools_ref/) before converting it.
+
+{{< alert title="Note">}}
+If you are using Git for your YAML configurations on a Windows operating system, ensure to set Git configuration setting `core.longpaths` to avoid *filename too long* error on checkout.
+
+```
+git config core.longpaths true
+```
+
+{{< /alert >}}
 
 ## Convert XML federated configuration to YAML
 
@@ -41,4 +49,4 @@ To convert your XML federated configuration to YAML:
 
 For deployment to an API Gateway runtime, see [Packaging and deployment](/docs/apim_yamles/yamles_packaging_deployment/).
 
-For troubleshooting any errors, and more details on options and commands, see [CLI Tool](/docs/apim_yamles/yamles_cli).
+For troubleshooting any errors, and more details on options and commands, see [CLI Tool](/docs/apim_yamles/apim_yamles_cli).

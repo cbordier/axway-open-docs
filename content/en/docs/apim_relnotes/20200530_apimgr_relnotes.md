@@ -1,7 +1,7 @@
 ---
 title: API Gateway and API Manager 7.7 May 2020 Release Notes
 linkTitle: API Gateway and API Manager May 2020
-weight: 70
+weight: 140
 date: 2020-03-11T00:00:00.000Z
 ---
 ## Summary

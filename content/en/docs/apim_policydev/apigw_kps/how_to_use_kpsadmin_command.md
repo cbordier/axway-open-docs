@@ -1,11 +1,10 @@
 {
 "title": "Manage KPS using kpsadmin",
-"linkTitle": "Manage using kpsadmin",
-"weight":"50",
-"date": "2020-01-06",
-"description": "Learn how to use the kpsadmin tool in interactive and scriptable command modes."
+  "linkTitle": "Manage using kpsadmin",
+  "weight": "50",
+  "date": "2020-01-06",
+  "description": "Learn how to use the kpsadmin tool in interactive and scriptable command modes."
 }
-
 The `kpsadmin` command-line tool provides KPS management functions, independent of data source. For example, this includes KPS data backup, restore, encryption, and diagnostics.
 
 The `kpsadmin` tool is especially useful in a development environment. In a production environment, you should also use data source-specific tools and administration procedures for data backup, restore, security, optimization, monitoring and so on.
@@ -67,10 +66,11 @@ The `kpsadmin` operations for table administration are as follows:
 * **Restore**: Restore table data. The table must be empty before you restore.
 * **Re-encrypt**: Re-encrypt encrypted data in the table. This option should only be used if group-level re-encryption fails.
 * **Recreate**: Recreate a table. This is useful in development if you wish to change the table structure. This procedure involves dropping and recreating the table, so all existing data will be lost. The steps are as follows:
-    1. Back up (optional): Backup the data if necessary using `kpsadmin`.
-    2. Deploy the correct configuration: First redeploy the correct configuration using Policy Studio. This may result in some KPS deployment errors. The changes you have made may no longer match     the stored data structure.
-    3. Recreate the table with the correct configuration: Select the Recreate option using `kpsadmin`.
-    4. Restore (optional): Restore the data using `kpsadmin`. If you have made key or index changes, the data should import directly. If you have made more extensive changes (for example, renaming fields or changing types), you must upgrade the data to match the new table structure.
+
+  1. Back up (optional): Backup the data if necessary using `kpsadmin`.
+  2. Deploy the correct configuration: First redeploy the correct configuration using Policy Studio. This may result in some KPS deployment errors. The changes you have made may no longer match     the stored data structure.
+  3. Recreate the table with the correct configuration: Select the Recreate option using `kpsadmin`.
+  4. Restore (optional): Restore the data using `kpsadmin`. If you have made key or index changes, the data should import directly. If you have made more extensive changes (for example, renaming fields or changing types), you must upgrade the data to match the new table structure.
 * **Table Details**: Display information about a table and its properties.
 
 ### KPS collection administration operations
@@ -118,7 +118,7 @@ To copy the current data in the collection to the new data source, back up the c
 
 The backup UUID is highlighted in the following example:
 
-![kpsadmin Backup All operation](/Images/APIGatewayKPSUserGuide/03000019.png)
+![kpsadmin Backup All operation](/Images/APIGatewayKPSUserGuide/backupcollection.png)
 
 #### Step 2: Create a new data source
 
@@ -128,26 +128,26 @@ To create the new data source, perform the following steps:
 2. Select the collection **Data Sources** tab.
 3. Click **Add > Add File** at the bottom right.
 
-    ![KPS collection Data Sources tab](/Images/APIGatewayKPSUserGuide/0300001A.png)
+   ![KPS collection Data Sources tab](/Images/APIGatewayKPSUserGuide/kpscollections.png)
 4. Enter a file data source **Name** and **Description**.
 5. Enter a **Directory Path** (for example, `${VINSTDIR/kps/samples`).
 
-    {{< alert title="Tip" color="primary" >}}You can include `${VINSTDIR}` or `${VDISTDIR}` to indicate the gateway instance directory or install directory respectively. Make sure to use `/` on Linux. If the directory does not exist, it is automatically created.{{< /alert >}}
+   {{< alert title="Tip" color="primary" >}}You can include `${VINSTDIR}` or `${VDISTDIR}` to indicate the gateway instance directory or install directory respectively. Make sure to use `/` on Linux. If the directory does not exist, it is automatically created.{{< /alert >}}
 6. Select the collection **Properties** tab.
 7. Change the collection **Default data source** to use the new data source:
 
-    ![Default data source](/Images/APIGatewayKPSUserGuide/0300001C.png)
-
+   ![Default data source](/Images/APIGatewayKPSUserGuide/0300001C.png)
 8. Click the **Deploy** button in the Policy Studio toolbar to deploy the configuration
 
-#### Step 4: Restore collection data using `kpsadmin`
+#### Step 3: Restore collection data using `kpsadmin`
 
 If you have made a backup in [Backup collection data using kpsadmin](#step-1-backup-collection-data-using-kpsadmin), to restore the collection data, perform the following steps:
 
 1. Using `kpsadmin`, select option `22) Restore All`.
-2. Enter the backup UUID noted in step 1. For example:
+2. Enter the backup UUID noted in step 1.
+3. Enter the KPS backup passphrase. Leave this blank if none was set.
 
-![Restore collection data using kpsadmin](/Images/APIGatewayKPSUserGuide/0300001D.png)
+![Restore collection data using kpsadmin](/Images/APIGatewayKPSUserGuide/restorecollection.png)
 
 ## Run `kpsadmin` operations in scriptable command mode
 
@@ -164,11 +164,11 @@ You must also specify a user name and password, and an API Gateway group, KPS co
 The available `kpsadmin` command operations in this mode are:
 
 | Operation                 | Description                                                                                                                                      |
-|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `clear`                   | Clear all data in the specified table, collection, or group.                                                                                     |
 | `backup`                  | Back up all data in the specified table, collection, or group.                                                                                   |
 | `restore`                 | Restore all data in the specified table, collection, or group.                                                                                   |
-| `reencrypt`               | Re-encrypt all data in the specified table, collection, or group.                        |
+| `reencrypt`               | Re-encrypt all data in the specified table, collection, or group.                                                                                |
 | `details`                 | Display information about the specified table, collection, or group.                                                                             |
 | `list_rows`               | List all rows in the specified table, collection, or group.                                                                                      |
 | `cassandra_configuration` | Show the current configuration for the KPS storage service (Apache Cassandra).                                                                   |
@@ -183,7 +183,7 @@ You can specify the user name and password on the command line or using a secure
 The full `kpsadmin` command options are:
 
 | Option                        | Description                                                                                  |
-|-------------------------------|----------------------------------------------------------------------------------------------|
+| ----------------------------- | -------------------------------------------------------------------------------------------- |
 | `-h, --help`                  | Show help message and exit.                                                                  |
 | `-u, --username=USERNAME`     | Specify the current Admin Node Manager username.                                             |
 | `-p, --password=PASSWORD`     | Specify the current Admin Node Manager password.                                             |
@@ -194,6 +194,7 @@ The full `kpsadmin` command options are:
 | `-t TABLE, --table=TABLE`     | Specify the KPS table to target.                                                             |
 | `--uuid=UUID`                 | Specify the UUID required when backing up or restoring data.                                 |
 | `--mdc`                       | When using the `diagnostics` command, specify that this is a multi-datacenter configuration. |
+| `--passphrase`                | KPS backup passphrase. Leave it blank if none was set.                                       |
 
 ### Example `kpsadmin` scriptable commands
 
@@ -206,7 +207,7 @@ To back up and restore an API Gateway group from a staging environment to a prod
 1. Specify the `kpsadmin backup` command:
 2. You must copy the files from the staging `backup` directory to the production `backup` directory and note the UUID. This is output by `kpsadmin` and is also a prefix on the exported filenames.
 3. Specify the `kpsadmin clear` command:
-4. Specify the `kpsadmin restore` command with the UUID noted earlier:
+4. Specify the `kpsadmin restore` command with the UUID noted earlier and the KPS backup passphrase. Leave the passphrase blank if none was set.
 
 #### Re-encrypt the KPS data
 
@@ -272,13 +273,13 @@ The data is decrypted with the old encryption passphrase, which you must supply.
 * This change has been deployed to all API Gateways in the group.
 * You see `INFO` messages in all API Gateway trace logs as follows:
 
-    ```
-    INFO Loading KPS configuration.
-    INFO Checking for passphrase changes...
-    INFO Passphrase change has been detected for the following table(s).
-    INFO Use kpsadmin to re-encrypt data and passphrase test.
-    INFO Table(s) will remain in admin mode until this is done.
-    ```
+  ```
+  INFO Loading KPS configuration.
+  INFO Checking for passphrase changes...
+  INFO Passphrase change has been detected for the following table(s).
+  INFO Use kpsadmin to re-encrypt data and passphrase test.
+  INFO Table(s) will remain in admin mode until this is done.
+  ```
 
 {{< /alert >}}
 

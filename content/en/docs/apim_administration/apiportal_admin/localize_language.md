@@ -28,59 +28,23 @@ User interface strings are stored in language-specific resource files. To add th
 
 API Portal UI strings are not included in the installed language resource files, so you must add the required strings for the new language.
 
-The UI strings are stored in initialization (`.ini`) files. Each language has its own `.ini` file that control the UI text shown in API Portal. By default, the API Portal UI strings are included only in the English `.ini` file (`en-GB.com_apiportal.ini`). To change the language shown in API Portal, you must have a translation of the English `.ini` file for that language.
+The UI strings are stored in initialization (`.ini`) files. Each language has its own `.ini` file that control the UI text shown in API Portal. By default, the API Portal UI strings are included only in the English (`en-GB.com_apiportal.ini` file). To change the language shown in API Portal, you must have a translation of the English `.ini` file for that language.
 
-Because the `.ini` files are text files, you can use professional translation services to get the file translated. Alternatively, you can manually translate the UI strings yourself.
+### Add a translated UI string file
 
-#### Add a translated UI string file
+To upload language files:
 
-You can send the file `en-GB.com_apiportal.ini` file for translation to a professional translation service, and include the translated file in your API Portal installation.
+1. In JAI, click **Components > API Portal > Additional Settings**.
+2. Enable **Upload language file toggle**. The following fields will show after that:
 
-To find the `en-GB.com_apiportal.ini` file that must be translated, go to the following directory in your API Portal installation:
+   * Language - Select the language for which you are uploading translations. All installed languages except English are listed.
+   * Language files context - Select whether the uploaded language files are for the **Site** or **Administrator** part of API Portal.
+   * API Portal component language file - The main language file for API Portal component.
+   * Overridden language file - Some texts in API Portal, such as the messages on the login pages, are stored in different filed and you have to change and upload them separately.
+   * `sys.ini` language file - This field is shown only when **Administrator** is selected as a language files context. This language file contains translations for the administrator components menu drop-down, menu, and component parameters.
+3. Fill in the fields and click **Save**.
 
-```
-/opt/axway/apiportal/htdoc/language/en-GB/
-```
-
-Before you send the file for translation, it is recommended to rename the file to `en-GB.com_apiportal.ini.txt`. When you receive the translated file, you should remove any `.txt` extension again before proceeding with the following steps.
-
-To install the translated file:
-
-1. Go to the resource file directory of the language you installed (for example, `/opt/axway/apiportal/htdoc/language/fr-FR/`).
-2. Copy the translated `.ini` file to the directory.
-3. Ensure that the language code in the file name of the translated `.ini` file matches the language code of the installed language, and the extension of the file is `.ini` (for example, `fr-FR.com_apiportal.ini`). Rename the file, if needed.
-4. Go to your API Portal, refresh the page, and verify that the UI texts have changed to your new language.
-
-#### Manually translate the UI strings
-
-1. Copy the following file from the English resource file directory:
-
-   ```
-   /opt/axway/apiportal/htdoc/language/en-GB/en-GB.com_apiportal.ini
-   ```
-2. Go to resource file directory of the language you installed (for example, `/opt/axway/apiportal/htdoc/language/fr-FR/`), and paste the copied file there.
-3. Rename the copied `.ini` file to match the language code of the installed language (for example, `fr-FR.com_apiportal.ini`).
-4. Open both the English `.ini` file and the copied `.ini` file.
-5. In the English `.ini` file, find a UI text you want to change (such as the text `Connect with a community of developers` at the bottom of the API Portal sign in page), and copy the UI string ID (`COM_APIPORTAL_HOME_CONNECT`).
-6. In the copied `.ini` file, find the same UI string, and change the value of the string to the new language translation.
-7. Repeat the last two steps for all the UI strings on all your API Portal pages that you want to change to the new language, and save the file.
-8. Go to your API Portal, refresh the page, and verify that the UI texts have changed to your new language.
-
-### Change the text overrides on the sign in page
-
-Some texts on the sign in page are controlled by text overrides, and you have to change them separately in the `.override` file.
-
-1. Go to the language override directory:
-
-   ```
-   /opt/axway/apiportal/htdoc/language/overrides/
-   ```
-2. Copy the file `en-GB.override`.
-3. Paste the file in the same directory, and rename it to match your new language (for example, `fr-FR.override`).
-4. Open the renamed file, find the UI string with the value `Login Name`, and change the value of the string to the new language translation (for example, `Identifiant`).
-5. Find the UI string with the value `Password`, and change the value of the string to translate it (for example, `Mot de passe`).
-6. Save the file, and go to your API Portal.
-7. Go to the API Portal sign in page, refresh the page, and verify that the UI texts have changed to your new language.
+Note that all **File upload** sections have a link from which you can download the English version of the file. After that, you just need to translate the strings and upload the new file it. When uploading the file, ensure that its extension is `.ini`, otherwise you will not be able to upload it.
 
 ## Provide API Portal in multiple languages
 

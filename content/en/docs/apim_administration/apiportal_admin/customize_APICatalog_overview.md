@@ -11,17 +11,23 @@ description: Customize how your APIs are displayed to your API consumers and
 You can customize the following in the API Catalog view of API Portal:
 
 * Display APIs in a list or tile view.
-* Show or hide the button that enables users to download API definitions. The default is shown.
-* Show or hide the button that enables users to download client SDKs. The default is hidden.
+* Show or hide the button that enables users to download API definitions. Defaults to shown.
+* Show or hide the button that enables users to download client SDKs. Defaults to hidden.
 * Hide tags from API Catalog.
-* Show only APIs associated with specified tags. For more details on tags, see Group APIs with tags.
-* Hide APIs associated with specified tags. For more details on tags, see Group APIs with tags.
+* Show only APIs associated with specified tags. For more details on tags, see [Group APIs with tags](#group-apis-with-tags).
+* Hide APIs associated with specified tags. For more details on tags, see [Group APIs with tags](#group-apis-with-tags).
 * Show only APIs associated with specified statuses.
-* Show or hide the button that enables users to try out an API. You can show the button for all users, for authenticated users only, or hide it completely. The default is shown for all users.
-* Set a payload size (in KB). If the response is bigger than the configured value, the response is downloaded as file. The default is blank, which means that downloads are disabled.
-* Show or hide code examples in endpoint details when using AMPLIFY rendering tool. The default is shown.
+* Show or hide the button that enables users to try out an API. You can show the button for all users, for authenticated users only, hide it for APIs with specific tags, or hide it completely. The default is shown for all users. For more details on Try-it button visibility see Customize Try-it button visibility.
+* Set a payload size (in KB). If the response is bigger than the configured value, the response is downloaded as file. Defaults to blank, which means that downloads are disabled.
+* Swagger UI layout of REST APIs. You can choose from:
+
+    * **Multi-column**: A Two-column view, in which methods are listed on the left side, and the details of a selected method are listed on the right side. This is the default option in API Portal.
+    * **Single-column**: The official layout shipped with the Swagger UI.
+* Show or hide code examples in endpoint details when using AMPLIFY rendering tool. Defaults to shown.
 * Show or hide `externalDocs` along with its description.
 * Choose colors for the different methods.
+
+![Customize API catalog](/Images/APIPortal/api-catalog.png)
 
 To change the API Catalog settings:
 
@@ -30,8 +36,6 @@ To change the API Catalog settings:
 3. Click **APIs**.
 4. Click the **API Catalog** tab.
 5. Change the settings as required and click **Save & Close**.
-
-![Customize API catalog](/Images/APIPortal/api-catalog.png)
 
 ## Customize source of API descriptions
 
@@ -76,12 +80,24 @@ You can also choose to use some tags as an internal tool, and hide them from the
 
 You can add tags using the `*` and `?` wildcards. This is helpful to list only development APIs in one API Catalog and production APIs in another. In this case you can filter them using wildcards as follows: `*dev*` will list APIs which contain `dev` somewhere in the tag, for example, `financial_development` and `development` tags. Or, to hide all tags which start with `test` and end with any other letter, for example, `test` or `tests`, you can do `test?`.
 
-## Customize Try-it by type of request
+## Customize the Try-it button visibility
 
-The Try-It button is enabled for all requests to an API by default. To enable or disable it on specific types of requests (`GET`, `POST`, `PUT`, and so on):
+You can customize the **Try-it** button for a specific API Catalog.
+
+1. In JAI, click **Menus > Main Menu > APIs**.
+2. Click the **API Catalog** tab.
+3. Select one of the options from the **Show Inline Try-it** list to set the **Try-it** button visibility.
+
+   * **Yes always** - The **Try-it** button will always be displayed. This is the default option.
+   * **Yes only for authenticated users** - The **Try-it** button will be visible only for authenticated users.
+   * **No for APIs with the following tags** - The **Try-it** button will be hidden for APIs with specific tags. When this option is selected, a new field, **Hide Inline Try-it for APIs with tags**, is shown. In this field, you can choose for which tags the **Try-it** button will be hidden. You can enter multiple tags by separating them by coma. Wildcard symbols (`?` and `*`) are allowed in this field.
+   * **Never** - The **Try-it**  button will always be hidden.
+4. Click **Save**.
+
+## Disable the Try-it button visibility
+
+The **Try-It** button is enabled for all requests to an API by default. To enable or disable it on specific types of requests (`GET`, `POST`, `PUT`, and so on):
 
 1. In JAI, click **Components > API Portal > API Manager**.
 2. In **Try-It Settings**, enable or disable the Try-It button for each request type.
-
-   ![API Manager try-it](/Images/APIPortal/api-manager-try-it-settings.png)
 3. Click **Save**.

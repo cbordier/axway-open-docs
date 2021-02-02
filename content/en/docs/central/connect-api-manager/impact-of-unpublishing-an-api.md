@@ -9,8 +9,8 @@ description: Understand the implications of unpublishing your API in API Manager
 ---
 ## Unpublishing your API in publishToEnvironmentAndCatalog mode
 
-Assume you have an API in API Manager that had previously been discovered by the agent and pushed to AMPLIFY Central as a Catalog item. Now you choose to unpublish that API in API Manager. If the agent's mode is set to `publishToEnvironmentAndCatalog`, then:
+Assume you have an API in API Manager that had previously been discovered by the agent and pushed to Amplify Central as a Catalog item. Now you choose to unpublish that API in API Manager. If the agent's mode is set to `publishToEnvironmentAndCatalog`, then:
 
-* The agent updates the **state** of the ConsumerInstance in the AMPLIFY Central environment to UNPUBLISHED.
-* The agent updates the **status** of the ConsumerInstance in the AMPLIFY Central environment to UNPUBLISHED.
-* The status tag for the catalog in AMPLIFY Central is now marked as UNPUBLISHED.
+* The agent updates the **state** of the ConsumerInstance in the Amplify Central environment to UNPUBLISHED.
+* The agent updates the **status** of the ConsumerInstance in the Amplify Central environment to UNPUBLISHED.
+* The status tag for the catalog in Amplify Central is now marked as UNPUBLISHED.

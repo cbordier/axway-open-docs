@@ -39,12 +39,13 @@ API Portal supports two rendering tools to customize the visualization of the AP
 This is the UI tool used to visualize REST APIs. It supports OpenAPI specifications and it is built over the official Swagger.io. In addition to the commonly known fields of a method, the AMPLIFY SwaggerUI also provides the following:
 
 * **Examples (or, snippets)** - This section displays a line or block of code that you can copy and paste, and run straight away using the relevant tool (curl, Titanium, node.js, web.js).
+* **Single or 2-column layout** available for API details for a better and more flexible user experience.
 * **OAuth Authorization code flow** - Allows you to request a token to authorize access to your requests using an OAuth authorization code, as opposed to the `Client credentials` option where you need a secret key to request the token.
 * **External OAuth resource servers** - Supports authorization code flow only.
 
-{{% alert title="Note" %}}
+{{< alert title="Note" color="primary" >}}
 Clients in external OAuth servers must be created as public, and their redirect URL must be set to `{apiportal-url}/cb`.
-{{% /alert %}}
+{{< /alert >}}
 
 ### SwaggerUI 1.x
 

@@ -4,12 +4,12 @@ linkTitle: Administer API Manager Gateway
 draft: false
 weight: 25
 description: Learn how to deploy your Discovery Agent and Traceability Agent so
-  that you can manage your Axway API Gateway environment within AMPLIFY Central.
+  that you can manage your Axway API Gateway environment within Amplify Central.
 ---
 ## Before you start
 
-* Read [AMPLIFY Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
-* Be sure you have [Prepared AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/)
+* Read [Amplify Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
+* Be sure you have [Prepared Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/)
 * You will need a basic knowledge of Axway API Management solution:
 
     * Where the solution is running (host / port / path to the logs / users)
@@ -23,10 +23,10 @@ Learn how to install, customize and run your Discovery and Traceability agents.
 
 ## Discovery Agent
 
-The Discovery Agent is used to discover new published APIs or any updated APIs. Once they are discovered, the related APIs are published to AMPLIFY Central, in one of the following publication modes:
+The Discovery Agent is used to discover new published APIs or any updated APIs. Once they are discovered, the related APIs are published to Amplify Central, in one of the following publication modes:
 
-* **Environment / API Service publication**: Customers publish their APIs to the AMPLIFY platform.
-* **Environment / API Service publication / Catalog item publication** (default mode): Same as previous plus automatically expose the APIS to the consumer via the AMPLIFY Catalog.
+* **Environment / API Service publication**: Customers publish their APIs to the Amplify platform.
+* **Environment / API Service publication / Catalog item publication** (default mode): Same as previous plus automatically expose the APIS to the consumer via the Amplify Catalog.
 
 The Discovery Agent only discovers APIs that have the tag(s) defined in the agent configuration file. See [Discover APIs](/docs/central/connect-api-manager/filtering-apis-to-be-discovered/). By default, the filter is empty and thus the agent will discover all published API.
 
@@ -50,7 +50,7 @@ The containerized agent can run in the following mode:
 **Step 1**: Download the latest version of the zip file from the Axway public repository using the following command:
 
 ```shell
-curl -L "https://axway.bintray.com/generic-repo/v7-agents/v7_discovery_agent/latest/discovery_agent-latest.zip" -o discovery_agent-latest.zip
+curl -L "https://axway.jfrog.io/artifactory/ampc-public-generic-release/v7-agents/v7_discovery_agent/latest/discovery_agent-latest.zip" -o discovery_agent-latest.zip
 ```
 
 **Step 2**: Unzip the file discovery_agent-latest.zip to get the agent binary (discovery_agent) and a template configuration file (discovery_agent.yml).
@@ -79,20 +79,20 @@ APIGATEWAY_HOST=<HOST>
 APIGATEWAY_AUTH_USERNAME=<USER>
 APIGATEWAY_AUTH_PASSWORD=<PASSWORD>
 
-# AMPLIFY connectivity
+# Amplify connectivity
 CENTRAL_ORGANIZATIONID=<ORGANIZATIONID>
 CENTRAL_TEAM=<TEAM>
 CENTRAL_AUTH_CLIENTID=<CLIENTID, ie. DOSA_12345...>
 ```
 
-* The value for *team* can be found in [AMPLIFY Central > Access > Team Assets](https://apicentral.axway.com/access/teams/).
-* The value for *organizationID* can be found in AMPLIFY Central Platform > Organization.
+* The value for *team* can be found in [Amplify Central > Access > Team Assets](https://apicentral.axway.com/access/teams/).
+* The value for *organizationID* can be found in Amplify Central Platform > Organization.
 * The value for *clientId* can be found in Service Account. See [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account).
 
 Pull the latest image of the Discovery Agent:
 
 ```shell
-docker pull axway-docker-public-registry.bintray.io/agent/v7-discovery-agent:latest
+docker pull axway.jfrog.io/ampc-public-docker-release/agent/v7-discovery-agent:latest
 ```
 
 ### Customizing the Discovery Agent configuration file
@@ -101,21 +101,21 @@ The `discovery_agent.yml` configuration file contain 3 sections to personalize: 
 
 #### Customizing apimanager section
 
-This section connects the agent to API Manager and determines which APIs should be discovered and published to AMPLIFY Central.
+This section connects the agent to API Manager and determines which APIs should be discovered and published to Amplify Central.
 
 `host`: Machine name where API Manager is running. Use a hostname according to the certificate returned by the API-Manager.
 
 `port`: API Manager port number (8075 by default).
 
-`discoveryIgnoreTags` (optional): Comma-separated blacklist of tags. If an API has one or several of these blacklist tags, the agent ignores this API and will not publish it to AMPLIFY Central. This property takes precedence over the filter property below. The default value is empty, which means no API is ignored.
+`discoveryIgnoreTags` (optional): Comma-separated blacklist of tags. If an API has one or several of these blacklist tags, the agent ignores this API and will not publish it to Amplify Central. This property takes precedence over the filter property below. The default value is empty, which means no API is ignored.
 
 `filter` (optional): Expression to filter the API you want the agent to discover. See [Discover APIs](/docs/central/connect-api-manager/filtering-apis-to-be-discovered/). Leaving this field empty tells the agent to discover all published APIs (REST / SOAP).
 
-`subscriptionApplicationField` (optional): The field name used to store AMPLIFY Central subscription identifier inside the API Manager application securing the front end proxy. Default value is **subscriptions**. If you do not intend to change it, comment this property. Be aware that the field will not be visible in the API Manager application, as it is a specific configuration. If you want to see that field or customize it, refer to Add a custom property to applications in [Customize API Manager](/docs/apim_administration/apimgr_admin/api_mgmt_custom/#customize-api-manager-data/) documentation.
+`subscriptionApplicationField` (optional): The field name used to store Amplify Central subscription identifier inside the API Manager application securing the front end proxy. Default value is **subscriptions**. If you do not intend to change it, comment this property. Be aware that the field will not be visible in the API Manager application, as it is a specific configuration. If you want to see that field or customize it, refer to Add a custom property to applications in [Customize API Manager](/docs/apim_administration/apimgr_admin/api_mgmt_custom/#customize-api-manager-data/) documentation.
 
 `pollInterval`: The frequency in which API Manager is polled for new endpoints. Default value is 30s.
 
-`allowApplicationAutoCreation` (optional): When creating a subscription on AMPLIFY Central, setting this value to true will enable a selection in the App name dropdown for 'Create an application.' This allows the user to either select from an existing API Manager application, or to create a new application in API Manager. The new application in API Manager will be given the name of the subscription ID from AMPLIFY Central. A value of false will cause 'Create an application' to not be shown in the dropdown. Default value is **false**.
+`allowApplicationAutoCreation` (optional): When creating a subscription on Amplify Central, setting this value to true will enable a selection in the App name dropdown for 'Create an application.' This allows the user to either select from an existing API Manager application, or to create a new application in API Manager. The new application in API Manager will be given the name of the subscription ID from Amplify Central. A value of false will cause 'Create an application' to not be shown in the dropdown. Default value is **false**.
 
 `auth.username`: An API Manager user the agent will use to connect to the API Manager. This user must have either the “API Manager Administrator” or “Organization administrator” role. Based on the role of this user, the agent is able to:
 
@@ -142,15 +142,15 @@ apimanager:
 
 #### Customizing central section
 
-This section connects the agent to AMPLIFY Central and determines how to published the discovered APIs.
+This section connects the agent to Amplify Central and determines how to published the discovered APIs.
 
-`url`: The AMPLIFY Central url. Default value is **<https://apicentral.axway.com>**.
+`url`: The Amplify Central url. Default value is **<https://apicentral.axway.com>**.
 
-`platformURL:` The AMPLIFY platform url. Needed for finding the user email during the subscription process with email notification. Default value is **<https://platform.axway.com>**.
+`platformURL:` The Amplify platform url. Needed for finding the user email during the subscription process with email notification. Default value is **<https://platform.axway.com>**.
 
-`team`: The Team name in AMPLIFY Central that all APIs will be linked to. Locate this at AMPLIFY Central > Access > Team Assets.).
+`team`: The Team name in Amplify Central that all APIs will be linked to. Locate this at Amplify Central > Access > Team Assets.).
 
-`organizationID`: The Organization ID from AMPLIFY Central. Locate this at Platform > User > Organization > Org ID field.
+`organizationID`: The Organization ID from Amplify Central. Locate this at Platform > User > Organization > Org ID field.
 
 `environment`: The environment name you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/).
 
@@ -158,17 +158,17 @@ This section connects the agent to AMPLIFY Central and determines how to publish
 
 `mode`: The method to send endpoints back to Central. (publishToEnvironment = API Service, publishToEnvironmentAndCatalog = API Service and Catalog asset).  
 
-`pollInterval`: The frequency the agent is polling AMPLIFY Central to get some event. Default value is **30s**.
+`pollInterval`: The frequency the agent is polling Amplify Central to get some event. Default value is **30s**.
 
-`auth.url`: The AMPLIFY login URL. Default value is **<https://login.axway.com/auth>**.
+`auth.url`: The Amplify login URL. Default value is **<https://login.axway.com/auth>**.
 
-`auth.realm`: The Realm used to authenticate for AMPLIFY Central. Default value is **Broker**.
+`auth.realm`: The Realm used to authenticate for Amplify Central. Default value is **Broker**.
 
-`auth.clientId`: The Client ID of the Service Account (DOSA_....) you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/). Locate this at AMPLIFY Central > Access > Service Accounts.
+`auth.clientId`: The Client ID of the Service Account (DOSA_....) you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Locate this at AMPLIFY Central > Access > Service Accounts.
 
-`auth.privateKey`: The location of the private key file you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.
+`auth.privateKey`: The location of the private key file you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.
 
-`auth.publicKey`:  The location of the public key file you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.  
+`auth.publicKey`:  The location of the public key file you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.  
 
 `auth.keyPassword`: The key password to open the key. None set up by default.
 
@@ -212,25 +212,25 @@ The SMTP Notification section defines how the agent manages email settings for s
 
 `authtype`: The authentication type based on the email server.  You may have to refer to the email server properties and specifications. This value defaults to NONE.
 
-`subscribe.subject`: Subject of the email notification for action subscribe. Default is **Subscription Notification**.
+`subscribe.subject`: Subject of the email notification for action subscribe. Default is `Subscription Notification`.
 
-`subscribe.body`: Body of the email notification for action subscribe. Default is **Subscription created for Catalog Item:  ${catalogItemName} ${authtemplate}**.
+`subscribe.body`: Body of the email notification for action subscribe. Default is `Subscription created for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a><br/>${authtemplate}<br/>`.
 
-`subscribe.oauth:` Body of the email notification for action subscribe on OAuth authorization is **Your API is secured using OAuth token. You can obtain your token using grant_type=client_credentials with the following client_id=${clientID} and client_secret=${clientSecret}**.
+`subscribe.oauth:` Body of the email notification for action subscribe on OAuth authorization is `Your API is secured using OAuth token. You can obtain your token using grant_type=client_credentials with the following client_id=<b>${clientID}</b> and client_secret=<b>${clientSecret}</b>`.
 
-`subscribe.apikeys`: Body of the email notification for action subscribe on APIKey authorization is **Your API is secured using an APIKey credential:header:${keyHeaderName}/value:${key}**.
+`subscribe.apikeys`: Body of the email notification for action subscribe on APIKey authorization is `Your API is secured using an APIKey credential: header: <b>${keyHeaderName}</b> / value: <b>${key}</b>`.
 
-`unsubscribe.subject`: Subject of the email notification for action unsubscribe. Default is **Subscription Removal Notification**.
+`unsubscribe.subject`: Subject of the email notification for action unsubscribe. Default is `Subscription Removal Notification`.
 
-`unsubscribe.body`: Body of the email notification for action unsubscribe. Default is **Subscription for Catalog Item: ${catalogItemName} has been unsubscribed**.
+`unsubscribe.body`: Body of the email notification for action unsubscribe. Default is `Subscription for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a> has been unsubscribed`.
 
-`subscribeFailed.subject`: Subject of the email notification for action subscribe failed. Default is **Subscription Failed Notification**.
+`subscribeFailed.subject`: Subject of the email notification for action subscribe failed. Default is `Subscription Failed Notification`.
 
-`subscribeFailed.body`: Body of the email notification for action subscribe failed. Default is **Could not subscribe to CatalogItem: ${catalogItemName}**.
+`subscribeFailed.body`: Body of the email notification for action subscribe failed. Default is `Could not subscribe to CatalogItem: <a href= ${catalogItemUrl}> ${catalogItemName}</a>`.
 
-`unsubscribeFailed.subject`: Subject of the email notification for action unsubscribe failed. Default is **Subscription Removal Failed Notification**.
+`unsubscribeFailed.subject`: Subject of the email notification for action unsubscribe failed. Default is `Subscription Removal Failed Notification`.
 
-`unsubscribeFailed.body` : Body of the email notification for action unsubscribe failed. Default is **Could not unsubscribe to Catalog Item: ${catalogItemURL} ${catalogItemName}**.
+`unsubscribeFailed.body` : Body of the email notification for action unsubscribe failed. Default is `Could not unsubscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a>`.
 
 #### Customizing email servers
 
@@ -303,25 +303,33 @@ subscriptions:
       fromAddress: fromAddress@outlook.com
       username: outlookuser
       password:
+```
+
+If you want to customize your SMTP email notifications to be something different than the defaults, you can add to the configuration file as follows:
+
+```yaml
+subscriptions:
+  notifications:
+    smtp:
       subscribe:
         subject: Subscription Notification
         body: |
-          Subscription created for Catalog Item:  <a href= ${catalogItemUrl}> ${catalogItemName} </a> <br/>
+          Subscription created for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a><br/>${authtemplate}<br/>
           ${authtemplate}<br/>
         oauth: Your API is secured using OAuth token. You can obtain your token using grant_type=client_credentials with the following client_id=<b>${clientID}</b> and client_secret=<b>${clientSecret}</b>
-        apikeys: Your API is secured using an APIKey credential:header:<b>${keyHeaderName}</b>/value:<b>${key}</b>
+        apikeys: Your API is secured using an APIKey credential: header: <b>${keyHeaderName}</b> / value: <b>${key}</b>
       unsubscribe:
         subject: Subscription Removal Notification
         body: |
-          Subscription for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName} </a> has been unsubscribed
+          Subscription for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a> has been unsubscribed
       subscribeFailed:
-        subject: Subscription Failed Notification
+        subject: Custom Subscription Failed Notification
         body: |
-          Could not subscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName} </a> Error: ${message}
+          Could not subscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a> Error: ${message}
       unsubscribeFailed:
-        subject: Subscription Removal Failed Notification
+        subject: Custom Subscription Removal Failed Notification
         body: |
-          Could not unsubscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName} </a>
+          Could not unsubscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a>
 ```
 
 #### Customizing log section (log)
@@ -397,22 +405,22 @@ subscriptions:
       subscribe:
         subject: Subscription Notification
         body: |
-            Subscription created for Catalog Item:  <a href= ${catalogItemUrl}> ${catalogItemName} </a> <br/>
+          Subscription created for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a><br/>${authtemplate}<br/>
           ${authtemplate}<br/>
         oauth: Your API is secured using OAuth token. You can obtain your token using grant_type=client_credentials with the following client_id=<b>${clientID}</b> and client_secret=<b>${clientSecret}</b>
-        apikeys: Your API is secured using an APIKey credential:header:<b>${keyHeaderName}</b>/value:<b>${key}</b>
+        apikeys: Your API is secured using an APIKey credential: header: <b>${keyHeaderName}</b> / value: <b>${key}</b>
       unsubscribe:
         subject: Subscription Removal Notification
         body: |
-          Subscription for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName} </a> has been unsubscribed
+          Subscription for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a> has been unsubscribed
       subscribeFailed:
-        subject: Subscription Failed Notification
+        subject: Custom Subscription Failed Notification
         body: |
-          Could not subscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName} </a> Error: ${message}
+          Could not subscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a> Error: ${message}
       unsubscribeFailed:
-        subject: Subscription Removal Failed Notification
+        subject: Custom Subscription Removal Failed Notification
         body: |
-          Could not unsubscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName} </a>
+          Could not unsubscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a>
 
 log:
   level: info
@@ -563,7 +571,7 @@ cd /home/APIC-agents
       }
     },
     "central": {
-      "name": "AMPLIFY Central",
+      "name": "Amplify Central",
       "endpoint": "central",
       "status": {
         "result": "OK"
@@ -579,7 +587,7 @@ cd /home/APIC-agents
 2. Start the Docker Discovery Agent pointing to the `env_vars` file and the keys directory. `pwd` relates to the local directory where the docker command is run. For Windows, the absolute path is preferred.
 
    ```shell
-   docker run --env-file ./env_vars -v <pwd>/keys:/keys  axway-docker-public-registry.bintray.io/agent/v7-discovery-agent:latest
+   docker run --env-file ./env_vars -v <pwd>/keys:/keys axway.jfrog.io/ampc-public-docker-release/agent/v7-discovery-agent:latest
    ```
 3. Run the following health check command to ensure the agent is up and running:
 
@@ -589,7 +597,7 @@ cd /home/APIC-agents
 
 ## Traceability Agent
 
-The traceability agent is used to filter the Axway API Gateway logs that are related to discovered APIs and prepare the transaction events that are sent to AMPLIFY platform. Each time an already discovered API is called by a consumer, an event (summary + detail) is sent to AMPLIFY Central and is visible in API Observer.
+The traceability agent is used to filter the Axway API Gateway logs that are related to discovered APIs and prepare the transaction events that are sent to Amplify platform. Each time an already discovered API is called by a consumer, an event (summary + detail) is sent to Amplify Central and is visible in API Observer.
 
 The agent can run in the following modes:
 
@@ -607,7 +615,7 @@ The agent can run in the following modes:
 **Step 1**: Download the latest version of the zip file from the Axway public repository using the following command:
 
 ```shell
-curl -L "https://axway.bintray.com/generic-repo/v7-agents/v7_traceability_agent/latest/traceability_agent-latest.zip" -o traceability_agent-latest.zip
+curl -L "https://axway.jfrog.io/artifactory/ampc-public-generic-release/v7-agents/v7_traceability_agent/latest/traceability_agent-latest.zip" -o traceability_agent-latest.zip
 ```
 
 **Step 2**: Unzip the file traceability_agent-latest.zip to get the agent binary (traceability_agent) and a template configuration file (traceability_agent.yml).
@@ -636,21 +644,21 @@ APIGATEWAY_HOST=<HOST>
 APIGATEWAY_AUTH_USERNAME=<USER>
 APIGATEWAY_AUTH_PASSWORD=<PASSWORD>
 
-# AMPLIFY connectivity
+# Amplify connectivity
 CENTRAL_ORGANIZATIONID=<ORGANIZATIONID>
 CENTRAL_TEAM=<TEAM>
 CENTRAL_AUTH_CLIENTID=<CLIENTID, ie. DOSA_12345...>
 CENTRAL_ENVIRONMENT=<Environment>
 ```
 
-* The value for *team* can be found in [AMPLIFY Central > Access > Team Assets](https://apicentral.axway.com/access/teams/).
-* The value for *organizationID* can be found in AMPLIFY Central Platform > Organization.
+* The value for *team* can be found in [Amplify Central > Access > Team Assets](https://apicentral.axway.com/access/teams/).
+* The value for *organizationID* can be found in Amplify Central Platform > Organization.
 * The value for *clientId* can be found in Service Account. See [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account).
 
 Pull the latest Docker image of the Traceability Agent:
 
 ```shell
-docker pull axway-docker-public-registry.bintray.io/agent/v7-traceability-agent:latest
+docker pull axway.jfrog.io/ampc-public-docker-release/agent/v7-traceability-agent:latest
 ```
 
 ### Customizing the Traceability Agent configuration file
@@ -699,25 +707,25 @@ traceability_agent:
 
 #### Customizing central section (traceability_agent.central)
 
-This section connects the agent to AMPLIFY Central and determine how to published the discovered APIs.
+This section connects the agent to Amplify Central and determine how to published the discovered APIs.
 
-`url`: The amplify central url. Default value is **<https://apicentral.axway.com>**.
+`url`: The Amplify central url. Default value is **<https://apicentral.axway.com>**.
 
-`organizationID`: The Organization ID from AMPLIFY Central. Locate this at Platform > User > Organization > ORrg ID field.
+`organizationID`: The Organization ID from Amplify Central. Locate this at Platform > User > Organization > ORrg ID field.
 
 `deployment`: The APIC deployment environment. Default value is **prod**.
 
-`environment`: The environment name you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/).
+`environment`: The environment name you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/).
 
-`auth.url`: The AMPLIFY login URL. Default value is **<https://login.axway.com/auth>**.
+`auth.url`: The Amplify login URL. Default value is **<https://login.axway.com/auth>**.
 
-`auth.realm`: The Realm used to authenticate for AMPLIFY Central. Default value is **Broker**.
+`auth.realm`: The Realm used to authenticate for Amplify Central. Default value is **Broker**.
 
-`auth.clientId`: The name of the Service Account you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/). Locate this at AMPLIFY Central > Access > Service Accounts.
+`auth.clientId`: The name of the Service Account you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Locate this at Amplify Central > Access > Service Accounts.
 
-`auth.privateKey`: The location of the private key file you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.
+`auth.privateKey`: The location of the private key file you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.
 
-`auth.publicKey`:  The location of the public key file you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.  
+`auth.publicKey`:  The location of the public key file you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.  
 
 `auth.keyPassword`: The key password to open the key. None set up by default.
 
@@ -725,7 +733,7 @@ This section connects the agent to AMPLIFY Central and determine how to publishe
 
 `proxy_url`: The URL for the proxy for Amplify Central `<http://username:password@hostname:port>`. If empty, no proxy is defined.
 
-`ssl` settings: By default, for connecting to AMPLIFY Central, agent uses TLS 1.2 with a predefined list of cipher suites. Refer to [Administer API Manager agent security](/docs/central/connect-api-manager/agent-security-api-manager/) section for changing this behavior.
+`ssl` settings: By default, for connecting to Amplify Central, agent uses TLS 1.2 with a predefined list of cipher suites. Refer to [Administer API Manager agent security](/docs/central/connect-api-manager/agent-security-api-manager/) section for changing this behavior.
 
 Once all data is gathered, this section should look like:
 
@@ -758,7 +766,7 @@ traceability_agent:
 
 This section helps the agent to collect the header from request/response from the API Gateway system.
 
-`getHeaders`: Tells the agent to  call the API Gateway API to get additional transaction details (headers). Default value is **true**. If false, API Gateway config does not need to be set and no headers will be send to AMPLIFY Central.
+`getHeaders`: Tells the agent to  call the API Gateway API to get additional transaction details (headers). Default value is **true**. If false, API Gateway config does not need to be set and no headers will be send to Amplify Central.
 
 `host`: The host that Axway API Gateway is running on. Default value is **localhost**.
 
@@ -841,7 +849,7 @@ traceability_agent:
 
 #### Customizing output ingestion service section (output.traceability)
 
-This section describes where the logs should be sent on AMPLIFY Central.
+This section describes where the logs should be sent on Amplify Central.
 
 `hosts`: The host and port of the ingestion service to forward the transaction log entries. Default value is **ingestion-lumberjack.datasearch.axway.com:453**.
 
@@ -851,7 +859,7 @@ This section describes where the logs should be sent on AMPLIFY Central.
 
 `ssl.cipher_suites`: List the cipher suites for the TLS connectivity. See the [Administer API Manager agent security](/docs/central/connect-api-manager/agent-security-api-manager/) topic for more information.
 
-`proxy_url`: The socks5 or http URL of the proxy server for ingestion service (**socks5://username:password@hostname:port**) to use when the API Management eco-system is not allowed to access the internet world where AMPLIFY Central is installed. **username** and **password** are optional and can be omitted if not required by the proxy configuration. Leaving this value empty means that no proxy will be used to connect to AMPLIFY Central ingestion service.
+`proxy_url`: The socks5 or http URL of the proxy server for ingestion service (**socks5://username:password@hostname:port**) to use when the API Management eco-system is not allowed to access the internet world where Amplify Central is installed. **username** and **password** are optional and can be omitted if not required by the proxy configuration. Leaving this value empty means that no proxy will be used to connect to Amplify Central ingestion service.
 
 Once all data is gathered, the section should look like this if you do not use a proxy:
 
@@ -1170,7 +1178,7 @@ cd /home/APIC-agents
 2. Start the Traceability Agent pointing to the `env_vars` file, `keys`, and the logging `events` directory. `pwd` relates to the local directory where the docker command is run. For Windows, the absolute path is preferred.
 
    ```shell
-   docker run --env-file ./env_vars -v <pwd>/keys:/keys -v <pwd>/events:/events axway-docker-public-registry.bintray.io/agent/v7-traceability-agent:latest
+   docker run --env-file ./env_vars -v <pwd>/keys:/keys -v <pwd>/events:/events axway.jfrog.io/ampc-public-docker-release/agent/v7-traceability:latest
    ```
 
    * See [Create and start API Gateway Docker container](/docs/apim_installation/apigw_containers/docker_script_gwimage/#mount-volumes-to-persist-logs-outside-the-api-gateway-container/) for more  information regarding the persistent API Gateway trace and event logs to a directory on your host machine.

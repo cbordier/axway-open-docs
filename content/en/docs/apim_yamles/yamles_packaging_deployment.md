@@ -6,11 +6,11 @@
 "description": "Learn how to package and deploy a YAML configuration to the API Gateway runtime."
 }
 
-{{< alert title="Note">}}When a YAML configuration is deployed to an API Gateway group, it is still possible to switch it back and deploy an XML federated configuration to that same API Gateway group. When an API Gateway instance is first created to will have an XML federated configuration deployed with it.{{< /alert>}}
+{{< alert title="Note">}}When a YAML configuration is deployed to an API Gateway group, it is still possible to switch it back and deploy an XML federated configuration to that same API Gateway group. When an API Gateway instance is first created, an XML federated configuration is deployed with it.{{< /alert>}}
 
 ## Build the deployment package
 
-When you have created a YAML configuration that you wish to deploy to the API Gateway, you must build a deployment package before deploying. The deployment package is a `.tar.gz` file. This is the equivalent of the `.fed` file for an XML federated configuration. You can use standard tooling to build a `.tar.gz` file that contains the content of the directory of the YAML configuration. The `.tar.gz` file must have the following structure inside:
+After you create a YAML configuration that you wish to deploy to the API Gateway, you must build a deployment package before deploying it. The deployment package is a `.tar.gz` file. This is the equivalent of the `.fed` file for an XML federated configuration. You can use standard tooling to build a `.tar.gz` file that contains the content of the directory of the YAML configuration. The `.tar.gz` file must have the following structure inside:
 
 ![YAML deployment package structure](/Images/apim_yamles/yamles_package.png)
 
@@ -20,11 +20,13 @@ You can use any tooling to build a standard `.tar.gz` of this format. Linux comm
 
 ### Use command line tooling to build the YAML .tar.gz
 
-You can build a `yaml-config.tar.gz` of the YAML configuration in a directory named `~/yamlconfig` at the command line using the following command:
+You can build a `yaml-config.tar.gz` of the YAML configuration in a directory named `~/yamlconfig` as follows:
 
-```cd ~/yamlconfig && tar -zcvf ../yaml-config.tar.gz * && cd ~```
+```
+cd ~/yamlconfig && tar -zcvf ../yaml-config.tar.gz * && cd ~
+```
 
-After running the command above, the `yaml-config.tar.gz` file should exist in your home directory.
+After running the command above, the `yaml-config.tar.gz` file is created in your home directory.
 
 ### Use maven to build the YAML .tar.gz
 
@@ -131,7 +133,7 @@ You can remove the existing `manifest-policy.mf` and `manifest-environment.mf` f
 
 Deployment of YAML configuration via Policy Studio or the API Gateway Manager UI is not yet supported, you must use command line tools instead. For example, `managedomain`, or `projdeploy`.
 
-### Use `managedomain` to deploy a YAML configuration
+### Use managedomain to deploy a YAML configuration
 
 Before you use `managedomain` for deploying, ensure that the YAML `.tar.gz` is encrypted using the same passphrase that the API Gateway uses to decrypt its configuration. The configuration is unencrypted by default. If you converted an XML federated configuration that was encrypted, it is still encrypted by the same passphrase in the converted YAML format.
 
@@ -141,7 +143,7 @@ To deploy `~/archives/yaml-config.tar.gz` via `managedomain` to an API Gateway g
 ./managedomain --deploy --group TestGroup --archive_filename ~/archives/yaml-config.tar.gz --username admin --password changeme
 ```
 
-## Use `projdeploy` to deploy a YAML configuration
+### Use projdeploy to deploy a YAML configuration
 
 You can encrypt, reencrypt, or decrypt the YAML `.tar.gz` file with the `projdeploy` tool before deploying to an API Gateway group.
 

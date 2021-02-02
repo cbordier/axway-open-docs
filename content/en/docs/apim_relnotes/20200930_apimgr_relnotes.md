@@ -1,7 +1,7 @@
 ---
 title: API Gateway and API Manager 7.7 September 2020 Release Notes
 linkTitle: API Gateway and API Manager September 2020
-weight: 60
+weight: 120
 date: 2020-08-26T00:00:00.000Z
 ---
 
@@ -67,7 +67,7 @@ When you delete the primary organization of a user, the user’s account is also
 
 By default, Organization administrators require the approval of an API administrator to publish and unpublish APIs that were created in their organization without approval from an API Administrator. By setting the `api.manager.orgadmin.selfservice.enabled` system property to `true`, the OrgAdmin will no longer require approval, and will be able to directly publish and unpublish APIs.
 
-### Technical preview capability: YAML configuration store
+### YAML configuration store (Technical preview capability)
 
 This work is an initiative born from collaborative customer hackathons to make the API Gateway configuration more CI/CD/DevOps and developer-friendly.​ It involved transforming the federated configuration into YAML fragments, which can be managed using standard DevOps tools, moving away from a propriety TeamDev approach to encourage the use of standard tools, source control, and DevOps tools that could be used to facilitate and encourage a better experience for collaboration.​
 

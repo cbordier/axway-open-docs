@@ -1,7 +1,7 @@
 ---
 title: API Portal 7.7 November 2020 Release Notes
 linkTitle: API Portal November 2020
-weight: 60
+weight: 110
 date: 2020-11-05
 ---
 

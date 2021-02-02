@@ -20,8 +20,6 @@ The YAML entity store has been designed to expose entities in a readable way. Fo
 
 ![YAML File Structure vs Policy Studio](/Images/apim_yamles/yamles_structure_ps_vs_yaml.png)
 
-{{< alert title="Note">}}This structure may slightly evolve in future versions, but the core principles of how it works will remain the same.{{< /alert >}}
-
 ## Files and directories
 
 ### Root directory
@@ -31,7 +29,7 @@ The root directory contains:
 * `_parent.yaml` containing the unique root type entity.
 * `values.yaml` is used for [Environmentalization](/docs/apim_yamles/yamles_environmentalization). (Optional).
 
-Any other file is ignored, YAML or not.
+Any other file in this directory is ignored, YAML or not.
 
 ### Top level directories
 
@@ -52,7 +50,7 @@ The root entity has many direct children. To sort them out, a first level of hie
 
 ### META-INF
 
-The META-INF folder contains the `_types.yaml` file. This file contains the definition of all the entity types in the entity store model. This it is where you can find useful information about the fields you can use for an [entity type](/docs/apim_yamles/apim_yamles_references/yamles_types).
+The META-INF folder contains the `types` directory. This directory contains the definition of all the entity types in the entity store model. This is where you can find useful information about the fields you can use for an [entity type](/docs/apim_yamles/apim_yamles_references/yamles_types).
 
 ### _parent.yaml
 
@@ -123,18 +121,16 @@ For example, for entity type `JSONSchema` key field is `URL`. If the value of UR
 
 See the [Yaml PK section](#yamlpk-and-references).
 
-### Best practices
+### Best practices to name entities
 
-The following are the good practices to name your entities:
+The following are best practices to name your entities:
 
-* Use short but meaningful names. Make sure to create names shorter than 40 symbols (Some systems do not supports it).
+* Use short but meaningful names. Make sure to create names shorter than 40 symbols (Some systems do not support it).
 * It is preferable to use only letters and numbers.
 * Name your file after your entity (in 95% if the cases, it is value of the field 'name').
 * File names for multiple key fields are rare, try to keep as meaningful as possible.
 
-Sometimes you cannot follow those best practices and some key fields will contain incompatible characters for a filename. You can follow the default convention mentioned above, or not but, make sure your YAML files name are close enough to the key fields values. By doing so, it will simplify troubleshooting, as you will easily find your files when the only piece of information you get is a YamlPK printed out in logs (Gateway, yamles validation, and so on).
-
-See the [Yaml PK section](#yamlpk-and-references).
+Sometimes you cannot follow these best practices and some key fields will contain incompatible characters for a filename. In this case, ensure that your YAML files names are close enough to the key fields values. By doing so, it will simplify troubleshooting, as you will easily find your files when the only piece of information you get is a YamlPK printed out in logs (Gateway, yamles validation, and so on).
 
 ## Entity files model
 
@@ -183,15 +179,15 @@ children:
       field_b: Hi ancestors!
 ```
 
-{{< alert title="Note">}} You will notice `---` at the beginning of some example YAML files, and in the YAML files converted from XML. This the default behavior of the YAML format. It is optional, and it works perfectly without it.{{< /alert >}}
+{{< alert title="Note">}} You will notice `---` at the beginning of some examples of YAML files and in the YAML files converted from XML. This the default behavior of the YAML format. It is optional, and it works perfectly without it.{{< /alert >}}
 
 ## Policies
 
-Policies are one of the most frequently used entity types. Its type is `FilterCircuit`. It contains a list of filters with over 200 derived types.
+Policies are of type `FilterCircuit`. This is one of the most frequently used entity types, and it contains a list of filters with over 200 derived types.
 
 Some common fields of the super type `Filter` have been customized for the YAML entity store to make the file more readable. All the configuration of a policy is contained into one single YAML file.
 
-Syntax such as `./First Filter` or `../Second Filter` are explain in [YamlPK and References](/docs/apim_yamles/yamles_structure/#yamlpk-and-references) .
+You can set `Filters` in any order in the YAML file, but when converting an XML `.fed` or importing an XML fragment with the `yamles fed2yaml` or `yamles frag2yaml` commands, the filters are ordered in a more logical way. The filter identified in the Policy as the start filter is placed first, followed by filters belonging to the "successful" path, as shown in the following example:
 
 ```yaml
 type: FilterCircuit
@@ -218,10 +214,14 @@ children:
     success: Success in setting the message   # corresponds to logSuccess
     maskType: FILTER                          # corresponds to logMaskType
     mask: 1                                   # corresponds to logMask
+- type: CompareAttributeFilter
+  fields:
+    name: Error Filter
 ...
 ```
 
-YAML can be written in several ways. For more information, see [YAML syntax considerations](/docs/apim_yamles/apim_yamles_references/yamles_syntax_considerations) for details.
+* To learn more about syntax, such as `./First Filter` or `../Second Filter`, see [YamlPK and References](/docs/apim_yamles/yamles_structure/#yamlpk-and-references).
+* To learn more about the different ways to write your YAML `.fed`, see [YAML syntax considerations](/docs/apim_yamles/apim_yamles_references/yamles_syntax_considerations).
 
 ## YamlPK and References
 

@@ -111,7 +111,7 @@ Request sample sent to the webhook endpoint:
 
 4. The subscriber consumes the API:
 
-   * The API can be consumed once the API crendential details are received.
+   * The API can be consumed once the API credential details are received.
 
 {{< alert title="Note" color="primary" >}}Depending on the poll interval settings for the Discovery Agent, it will take a little time from when the user subscribes an API to an application until AMPLIFY Central shows the subscription state of **Active**. This is because of the time it takes to discover the change on Azure API Management service and send events back and forth between API Manager and AMPLIFY Central.{{< /alert >}}
 

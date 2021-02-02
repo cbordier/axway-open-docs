@@ -29,17 +29,17 @@ To fix this issue, rename either the policy or the policy container as follows a
 
 ![Conversion Error](/Images/apim_yamles/yamles_conversion_error_case1_2.png)
 
-## Entities of different types at same level with same PK for parent PK
+## Entities of different types at same level with same PK
 
 ### Two entities at the same level, with the same name
 
 |yamles option        |Severity | Exception raised |
 |---                    |---      | ---              |
-|`fed2yaml`, `frag2yaml`|WARNING  | Found entities of different types at same level with same PK for parent PK :'/Server Settings/Logging Configuration' PK end with: (XMLRollOverLogger)Text Rollover File Logger WARNING: Found entities of different types at same level with same PK for parent PK :'/Server Settings/Logging Configuration' PK end with: (TextRollOverLogger)Text Rollover File Logger'|
+|`fed2yaml`, `frag2yaml`|WARNING  | Found entities of different types at same level with same PK for parent PK :'/Path/to/parent' PK end with: (EntityTypeA)MyEntityName WARNING: Found entities of different types at same level with same PK for parent PK :'/Path/to/parent' PK end with: (EntityTypeB)MyEntityName|
 
-The factory configuration has two entities, one of type `TextRollOverLogger` and one of type `XMLRollOverLogger`. They reside at the same level, but have the same name. The conversion process will compensate for this by adding the type to the filename, for example, `(TextRollOverLogger)Text Rollover File Logger.yaml` and `XmlRollOverLogger)Text Rollover File Logger.yaml`.
+This error might be generated at conversion time when using the `fed2yaml` or `frag2yaml` options if the original XML has entities of different types, at the same level, with the same PK.
 
-To fix this, you must rename the `XmlRollOverLogger` to `XML Rollover Logger` using ESExplorer and rerun the conversion. Leaving this unfixed, will not cause any issues.
+To fix this, rename one of the entities using ESExplorer and rerun the conversion. Leaving this unfixed, might cause issues when importing this data as a configuration fragment.
 
 ### Two different types of filters, with the same key, in the same policy
 

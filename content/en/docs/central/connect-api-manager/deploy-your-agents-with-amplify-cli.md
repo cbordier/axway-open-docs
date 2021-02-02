@@ -1,51 +1,51 @@
 ---
-title: Deploy your agents with AMPLIFY CLI
-linkTitle: Deploy your agents with AMPLIFY CLI
+title: Deploy your agents with Amplify CLI
+linkTitle: Deploy your agents with Amplify CLI
 draft: false
 weight: 20
-description: Learn how to deploy your agents using AMPLIFY CLI so that you can
-  manage your Axway API Gateway environment within AMPLIFY Central.
+description: Learn how to deploy your agents using Amplify CLI so that you can
+  manage your Axway API Gateway environment within Amplify Central.
 ---
 ## Before you start
 
-* Read [AMPLIFY Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
+* Read [Amplify Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
 * You will need a basic knowledge of Axway API Management installation
 
-    * where the API Gateway is running (host / port / path to event logs)
-    * where the Admin node manager is running (host / port)
-    * what users are available for the agent to use. It is recommended to have one API Manager user for Discovery Agent and one API Gateway operator user for Traceability Agent.
+    * Where the API Gateway is running (host / port / path to event logs)
+    * Where the Admin node manager is running (host / port)
+    * What users are available for the agent to use. It is recommended to have one API Manager user for Discovery Agent and one API Gateway operator user for Traceability Agent.
 
 ## Objectives
 
-Learn how to quickly install and run your Discovery and Traceability agents with basic configuration using AMPLIFY Central CLI.
+Learn how to quickly install and run your Discovery and Traceability agents with basic configuration using Amplify Central CLI.
 
-## AMPLIFY Central CLI pre-requisites
+## Amplify Central CLI pre-requisites
 
 * Node.js 8 LTS or later
-* Access to npm package (for installing AMPLIFY cli)
+* Access to npm package (for installing Amplify cli)
 * Access to login.axway.com on port 443
-* Minimum AMPLIFY Central CLI version: 0.1.15 (check version using `amplify central --version`)
+* Minimum Amplify Central CLI version: 0.1.15 (check version using `amplify central --version`)
 
-More information is available at [Install AMPLIFY Central CLI](/docs/central/cli_central/cli_install/).
+More information is available at [Install Amplify Central CLI](/docs/central/cli_central/cli_install/).
 
 ## Install the agents
 
 ### Step 1: Folder preparation
 
-Create an empty directory where AMPLIFY CLI will generate files. Run all AMPLIFY Central CLI from this directory.
+Create an empty directory where Amplify CLI will generate files. Run all Amplify Central CLI from this directory.
 
-### Step 2: Identify yourself to AMPLIFY Platform with AMPLIFY CLI
+### Step 2: Identify yourself to Amplify Platform with Amplify CLI
 
-To use Central CLI to log in with your AMPLIFY Platform credentials, run the following command:
+To use Central CLI to log in with your Amplify Platform credentials, run the following command:
 
 ```shell
 amplify auth login
 ```
 
 A browser will automatically open.
-Enter your valid credentials (email address and password). Once the “Authorization Successful” message is displayed, go back to AMPLIFY CLI.
+Enter your valid credentials (email address and password). Once the “Authorization Successful” message is displayed, go back to Amplify CLI.
 
-If you are a member of multiple AMPLIFY organizations, you may have to choose an organization.
+If you are a member of multiple Amplify organizations, you may have to choose an organization.
 
 {{< alert title="Note" color="primary" >}}If you do not have a graphical environment, forward the display to an X11 server (Xming or similar tools) using the `export DISPLAY=myLaptop:0.0` command .{{< /alert >}}
 
@@ -57,7 +57,7 @@ Agents will be installed in the directory from where the CLI runs. You can insta
 amplify central install agents
 ```
 
-If your AMPLIFY subscription is hosted in the EU region, then the following installation command must be used to correctly configure the agents:
+If your Amplify subscription is hosted in the EU region, then the following installation command must be used to correctly configure the agents:
 
 ```shell
 amplify central install agents --region=EU
@@ -69,7 +69,7 @@ The installation procedure will prompt for the following:
 2. Platform connectivity:
    * **environment**: can be an existing environment or a new one that will be created by the installation procedure
    * **team**: can be an existing team or a new one that will be created by the installation procedure
-   * **service account**: can be an existing service account or a new one that will be created by the installation procedure. If you choose an existing one, be sure you have the appropriate public and private keys, as they will be required for the agent to connect to the AMPLIFY Platform. If you choose to create a new one, the generated private and public keys will be provided.
+   * **service account**: can be an existing service account or a new one that will be created by the installation procedure. If you choose an existing one, be sure you have the appropriate public and private keys, as they will be required for the agent to connect to the Amplify Platform. If you choose to create a new one, the generated private and public keys will be provided.
 3. Select the agents you want to install: Discovery / Traceability / all.
 4. Select the agent deployment mode: binary / Docker image.
 5. API Manager connectivity:
@@ -103,7 +103,7 @@ public_key.pem            *only present if a new service account is created
 
 `discovery_agent.yml` and `traceability_agent.yml` contain the default minimum agent configuration.
 
-`private_key.pem` and `public_key.pem` are the generated key pair the agent will use to securely talk with the AMPLIFY Platform (if you choose to let the installation generate them).
+`private_key.pem` and `public_key.pem` are the generated key pair the agent will use to securely talk with the Amplify Platform (if you choose to let the installation generate them).
 
 ## Start the agents
 
@@ -130,13 +130,13 @@ As mentioned in the installation procedure, agents can be started with the follo
 Discovery Agent:
 
 ```shell
-docker run -it --env-file $(pwd)/da_env_vars.env -v $(pwd):/keys axway-docker-public-registry.bintray.io/agent/v7-discovery-agent:latest
+docker run -it --env-file $(pwd)/da_env_vars.env -v $(pwd):/keys docker run -it axway.jfrog.io/ampc-public-docker-release/agent/v7-discovery-agent:latest
 ```
 
 Traceability Agent:
 
 ```shell
-docker run -it --env-file $(pwd)/ta_env_vars.env -v $(pwd):/keys -v EVENT_LOG_PATH_ENTERED_DURING_INSTALLATION:/events axway-docker-public-registry.bintray.io/agent/v7-traceability-agent:latest
+docker run -it --env-file $(pwd)/ta_env_vars.env -v $(pwd):/keys -v EVENT_LOG_PATH_ENTERED_DURING_INSTALLATION:/events docker run -it axway.jfrog.io/ampc-public-docker-release/agent/v7-traceability:latest
 ```
 
 ### Linux Service mode for binary agent
@@ -231,7 +231,7 @@ An empty result means the agent is not running; otherwise, you should receive th
       }
     },
     "central": {
-      "name": "AMPLIFY Central",
+      "name": "Amplify Central",
       "endpoint": "central",
       "status": {
         "result": "OK"
@@ -272,7 +272,7 @@ An empty result means the agent is not running; otherwise, you should receive th
       }
     },
     "central": {
-      "name": "AMPLIFY Central",
+      "name": "Amplify Central",
       "endpoint": "central",
       "status": {
         "result": "OK"
@@ -290,9 +290,9 @@ An empty result means the agent is not running; otherwise, you should receive th
   sudo ./traceability_agent service status
   ```
 
-### Use AMPLIFY Central CLI
+### Use Amplify Central CLI
 
-After being authenticated to the plaform with `amplify auth login` command, run the following:
+After being authenticated to the platform with `amplify auth login` command, run the following:
 
 * `amplify central get edgeda` to get all discovery agent information.
 * `amplify central get edgeta` to get all traceability agent information.

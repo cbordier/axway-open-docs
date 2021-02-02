@@ -1,7 +1,8 @@
 ---
 title: Unified Catalog November 2020 Release Notes
 linkTitle: Unified Catalog November 2020 Release Notes
-weight: 05
+weight: 07
+date: 2020-11-30
 description: The Unified Catalog is the Marketplace of all integration assets in
   the enterprise, that can range from APIs to Managed File Transfer Flows, and
   caters to both providers and consumers.

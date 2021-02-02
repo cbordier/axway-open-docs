@@ -14,10 +14,6 @@ There is no support for YAML configurations in Policy Studio.
 
 Deployment of YAML configurations via API Gateway Manager web UI is not supported.
 
-## Custom entity types
-
-Custom entity types are not supported in YAML configuration.
-
 ## Team development
 
 * Support of Team development using `yamles import` command, where you must import each project one at a time.
@@ -38,15 +34,11 @@ When an entity store is edited via ES Explorer or the entity store API, some fie
 * You can view and edit the YAML configuration fragment in ES Explorer.
 * It is not yet possible to import or export YAML configuration fragments in ES Explorer, this can only be done using the `yamles` CLI.
 
-## Import of config fragment into environmentalized YAML configuration
+## Import and export of environmentalized YAML configuration
 
-When you import a YAML configuration fragment into a YAML configuration using `yamles import`, the environmentalization settings (for example, `{{ db.host }}`) in entity YAML files are replaced with their resolved values if they can be resolved, or `invalid field`, if they cannot be resolved.
+When you import a YAML configuration fragment into a YAML configuration using `yamles import`, or when you export a YAML configuration fragment from a YAML configuration using `yamles export`, the environmentalization settings (for example, `{{db.host}}`) in entity YAML files are replaced with their resolved values if they can be resolved, or `invalid field`, if they cannot be resolved.
 
-We recommend you to avoid importing into YAML configurations that use environmentalization.
-
-## Environmentalized key fields
-
-YAML configuration does not support environmentalized key fields.
+We do not recommend you to import into or export from a YAML configuration that uses environmentalization.
 
 ## API Gateway group instance
 
@@ -84,50 +76,6 @@ When the default factory API Manager configuration is included in the YAML confi
 This issue occurs when the `encrypt` or `change-passphrase` options are used in the `yamles` CLI tool, or when the group passphrase is changed through the `managedomain --change_passphrase` command.
 
 To workaround this, add values or a `/null` value, for the missing fields.
-
-## Encrypt or change the passphrase of YAML Configuration that contains environmentalized settings
-
-When a YAML configuration with environmentalized settings is encrypted or re-encrypted, the resolved values are written into the YAML entity files after the encryption completes. For example, if a YAML policy file has the following content:
-
-```yaml
----
-type: FilterCircuit
-fields:
-  name: Test
-  start: ./Trace Filter
-children:
-- type: TraceFilter
-  fields:
-    traceBody: true
-    traceMsg: '{{ env "TRACE_MESSAGE" }}'
-    traceLevel: 2
-    doIndent: true
-    name: Trace Filter
-```
-
-after the encryption the file will get rewritten as follows (assuming the environment variable `TRACE_MESSAGE` is set and its value is `"The trace message"`):
-
-```yaml
----
-type: FilterCircuit
-fields:
-  name: Test
-  start: ./Trace Filter
-children:
-- type: TraceFilter
-  fields:
-    traceBody: true
-    traceMsg: The trace message
-    traceLevel: 2
-    doIndent: true
-    name: Trace Filter
-```
-
-If the environment variable is not set, the string `"invalid field"` is added to the YAML file.
-
-This issue occurs when the `encrypt` or `change-passphrase` options are used in the `yamles` CLI tool, or when the group passphrase is changed through the `managedomain --change_passphrase` command. The changes to the deployed configuration (using `managedomain`) might not be problematic as long as the configuration is not pulled back from the runtime and used to create a new YAML configuration project.
-
-To workaround this, encrypt the passphrase before applying environmentalization, or reset the environmentalized values after encryption.
 
 ## Node Manager
 

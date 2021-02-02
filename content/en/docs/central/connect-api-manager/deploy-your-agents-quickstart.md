@@ -4,13 +4,13 @@ linkTitle: Deploy your agents - quickstart
 draft: true
 weight: 25
 description: Learn how to quickly deploy your Discovery Agent and Traceability
-  Agent so that you can manage your Axway API Gateway environment within AMPLIFY
+  Agent so that you can manage your Axway API Gateway environment within Amplify
   Central.
 ---
 ## Before you start
 
-* Read [AMPLIFY Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
-* Be sure you have [Prepared AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/)
+* Read [Amplify Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
+* Be sure you have [Prepared Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/)
 * You will need a basic knowledge of Axway API Management solution
 
     * Where the solution is running (host / port / path to the logs / users)
@@ -46,20 +46,20 @@ APIGATEWAY_AUTH_PASSWORD=<apiGatewayOperatorUserPassword>
 # When multiple log paths are defined, either separate each path with a comma or use the wildcard to regroup them all in a single value.
 EVENT_LOG_PATHS=<apiGatewayInstallDir>/events/group-*_instance-*.log
 #
-#AMPLIFY Central connectivity
+#Amplify Central connectivity
 #
 CENTRAL_ORGANIZATIONID=<YOUR ORGANIZATION ID>
 CENTRAL_ENVIRONMENT=<NAME OF THE CENTRAL TOPOLOGY ENVIRONMENT>
 CENTRAL_AUTH_CLIENTID=<SERVICE ACCOUNT NAME: DOSA_xxxxxxxxx>
 ```
 
-The required values represented in `<>` are either coming from the API Management system installation or from AMPLIFY platform configuration.
+The required values represented in `<>` are either coming from the API Management system installation or from Amplify platform configuration.
 An explanation for each variable can be found in the [Agent variables section](/docs/central/connect-api-manager/agent-variables/).
 
 ## 2. Download Discovery Agent
 
 ```shell
-curl -L "https://axway.bintray.com/generic-repo/v7-agents/v7_discovery_agent/latest/discovery_agent-latest.zip" -o discovery_agent-latest.zip
+curl -L "https://axway.jfrog.io/artifactory/ampc-public-generic-release/v7-agents/v7_discovery_agent/latest/discovery_agent-latest.zip" -o discovery_agent-latest.zip
 ```
 
 Unzip the file `discovery_agent-latest.zip` to get the agent binary (`discovery_agent`) and the template configuration (`discovery_agent.yml`).
@@ -84,7 +84,7 @@ And the agent should start discovering already published APIs.
 ## 4. Download Traceability Agent
 
 ```shell
-curl -L "https://axway.bintray.com/generic-repo/v7-agents/v7_traceability_agent/latest/traceability_agent-latest.zip" -o traceability_agent-latest.zip
+curl -L "https://axway.jfrog.io/artifactory/ampc-public-generic-release/v7-agents/v7_traceability_agent/latest/traceability_agent-latest.zip" -o traceability_agent-latest.zip
 ```
 
 Unzip the file `traceability_agent-latest.zip` to get the agent binary (`traceability_agent`) and the template configuration (`traceability_agent.yml`) into the same folder as the discovery agent.
@@ -102,4 +102,4 @@ If all parameter are correct, the following message should be displayed:
 2020-08-01T02:14:54.894+0200    INFO    instance/beat.go:438    traceability_agent start running.
 ```
 
-And the traceability agent should start publishing the logs in AMPLIFY platform.
+And the traceability agent should start publishing the logs in Amplify platform.
