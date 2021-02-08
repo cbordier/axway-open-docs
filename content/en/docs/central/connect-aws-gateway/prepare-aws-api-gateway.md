@@ -8,7 +8,7 @@ description: Learn how to use the provided CoudFormation templates to initialize
 ---
 ## Before you start
 
-* Read [AMPLIFY Central AWS API Gateway connected overview](/docs/central/connect-aws-gateway/)
+* Read [Amplify Central AWS API Gateway connected overview](/docs/central/connect-aws-gateway/)
 * You will need a basic knowledge of Amazon Web Services (AWS) and associated tools
 
 ## Objectives
@@ -66,7 +66,7 @@ aws ec2 create-key-pair \
     --output text > MyKeyPair.pem
 ```
 
-## Save AMPLIFY Central keys within AWS Systems Manager Parameter Store (EC2 and ECS)
+## Save Amplify Central keys within AWS Systems Manager Parameter Store (EC2 and ECS)
 
 * Create a secure string parameter for both the private_key.pem and public_key.pem files.
 
@@ -102,7 +102,7 @@ Create a new stack with the S3 URL of the `amplify-agents-deploy-all.yaml` templ
     * Set the **ConfigBucketExists** value to `true` to use an existing S3 bucket to store the AWS logs. Be sure the S3 Bucket is accessible and is located in the same region where you run the Cloud Formation template.
     * Set the ConfigBucketName value to the S3 Bucket where you saved all of the files, to store AWS Config logs. When ConfigBucketExists is false the CloudFormation will attempt to create a new bucket using the this name value appending the account id and region to it.
     * Accept the **DiscoveryQueueName** default value of `aws-apigw-discovery` to hold changes made to the API Gateway resources.
-    * Accept the **TraceabilityQueueName** default value of `aws-apigw-traceability` to hold the API call so that the Traceability Agent can push them into the AMPLIFY platform.
+    * Accept the **TraceabilityQueueName** default value of `aws-apigw-traceability` to hold the API call so that the Traceability Agent can push them into the Amplify platform.
 
 * Deployment Type
 

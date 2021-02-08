@@ -3,7 +3,7 @@ title: Administer AWS Gateway network traffic
 linkTitle: Administer AWS Gateway network traffic
 draft: false
 weight: 30
-description: Traffic is always initiated by the Agent to AWS and AMPLIFY
+description: Traffic is always initiated by the Agent to AWS and Amplify
   Central. No sessions are ever initiated back to the Agent.
 ---
 
@@ -35,7 +35,7 @@ Open the following ports to benefit from all the Agent functionalities:
 | US     | ingestion-lumberjack.datasearch.axway.com or ingestion.datasearch.axway.com             | 453 or 443         | TCP or HTTPS | API event data                     |
 | EU     | ingestion-lumberjack.visibility.eu-fr.axway.com or ingestion.visibility.eu-fr.axway.com | 453 or 443         | TCP or HTTPS | API event data                     |
 
-Note: _Region_ column is representing the region where your AMPLIFY organization is deployed. EU means deployed in European data center and US meaning deployed in US data center. Be sure to use the corresponding _Host_/_Port_ for your agents to operate correctly.
+Note: _Region_ column is representing the region where your Amplify organization is deployed. EU means deployed in European data center and US meaning deployed in US data center. Be sure to use the corresponding _Host_/_Port_ for your agents to operate correctly.
 
 **Inbound**:
 
@@ -49,7 +49,7 @@ The docker container does not expose any ports outside of the container. Within 
 
 ### Direct Connection
 
-**Connecting to AMPLIFY Central and Login hosts:**
+**Connecting to Amplify Central and Login hosts:**
 
 ```shell
 curl -s -o /dev/null -w "%{http_code}"  https://apicentral.axway.com
@@ -61,7 +61,7 @@ curl -s -o /dev/null -w "%{http_code}"  https://login.axway.com
 
 A return of **"200"** validates the connection was established.
 
-**Connecting to AMPLIFY Central Event Traffic host, HTTPS:**
+**Connecting to Amplify Central Event Traffic host, HTTPS:**
 
 ```shell
 curl -s -o /dev/null -w "%{http_code}" https://ingestion.datasearch.axway.com
@@ -69,7 +69,7 @@ curl -s -o /dev/null -w "%{http_code}" https://ingestion.datasearch.axway.com
 
 A return of **"200"** validates the connection was established.
 
-**Connecting to AMPLIFY Central Event Traffic host, Lumberjack:**
+**Connecting to Amplify Central Event Traffic host, Lumberjack:**
 
 ```shell
 curl ingestion-lumberjack.datasearch.axway.com:453
@@ -79,7 +79,7 @@ A return of **"curl: (52) Empty reply from server"** validates the connection wa
 
 ### Connection via Proxy
 
-**Connecting to AMPLIFY Central and Login hosts:**
+**Connecting to Amplify Central and Login hosts:**
 
 ```shell
 curl -x {{proxy_host}}:{{proxy_port}} -s -o /dev/null -w "%{http_code}"  https://apicentral.axway.com
@@ -91,7 +91,7 @@ curl -x {{proxy_host}}:{{proxy_port}} -s -o /dev/null -w "%{http_code}"  https:/
 
 A return of **"200"** validates the connection was established.
 
-**Connecting to AMPLIFY Central Event Traffic host, HTTPS:**
+**Connecting to Amplify Central Event Traffic host, HTTPS:**
 
 ```shell
 curl -x {{proxy_host}}:{{proxy_port}} -s -o /dev/null -w "%{http_code}" https://ingestion.datasearch.axway.com
@@ -99,7 +99,7 @@ curl -x {{proxy_host}}:{{proxy_port}} -s -o /dev/null -w "%{http_code}" https://
 
 A return of **"200"** validates the connection was established.
 
-**Connecting to AMPLIFY Central Event Traffic host, Lumberjack:**
+**Connecting to Amplify Central Event Traffic host, Lumberjack:**
 
 ```shell
 curl -x socks5://{{proxy_host}}:{{proxy_port}} ingestion-lumberjack.datasearch.axway.com:453

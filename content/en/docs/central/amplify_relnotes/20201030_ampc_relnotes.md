@@ -1,20 +1,20 @@
 ---
-title: AMPLIFY Central October 2020 Release Notes
-linktitle: AMPLIFY Central October 2020
+title: Amplify Central October 2020 Release Notes
+linktitle: Amplify Central October 2020
 weight: 90
-description: AMPLIFY Central / Unified Catalog enables the user to manage their
-  provider / consumer view. For more information, see the AMPLIFY Central and
-  AMPLIFY Unified Catalog documentation.
+description: Amplify Central / Unified Catalog enables the user to manage their
+  provider / consumer view. For more information, see the Amplify Central and
+  Amplify Unified Catalog documentation.
 ---
 ## New features and enhancements
 
 The following new features and enhancements are available in this update.
 
-### AMPLIFY Unified Catalog
+### Amplify Unified Catalog
 
 The Unified Catalog is the Marketplace of all integration assets in the enterprise, that can range from APIs to Managed File Transfer Flows, and caters to both providers and consumers.
 
-The AMPLIFY Unified Catalog includes the following enhancements:
+The Amplify Unified Catalog includes the following enhancements:
 
 #### Filter asset by type
 
@@ -22,58 +22,58 @@ Filter by type has been enhanced to enable users to view their filter selections
 
 #### Enable consumers of assets to make changes to their subscriptions
 
-Subscription management in AMPLIFY Unified Catalog has been enhanced to enable consumers to make changes to their subscription contracts, whether they are correcting mistakes or making chnages to subscription parameters. See [Subscribe to an API](/docs/catalog/discover-and-consume-catalog-assets/) for details.
+Subscription management in Amplify Unified Catalog has been enhanced to enable consumers to make changes to their subscription contracts, whether they are correcting mistakes or making chnages to subscription parameters. See [Subscribe to an API](/docs/catalog/discover-and-consume-catalog-assets/) for details.
 
 #### Simplify flow for promoting API assets from Unified Catalog to Integration Builder
 
-When promoting API assets from the AMPLIFY Unified Catalog to Integration Builder, users are no longer required to provide the Organization and User secrets.
+When promoting API assets from the Amplify Unified Catalog to Integration Builder, users are no longer required to provide the Organization and User secrets.
 
 #### Catalog asset Categorization
 
 The Catalog asset details screen has been redesigned to improve readability and allow for classification by assigning a asset to categories.
 
-Filter by categories has been added to the AMPLIFY Catalog to improve searching / filtering and make discovery of assets easier.
+Filter by categories has been added to the Amplify Catalog to improve searching / filtering and make discovery of assets easier.
 
 **The creation and management of categories is currently not available through the Unified Catalog WebUI, but can be done through the Unified Catalog APIs. See our [Postman collection](https://documenter.getpostman.com/view/3636185/TVYGddhi) for an example**.
 
-### AMPLIFY Central CLI
+### Amplify Central CLI
 
-The AMPLIFY Central CLI is a package for managing AMPLIFY Central resources with a DevOps approach to API Management.
+The Amplify Central CLI is a package for managing Amplify Central resources with a DevOps approach to API Management.
 
-AMPLIFY Central CLI version 0.1.15 is now available on NPM (<https://www.npmjs.com/package/@axway/amplify-central-cli/v/0.1.15>)
+Amplify Central CLI version 0.1.15 is now available on NPM (<https://www.npmjs.com/package/@axway/amplify-central-cli/v/0.1.15>)
 
-The CLI extension is compatible **only** with the AMPLIFY CLI **version 1.4** (<https://www.npmjs.com/package/@axway/amplify-cli/v/1.4.0>)
+The CLI extension is compatible **only** with the Amplify CLI **version 1.4** (<https://www.npmjs.com/package/@axway/amplify-cli/v/1.4.0>)
 
 **This is not yet compatible with the Axway CLI**.
 
-The AMPLIFY Central CLI includes the following enhancements:
+The Amplify Central CLI includes the following enhancements:
 
 * Window 10 support using the Command Prompt and Powershell  
 * Support for an https self-signed proxy server. Refer to the readme on the NPM repository, section Proxy configuration.
-* Creation of AMPLIFY Central Service Accounts: `amplify central create service-account`
-* Installation of the Axway Edge Discovery and Traceability Agents: `amplify central install agents`. Refer to [Deploy your agent with AMPLIFY CLI](/docs/central/connect-api-manager/deploy-your-agents-with-amplify-cli) for details
-* Installation of the AWS Discovery and Traceability Agents: `amplify central install agents`. Refer to [Deploy your agent with AMPLIFY CLI](/docs/central/connect-aws-gateway/deploy-your-agents-with-amplify-cli) for details
+* Creation of Amplify Central Service Accounts: `amplify central create service-account`
+* Installation of the Axway Edge Discovery and Traceability Agents: `amplify central install agents`. Refer to [Deploy your agent with Amplify CLI](/docs/central/connect-api-manager/deploy-your-agents-with-amplify-cli) for details
+* Installation of the AWS Discovery and Traceability Agents: `amplify central install agents`. Refer to [Deploy your agent with Amplify CLI](/docs/central/connect-aws-gateway/deploy-your-agents-with-amplify-cli) for details
 * Installation of the Mesh discovery agent in a Kubernetes cluster: `amplify central install agents`. Refer to [Build your hybrid environment](/docs/central/mesh_management/build_hybrid_env) for details
 
-### AMPLIFY Central WebUI
+### Amplify Central WebUI
 
-The AMPLIFY Central WebUI is the UI where API providers and API consumers will log to manage and consume APIs.
+The Amplify Central WebUI is the UI where API providers and API consumers will log to manage and consume APIs.
 
-The AMPLIFY Central WebUI includes the following enhancements:
+The Amplify Central WebUI includes the following enhancements:
 
-* AMPLIFY Central is now available in an EU Data Region. A user can choose where to host its data (US or EU region) when subscribing to AMPLIFY platform.
+* Amplify Central is now available in an EU Data Region. A user can choose where to host its data (US or EU region) when subscribing to Amplify platform.
 * The Search, Sort, and table count of Environments on the Topology page have been improved.
 * The Observer display of filters, time range, and the table count on the API Traffic page have been improved.
 
 #### Fixed Issue
 
-This version of AMPLIFY Central WebUI provides the following fix:
+This version of Amplify Central WebUI provides the following fix:
 
 * Previously, there was an issue with the Observer display of API filters menu displaying the Axway Cloud and Service mesh environment names. This has been fixed.
 
 ### Axway Edge Gateway / AWS Agents
 
-In order to provide a better visibility of your mutli-type gateway eco system, two sets of agents are provided. These agents collect data from the Gateway (API / traffic) and expose them in AMPLIFY Central, giving you a global vision of your eco system from a single interface.
+In order to provide a better visibility of your mutli-type gateway eco system, two sets of agents are provided. These agents collect data from the Gateway (API / traffic) and expose them in Amplify Central, giving you a global vision of your eco system from a single interface.
 
 #### Deliverables
 
@@ -85,7 +85,7 @@ AWS API Gateway agents are available as a Docker image. Cloud formation template
 
 Discovery Agent can be installed anywhere it can access the Axway API Manager APIs.
 
-Traceability Agent must be installed on the same machine where the API Gateway event logs are stored, as the agent reads those files to push the transaction to AMPLIFY Central.
+Traceability Agent must be installed on the same machine where the API Gateway event logs are stored, as the agent reads those files to push the transaction to Amplify Central.
 
 #### Installing AWS API Gateway agents
 
@@ -93,9 +93,9 @@ Agents can be installed in any Docker container. A Cloud formation template is p
 
 #### Agent resources
 
-A new set of resource is provided within AMPLIFY Central CLI:
+A new set of resource is provided within Amplify Central CLI:
 
-* **edgedp**: this resource represent the Axway API Management dataplane. It contains the connectivity (url / port) to the Axway API Manager/Gateway and a reference to the AMPLIFY Central topology environment.
+* **edgedp**: this resource represent the Axway API Management dataplane. It contains the connectivity (url / port) to the Axway API Manager/Gateway and a reference to the Amplify Central topology environment.
 * **eddeda**: this resource represent a Discovery Agent for Axway API Manager. It contains the Discovery Agent configuration and the reference to the dataplane.
 * **edgeta**: this resource represent a Discovery Agent for Axway Edge Gateway. It contains the Traceability Agent configuration and the reference to the dataplane.
 * **awsdp**: this resource represent the AWS API Management dataplane. It contains the region, transactionLogGroup reference and the queues to be monitored by the agents.
@@ -104,7 +104,7 @@ A new set of resource is provided within AMPLIFY Central CLI:
 
 #### Discovery Agent
 
-The Discovery Agent discovers APIs from the Gateway and exposes the APIs in AMPLIFY Central topology and/or in the Unified Catalog. As the agent runs continously, it maintains the integrity of AMPLIFY Central based on the gateway changes. The agent also helps managing the subscription flow.
+The Discovery Agent discovers APIs from the Gateway and exposes the APIs in Amplify Central topology and/or in the Unified Catalog. As the agent runs continously, it maintains the integrity of Amplify Central based on the gateway changes. The agent also helps managing the subscription flow.
 
 The Discovery Agent includes the following enhancements:
 
@@ -116,11 +116,11 @@ By default, Discovery Agent discovers all APIs matching the following filters:
 * **API type filter**: only REST and SOAP API definitions are visible to the agent.
 * **API Status filter**: only Published/UnPublished/Deprecated are visible to the agent.
 * **API tag exclusion filter**: a Discovery Agent parameter (`APIMANAGER_DISCOVERYIGNORETAGS`) helps the agent to exclude APIs having one or more particular tags. It allows the publishing of all APIs except the one that matches this filter.
-* **API tag filter**: this filter `APIMANAGER_FILTER` helps the Discovery Agent to determine which API needs to be send to AMPLIFY Central by using conditional expression based on the tag name/value of the API present in API Management system. Filters can be based on tag name only, tag value only or a combination of both. It allows the publishing of APIs that match certain criteria. Some filter samples are available at [Filtering APIs](/docs/central/connect-api-manager/filtering-apis-to-be-discovered/).
+* **API tag filter**: this filter `APIMANAGER_FILTER` helps the Discovery Agent to determine which API needs to be send to Amplify Central by using conditional expression based on the tag name/value of the API present in API Management system. Filters can be based on tag name only, tag value only or a combination of both. It allows the publishing of APIs that match certain criteria. Some filter samples are available at [Filtering APIs](/docs/central/connect-api-manager/filtering-apis-to-be-discovered/).
 
-##### Expose APIs in AMPLIFY Central
+##### Expose APIs in Amplify Central
 
-Within AMPLIFY Central, an API can by visible in different angles. Either it is only exposed for the API provider or it is also exposed for a consumer:
+Within Amplify Central, an API can by visible in different angles. Either it is only exposed for the API provider or it is also exposed for a consumer:
 
 * When an API is exposed for the provider, it is visible in the Topology/Environment view as an API Service.
 * When an API is exposed for the consumer, it is visible in the Catalog view as a Catalog asset.
@@ -130,17 +130,17 @@ The Discovery Agent, via its `CENTRAL_MODE` configuration, helps to publish APIs
 
 ##### Expose APIs to a team
 
-Within AMPLIFY Central, APIs can be segregated per team. Team can represent a company department, an effective team or any other concept that suit the company structure. If a user belongs to a single team, he will only access the APIs referencing this team. If a user belongs to multiple teams, he will have to choose the team he wants to work with prior to accessing the related APIs visible in the team.
+Within Amplify Central, APIs can be segregated per team. Team can represent a company department, an effective team or any other concept that suit the company structure. If a user belongs to a single team, he will only access the APIs referencing this team. If a user belongs to multiple teams, he will have to choose the team he wants to work with prior to accessing the related APIs visible in the team.
 
 The Discovery Agent configuration can contain the team you want to associate APIs with (`CENTRAL_TEAM=<teamName>`). By default, the agent publishes APIs in the `Default Team`.
 
-##### Maintain the AMPLIFY Central integrity
+##### Maintain the Amplify Central integrity
 
-The Discovery Agent is periodically polling information from AWS API Gateway / Axway API Manager in order to find any changes in the Gateways. Based on the found changes (status, summary, image, definition), the Discovery Agent will update AMPLIFY Central assets accordingly.
+The Discovery Agent is periodically polling information from AWS API Gateway / Axway API Manager in order to find any changes in the Gateways. Based on the found changes (status, summary, image, definition), the Discovery Agent will update Amplify Central assets accordingly.
 
 ##### Manage Consumer subscription
 
-Once API are exposed in AMPLIFY Central and specifically in the Catalog, any user logged to AMPLIFY platform belonging to a team will be able to see the APIs shared in this team and consume it.
+Once API are exposed in Amplify Central and specifically in the Catalog, any user logged to Amplify platform belonging to a team will be able to see the APIs shared in this team and consume it.
 
 In order to consume an API, some credentials (API key / OAuth token) might be required based on the API security. In order to obtain the corresponding credentials, a user must subscribe to the API. This process is called the subscription flow.
 
@@ -153,7 +153,7 @@ By default, the subscriber can create an application / usage plan or reuse an ex
 
 Once the subscription is initiated, it must be approved. There are three types of subscription approvals managed by the Discovery Agent:
 
-* **CENTRAL_SUBSCRIPTIONS_APPROVAL_MODE=manual** (default): in this mode, nothing is done by the Discovery Agent. The API Manager approves the subscription manually from AMPLIFY platform.
+* **CENTRAL_SUBSCRIPTIONS_APPROVAL_MODE=manual** (default): in this mode, nothing is done by the Discovery Agent. The API Manager approves the subscription manually from Amplify platform.
 * **CENTRAL_SUBSCRIPTIONS_APPROVAL_MODE=webhook**: this mode requires additional agent configuration (`CENTRAL_SUBSCRIPTIONS_APPROVAL_WEBHOOK_URL`) containing webhook information that is triggered on each subscription state change. The webhook implementation can, for instance, trigger an MS Teams card to a dedicated Teams channel where the API provider will approve the subscription and move the subscription status to the next step.
 * **CENTRAL_SUBSCRIPTIONS_APPROVAL_MODE=automatic**: in this mode, the subscription request is auto-approved without human intervention.
 
@@ -171,7 +171,7 @@ For information, see [Manage API Gateway Subscription workflow](/docs/central/co
 
 #### Traceability Agent
 
-The Traceability Agent filters the Axway Edge Gateway logs, or the AWS Cloud Watch logs that are related to discovered APIs, and prepares the transaction events that are sent to AMPLIFY platform. Each time an already discovered API is called by a consumer, an event is sent to AMPLIFY Central and is visible in API Observer.
+The Traceability Agent filters the Axway Edge Gateway logs, or the AWS Cloud Watch logs that are related to discovered APIs, and prepares the transaction events that are sent to Amplify platform. Each time an already discovered API is called by a consumer, an event is sent to Amplify Central and is visible in API Observer.
 
 This event contains the transaction status, transaction urls (frontEnd / backEnd), transaction duration and timestamp, transaction service called (method type + uri path). It also sends the corresponding HTTP headers for each requests/responses.
 
@@ -179,7 +179,7 @@ Optionally, you can avoid sending the HTTP Headers associated to the request usi
 
 #### Supporting proxy
 
-If the AMPLIFY platform url is not accessible from the machine where the agents are installed, you must set up proxies:
+If the Amplify platform url is not accessible from the machine where the agents are installed, you must set up proxies:
 
 * Discovery Agent requires an HTTP proxy
 * Traceability Agent requires an HTTP proxy and a SOCKS5 proxy
@@ -194,9 +194,9 @@ This version 0.0.17-xxx of the agents provides the following fix:
 
 ### Mesh governance
 
-AMPLIFY Central mesh governance enables you to govern and manage your APIs, public and private services, along with the hybrid environments where they are located.
+Amplify Central mesh governance enables you to govern and manage your APIs, public and private services, along with the hybrid environments where they are located.
 
-The AMPLIFY Central mesh governance includes the following enhancements:
+The Amplify Central mesh governance includes the following enhancements:
 
 * The validated service mesh version has been updated to Istio 1.6.8
 
@@ -213,15 +213,15 @@ The AMPLIFY Central mesh governance includes the following enhancements:
 
     * Header logging can be disabled using new helm agent deployment option: `--set als.publishHeaders=false`
 
-* AMPLIFY CLI can now deploy new alpha Mesh Discovery Agents
+* Amplify CLI can now deploy new alpha Mesh Discovery Agents
 
-    * A future version of AMPLIFY Central CLI will include additional support for Mesh Agent installation
+    * A future version of Amplify Central CLI will include additional support for Mesh Agent installation
 
     * `amplify central install agents` command will include new **Kubernetes** option
 
     * **Note**: This new option will preview upcoming changes and does not replace the existing mesh deployment commands for full mesh governance and policy management.
 
-* The alpha Mesh Discovery Agent support provides a new set of agent resources within AMPLIFY Central CLI:
+* The alpha Mesh Discovery Agent support provides a new set of agent resources within Amplify Central CLI:
 
     * **mesh**: this resource (Mesh) represents the connected Kubernetes cluster and its related resources. It provides a bridge from the connected Kubernetes cluster to the Central environment.
     * k8s: this resource (K8sCluster) represents the details of the Kubernetes cluster and provides a reference to the Mesh discovery resources listed below.
@@ -236,14 +236,14 @@ The AMPLIFY Central mesh governance includes the following enhancements:
 
 ### Known limitations
 
-This version of AMPLIFY Central has the following limitations:
+This version of Amplify Central has the following limitations:
 
 * Users that are assigned the Consumer role cannot see their subscription usage on the API Observer screen.  
 * Axway Edge Gateway Agents:
 
     * Discovery Agent can only discover APIs having PassThrough, API Key and Oauth security.
-    * Discovery Agent cannot expose discovered APIs in multiple teams, meaning that the Organization structure on API Manager is lost in Central. The API provider has to create the team in AMPLIFY Platform and share the API within appropriate teams.
-    * Discovery Agent is not able to detect that an API has been renamed. Consequently, on the AMPLIFY Central side, you will see two APIs: the old one and the new one.
+    * Discovery Agent cannot expose discovered APIs in multiple teams, meaning that the Organization structure on API Manager is lost in Central. The API provider has to create the team in Amplify Platform and share the API within appropriate teams.
+    * Discovery Agent is not able to detect that an API has been renamed. Consequently, on the Amplify Central side, you will see two APIs: the old one and the new one.
     * Discovery Agent does not handle frontend API deletion. Consequently, Unified Catalog API is out of sync.
     * Traceability Agent is not working in an Externally Managed Topology deployment.
 

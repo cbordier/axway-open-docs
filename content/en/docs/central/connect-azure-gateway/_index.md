@@ -4,42 +4,42 @@ linkTitle: Connect Azure Gateway
 weight: 145
 date: 2021-01-07
 description: Understand why you would connect Azure API Management Services to
-  AMPLIFY Central. Learn how you can publish to the AMPLIFY Catalog from your
+  Amplify Central. Learn how you can publish to the Amplify Catalog from your
   API Management Services in order to obtain a global view of your APIs and
   present this Catalog to your consumers. Learn how you can collect the traffic
-  of all your gateways and see it in a single place in AMPLIFY Central
+  of all your gateways and see it in a single place in Amplify Central
   Observability.
 ---
 ## What is Azure API Management Service connected?
 
-Connect your Azure Management Services to AMPLIFY Central by using two agents: Discovery and Traceability. These two agents will help you to represent and expose your API Management eco-system in AMPLIFY Central:
+Connect your Azure Management Services to Amplify Central by using two agents: Discovery and Traceability. These two agents will help you to represent and expose your API Management eco-system in Amplify Central:
 
-* Create an environment in AMPLIFY Central that represent your actual API Management eco-system.
-* Detect a published API using the Discovery Agent. The Discovery Agent discovers the API from API Manager and makes it available in AMPLIFY Central. An API Service in Central is created to reference the API from API Management Service and then you can optionally tell the agent to publish it to the AMPLIFY Catalog to allow your consumer to discover it.
+* Create an environment in Amplify Central that represent your actual API Management eco-system.
+* Detect a published API using the Discovery Agent. The Discovery Agent discovers the API from API Manager and makes it available in Amplify Central. An API Service in Central is created to reference the API from API Management Service and then you can optionally tell the agent to publish it to the Amplify Catalog to allow your consumer to discover it.
 * Manage consumer subscription using the Discovery Agent. When a consumer subscribes / unsubscribes to a Catalog asset, the Discovery Agent keeps track of the changes and maintains the API Management system accordingly.
-* Filter the Azure Gateway logs using the Traceability Agent. The Traceability Agent uses the discovered API to filter Azure Gateway events to extract the transaction information and send it to the AMPLIFY platform Observability module.
+* Filter the Azure Gateway logs using the Traceability Agent. The Traceability Agent uses the discovered API to filter Azure Gateway events to extract the transaction information and send it to the Amplify platform Observability module.
 
 ### Discovery Agent
 
-The Discovery Agent is used to discover new published APIs. The Discovery Agent pushes both REST and SOAP API definitions to AMPLIFY Central.
+The Discovery Agent is used to discover new published APIs. The Discovery Agent pushes both REST and SOAP API definitions to Amplify Central.
 
-The related APIs are published to AMPLIFY Central either as an API Service in environment or an API Service in environment and optionally as Catalog item (default behavior).
+The related APIs are published to Amplify Central either as an API Service in environment or an API Service in environment and optionally as Catalog item (default behavior).
 
 ![Service Discovery](/Images/central/connect-azure-gateway/discoveryagent.png)
 
 ### Traceability Agent
 
-The Traceability Agent sends log information about APIs that have been discovered and published to AMPLIFY Central.
+The Traceability Agent sends log information about APIs that have been discovered and published to Amplify Central.
 
 ![Service Traceability](/Images/central/connect-azure-gateway/traceabilityagent.png)
 
 ## Prerequisites
 
-* An Axway AMPLIFY Central subscription in the AMPLIFY™ platform
-* An AMPLIFY Central Service Account
-* An AMPLIFY Central environment
+* An Axway Amplify Central subscription in the Amplify Platform
+* An Amplify Central Service Account
+* An Amplify Central environment
 * An Azure Service principal for the Discovery Agent to use Azure APIs
-* An Azure Event Hub for the Traceability Agent to report API traffic to AMPLIFY platform
+* An Azure Event Hub for the Traceability Agent to report API traffic to Amplify Platform
 
 ## System requirements
 
@@ -47,9 +47,9 @@ The Traceability Agent sends log information about APIs that have been discovere
 
 ## Region support
 
-AMPLIFY Central supports two regions, US (default) and EU. The data (APIs, traffic) that the agents send to AMPLIFY Central is stored in one of those regions based on the agent configuration.
+Amplify Central supports two regions, US (default) and EU. The data (APIs, traffic) that the agents send to Amplify Central is stored in one of those regions based on the agent configuration.
 
-Use one of the following URLs to access the AMPLIFY Central UI:
+Use one of the following URLs to access the Amplify Central UI:
 
 * US: <https://apicentral.axway.com>
 * EU: <https://central.eu-fr.axway.com>
@@ -96,7 +96,7 @@ You can retrieve your subscription id with the command: `az account show --query
 
 ## Preparing Azure services for Traceability Agent
 
-The following is a high-level overview of the required steps to connect Azure API Management services to AMPLIFY Central:
+The following is a high-level overview of the required steps to connect Azure API Management services to Amplify Central:
 
 * Create an Azure Event Hubs Namespace and Event Hub
 * Create an Azure diagnostic setting
@@ -141,4 +141,4 @@ To configure monitoring:
 3. Select the check box to enable monitoring.
 4. Select the Verbose mode and add all headers you want to track. These headers can belong to any request/response (frontend/backend) or you can choose different headers to log using the advanced options.
 
-Now that Azure is all set, you can [Deploy the agents using AMPLIFY Central CLI](/docs/central/connect-azure-gateway/deploy-your-agents-with-amplify-cli) to discover and monitor Azure APIs.
+Now that Azure is all set, you can [Deploy the agents using Amplify Central CLI](/docs/central/connect-azure-gateway/deploy-your-agents-with-amplify-cli) to discover and monitor Azure APIs.

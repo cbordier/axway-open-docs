@@ -17,7 +17,7 @@ description: Learn how to configure the Axway mesh agents to discover your APIs
 These prerequisites are required by the AMPLIFY Central CLI, which you will use to configure the mesh discovery agents.
 
 * Node.js 8 LTS or later
-* Minimum AMPLIFY Central CLI version: 0.1.17
+* Minimum AMPLIFY Central CLI version: 0.8.0
 
 For more information, see [Install AMPLIFY Central CLI](/docs/central/cli_central/cli_install/index.html).
 
@@ -93,31 +93,30 @@ If you previously followed [Deploy the service mesh and Axway mesh agents](/docs
 
 If you do not have the ADA and RDA configured, or if you would like the agents to use a different K8SCluster, follow these steps:
 
-1. To create a K8SCluster, on your local environment, create a file called `k8scluster.yaml`, with the following content.
+1. To create a K8SCluster on your local environment, create a file called `k8scluster.yaml`, with the following content.
 
-    ```yaml
-    apiVersion: v1alpha1
-    group: management
-    kind: K8SCluster
-    name: mesh-env
-    title: mesh-env
-    spec: {}
-    ```
-
+   ```yaml
+   apiVersion: v1alpha1
+   group: management
+   kind: K8SCluster
+   name: mesh-env
+   title: mesh-env
+   spec: {}
+   ```
 2. Change the name and the title of the K8SCluster to represent your cluster:
 
-    ```bash
-    amplify central create -f ./k8scluster.yaml
-    ```
+   ```bash
+   amplify central create -f ./k8scluster.yaml
+   ```
 
-    If the command was successful, you should see a message indicating that the resource was created:
-  
-    ```bash
-    ~ » amplify central create -f ./k8scluster.yaml
-    ✔ "k8scluster/mesh-env" has successfully been created.
-    ```
+   If the command was successful, you should see a message indicating that the resource was created:
 
-Run the following command to retrive the K8SCluster and view the YAML content:
+   ```bash
+   ~ » amplify central create -f ./k8scluster.yaml
+   ✔ "k8scluster/mesh-env" has successfully been created.
+   ```
+
+Run the following command to retrieve the K8SCluster and view the YAML content:
 
 ```bash
 ~ » amplify central get k8sclusters mesh-env -o yaml
@@ -185,7 +184,7 @@ The steps are as follows:
     status:
       loadBalancer: {}
     ---
-    apiVersion: apps/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     metadata:
       creationTimestamp: null
@@ -207,7 +206,7 @@ The steps are as follows:
             run: sunset
         spec:
           containers:
-          - image: axway-docker-public-registry.bintray.io/sunset
+          - image: axway.jfrog.io/ampc-public-docker-release/sunset:latest
             imagePullPolicy: Always
             name: sunset
             ports:
@@ -216,29 +215,26 @@ The steps are as follows:
             resources: {}
     status: {}
     ```
-
 2. Create a new namespace named `sunset-demo`:
 
-    ```bash
-    ~ » kubectl create namespace sunset-demo
-    namespace/sunset-demo created
-    ```
-
+   ```bash
+   ~ » kubectl create namespace sunset-demo
+   namespace/sunset-demo created
+   ```
 3. Deploy the `sunset` app:
 
-    ```bash
-    ~ » kubectl apply -f sunset.yaml
-    service/sunset created
-    deployment.apps/sunset created
-    ```
+   ```bash
+   ~ » kubectl apply -f sunset.yaml
+   service/sunset created
+   deployment.apps/sunset created
+   ```
+4. Verify that the deployment was successful and that the `sunset` app is in a running status:
 
-4. Verify that the deployment was successful, and that the `sunset` app is in a running status:
-
-    ```bash
-    ~ » kubectl get pods -n sunset-demo
-    NAME                                READY   STATUS    RESTARTS   AGE
-    sunset-749ddd444-ncllr              1/1     Running   0          22m
-    ```
+   ```bash
+   ~ » kubectl get pods -n sunset-demo
+   NAME                                READY   STATUS    RESTARTS   AGE
+   sunset-749ddd444-ncllr              1/1     Running   0          22m
+   ```
 
 The following sections will cover how to configure the ADA and the RDA to discover the `sunset` app.
 
@@ -250,39 +246,38 @@ To create a `SpecDiscovery`, follow these steps:
 
 1. Create a new file locally named `spec-discovery.yaml`, with the following content:
 
-    ```yaml
-    apiVersion: v1alpha1
-    kind: SpecDiscovery
-    group: management
-    name: sunset-discovery
-    metadata:
-      scope:
-        kind: K8SCluster
-        name: mesh-env
-    spec:
-      namespaceFilter:
-        names:
-        - sunset-demo
-      resourceFilter:
-        matchLabels:
-          discover: 'true'
-      targets:
-        exactPaths:
-        - path: "/apidocs"
-          headers:
-            Content-Type: application/json
-        fromAnnotation:
-        - template: docpath.apicentral.io/{{.Port.Name}}
-    ```
-
+   ```yaml
+   apiVersion: v1alpha1
+   kind: SpecDiscovery
+   group: management
+   name: sunset-discovery
+   metadata:
+     scope:
+       kind: K8SCluster
+       name: mesh-env
+   spec:
+     namespaceFilter:
+       names:
+       - sunset-demo
+     resourceFilter:
+       matchLabels:
+         discover: 'true'
+     targets:
+       exactPaths:
+       - path: "/apidocs"
+         headers:
+           Content-Type: application/json
+       fromAnnotation:
+       - template: docpath.apicentral.io/{{.Port.Name}}
+   ```
 2. Update the `metadata.scope.name` field to reflect the same name given to the K8SCluster. This links the `SpecDiscovery` to the K8SCluster. To verify the K8SCluster name that is being used for the ADA, run:
 
-    ```bash
-    ~ » kubectl set env deployment/apic-hybrid-ada --list -n apic-control | grep CLUSTERNAME
-    CLUSTERNAME=mesh-env
-    ```
+   ```bash
+   ~ » kubectl set env deployment/apic-hybrid-ada --list -n apic-control | grep CLUSTERNAME
+   CLUSTERNAME=mesh-env
+   ```
 
-    Take the name from the output of the command above and place it in the `metadata.scope.name` field.
+   Take the name from the output of the command above and place it in the `metadata.scope.name` field.
 
 You can configure the `SpecDiscovery` in many ways so that the ADA can identify which pods are exposing documentation. The ADA uses the `SpecDiscovery` to identify which namespace to search to find pods. Once the agent knows the namespace to search, it will then identify pods to match based on the labels of the pod, or by the name of the pod. The matching of the pod is done by comparing the pod labels to the `spec.resourceFilter.matchLabels` or `spec.resourceFilter.names` fields.
 
@@ -293,8 +288,8 @@ Read through the descriptions of the fields below, and update the `SpecDiscovery
 * `spec.resourceFilter.matchLabels`: An object containing labels that a pod must have in order for the ADA to discover the pod. If this object is empty or not provided, then matching will be done based on the `names` list.
 * `spec.resourceFilter.names`: A list of pod names to find in the provided namespaces. If the list is empty or not provided, then matching will be done based on the `matchLabels`.
 * `spec.targets`: An object that identifies where to find documentation on an exposed endpoint after a pod has been matched.
-* `spec.targets.exactPaths`: A list of objects that identifies where to find the documentation, and the headers to send with the request to retrieve the documentation.
-* `spec.targets.exactPaths.path`: The endpoint where the documentation can be found. The full host name is not needed because the discovery agent will have already matched the pod, and it will use the pods IP address and this path to find the documentation. The ADA will make one request to this endpoint for every exposed port found in the pod.
+* `spec.targets.exactPaths`: A list of objects that identifies where to find the documentation and the headers to send with the request to retrieve the documentation.
+* `spec.targets.exactPaths.path`: The endpoint where the documentation can be found. The full host name is not needed because the discovery agent will have already matched the pod, and it will use the pod's IP address and this path to find the documentation. The ADA will make one request to this endpoint for every exposed port found in the pod.
 * `spec.targets.exactPaths.headers`: The headers to send with the request.
 * `spec.targets.exactPaths.fromAnnotations`: A list of annotations that the `SpecDiscovery` might use to make a request to a pod to fetch documentation. If this field is provided, and if the ADA finds a pod with a matching annotation found in this list, then the ADA will make a request to the pod based on the value of the pod annotation.
 * `spec.targets.exactPaths.fromAnnotations.template`: A string template that matches an annotation found on a pod. To learn more about this field, see [Defining a pod annotation](#Defining-a-pod-annotation)
@@ -307,87 +302,81 @@ Follow these steps to discover the pod:
 
 1. confirm that the `sunset` app is running.
 
-    ```bash
-    ~ » kubectl get pods -n sunset-demo
-    NAME READY STATUS RESTARTS AGE
-    sunset-749ddd444-ncllr              2/2     Running   0          98m
-    ```
+   ```bash
+   ~ » kubectl get pods -n sunset-demo
+   NAME READY STATUS RESTARTS AGE
+   sunset-749ddd444-ncllr              2/2     Running   0          98m
+   ```
+2. If there is a pod that begins with `sunset` and it is in a running status, then you are ready to continue. To confirm that the ADA is working run the command below:
 
-2. If there is a pod that begins with `sunset` and it is in a running status, then you are ready continue. To confirm that the ADA is working run the command below:
+   ```bash
+   ~ » kubectl get pods -n apic-control
+   NAME                               READY   STATUS    RESTARTS   AGE
+   apic-hybrid-ada-6cdc497bdf-r2zht   1/1     Running   0          50m
+   apic-hybrid-rda-69ddfbd88c-9pws2   1/1     Running   0          50m
+   ```
+3. In order to match the `sunset` pod, you must add a label to the pod so that it can be picked up by the discovery agent. This label also needs to be defined in the `spec.resourceFilter.matchLabels` field of the `SpecDiscovery` in order for the agent to find it. The label can be anything you want. In this example, we will add `discover=true` to the pod labels as follows:
 
-    ```bash
-    ~ » kubectl get pods -n apic-control
-    NAME                               READY   STATUS    RESTARTS   AGE
-    apic-hybrid-ada-6cdc497bdf-r2zht   1/1     Running   0          50m
-    apic-hybrid-rda-69ddfbd88c-9pws2   1/1     Running   0          50m
-    ```
-
-3. In order to match the `sunset` pod, you must add a label to the pod so that it can be picked up by the discovery agent. This label also needs to be defined in the `spec.resourceFilter.matchLabels` field of the `SpecDiscovery` in order for the agent to find it. The label can be anything you want. In this exampl,e we will add `discover=true` to the pod labels as follows:
-
-    ```bash
-    ~ » kubectl label pod -n sunset-demo sunset-749ddd444-ncllr discover=true
-    pod/sunset-749ddd444-ncllr labeled
-    ```
-
+   ```bash
+   ~ » kubectl label pod -n sunset-demo sunset-749ddd444-ncllr discover=true
+   pod/sunset-749ddd444-ncllr labeled
+   ```
 4. After labeling the pod, you must update three fields on the `SpecDiscovery` so that the ADA can find the `sunset` pod running in the `sunset-demo` namespace:
 
-    4.1. Update the `spec.namespaceFilter.names` array and provide the namespace the agent should watch when looking for new pods:
+   4.1. Update the `spec.namespaceFilter.names` array and provide the namespace the agent should watch when looking for new pods:
 
-    ```yaml
-      names:
-      - sunset-demo
-    ```
+   ```yaml
+     names:
+     - sunset-demo
+   ```
 
-    4.2. Update `spec.resourceFilter.matchLabels` and provide the label to be used so that the ADA will know which pods to search for documentation.
+   4.2. Update `spec.resourceFilter.matchLabels` and provide the label to be used so that the ADA will know which pods to search for documentation.
 
-    ```yaml
-      matchLabels:
-        discover: "true"
-    ```
+   ```yaml
+     matchLabels:
+       discover: "true"
+   ```
 
-    4.3. Update the `spec.targets.exactPaths` array and provide an object with a `path` field and a `headers` field so that the ADA knows where to make a request to the pod to collect the documentation.
+   4.3. Update the `spec.targets.exactPaths` array and provide an object with a `path` field and a `headers` field so that the ADA knows where to make a request to the pod to collect the documentation.
 
-    ```yaml
-      exactPaths:
-      - path: /apidocs
-        headers:
-          Content-Type: application/json
-    ```
-
+   ```yaml
+     exactPaths:
+     - path: /apidocs
+       headers:
+         Content-Type: application/json
+   ```
 5. After the `SpecDiscovery` has been updated, you can create the resource and the ADA will look for the `sunset` pod based on the new configuration.
 
-    ```bash
-    ~ » amplify central create -f ./spec-discovery.yaml
-    ✔ "specdiscovery/sunset-discovery" has successfully been created.
-    ```
-
+   ```bash
+   ~ » amplify central create -f ./spec-discovery.yaml
+   ✔ "specdiscovery/sunset-discovery" has successfully been created.
+   ```
 6. After creating the new `SpecDiscovery`, run the following command to see two SpecDiscoveries. The `sunset-discovery` is the resource that will be used to find the documentation from the `sunset` pod.
 
-    ```bash
-    ~ » amplify central get specdiscoveries -s mesh-env
-    ✔ Resource(s) has successfully been retrieved
+   ```bash
+   ~ » amplify central get specdiscoveries -s mesh-env
+   ✔ Resource(s) has successfully been retrieved
 
-    NAME                 AGE             TITLE                SCOPE KIND  SCOPE NAME
-    sunset-discovery     18 minutes ago  apic-demo-discovery  K8SCluster  mesh-env
-    cli-1605551801337    2 hours ago     cli-1605551801337    K8SCluster  mesh-env
-    ```
-
+   NAME                 AGE             TITLE                SCOPE KIND  SCOPE NAME
+   sunset-discovery     18 minutes ago  apic-demo-discovery  K8SCluster  mesh-env
+   cli-1605551801337    2 hours ago     cli-1605551801337    K8SCluster  mesh-env
+   ```
 7. The `apic-hybrid-ada` pod will see the new `SpecDiscovery` configuration and will start looking for pods that match the criteria it has specified. Run the following command to retrieve your APISpecs. APISpecs are created from the ADA in response to finding a pod that matches, based on the `SpecDiscovery` match criteria.
 
-    ```bash
-    amplify central get apispecs -s <YOUR-K8SCLUSTER-NAME> -o yaml
-    ```
+   ```bash
+   amplify central get apispecs -s <YOUR-K8SCLUSTER-NAME> -o yaml
+   ```
 
-    Returns the APISpec that was created in response to the pod that matched the `SpecDiscovery`.
+   Returns the APISpec that was created in response to the pod that matched the `SpecDiscovery`.
 
-    ```bash
-    ~ » amplify central get apispecs -s mesh-env
-    ✔ Resource(s) has successfully been retrieved
+   ```bash
+   ~ » amplify central get apispecs -s mesh-env
+   ✔ Resource(s) has successfully been retrieved
 
-    NAME              AGE         TITLE   SCOPE KIND  SCOPE NAME
-    mylist100swagger  1 hour ago  mylist  K8SCluster  mesh-env
-    sunsetapp100swagger  a few seconds ago  Sunset App  K8SCluster  mesh-env
-    ```
+   NAME              AGE         TITLE   SCOPE KIND  SCOPE NAME
+   mylist100swagger  1 hour ago  mylist  K8SCluster  mesh-env
+   sunsetapp100swagger  a few seconds ago  Sunset App  K8SCluster  mesh-env
+   ```
 
 If you see an APISpec named `sunsetapp100swagger` scoped to your K8SCluster, then you have successfully configured the ADA to search your Kubernetes cluster for pods exposing documentation. The `sunset` app documentation will now be visible in AMPLIFY Central.
 
@@ -434,9 +423,9 @@ spec:
 
 Take a look at the array of ports first. The first port is named `sunset-http-port`. The name of the annotation is `docpath.apicentral.io/sunset-http-port`. By providing a template to the SpecDiscovey, such as `docpath.apicentral.io/{.Port.Name}`, the ADA will take the names of all ports and parse the template to create the final string. If the final parsed string matches any of the templates in the pod, then the JSON object that is provided in the annotation will be used to make the request to the pod.
 
-There is another port in the example named `no-match`. The ADA will parse the template against all ports found in a pod. This will result in two parsed template: `docpath.apicentral.io/sunset-http-port` and `docpath.apicentral.io/no-match`. The ADA will look for each of these templates in the pod. In this example there is only one annotation. There is no annotation for `docpath.apicentral.io/no-match`, meaning that the ADA will not perform any action with this parsed template.
+There is another port in the example named `no-match`. The ADA will parse the template against all ports found in a pod. This will result in two parsed template: `docpath.apicentral.io/sunset-http-port` and `docpath.apicentral.io/no-match`. The ADA will look for each of these templates in the pod. In this example, there is only one annotation. There is no annotation for `docpath.apicentral.io/no-match`, meaning that the ADA will not perform any action with this parsed template.
 
-The JSON object found describing a request from an annotation might be used alongside the `spec.targets.exactPaths` field. An exact path might be defined as part of the `SpecDiscovery`, and an annotation might be defined as well. The ADA always makes one request to each port found in a pod. In this case, the ADA will make four requests because the pod has two ports, and there are two request objects. One request object was defined in the `exactPaths` field, and another request object was fond in the pod annotation.
+The JSON object found describing a request from an annotation might be used alongside the `spec.targets.exactPaths` field. An exact path might be defined as part of the `SpecDiscovery`, and an annotation might be defined as well. The ADA always makes one request to each port found in a pod. In this case, the ADA will make four requests because the pod has two ports, and there are two request objects. One request object was defined in the `exactPaths` field and another request object was found in the pod annotation.
 
 Here is an example. Let's assume that the ADA has stored an array of requests in memory:
 
@@ -470,7 +459,7 @@ This is the behavior of the ADA whether you decide to use an annotation template
 
 ## Configure the resource discovery agent
 
-The `ResourceDiscovery` is a resource that configures how the RDA identifies which pods and services to discover. The `ResourceDiscovery` can discover pods and services by specifying the `spec.kind` field to either `Pod` or `Service`. Multiple ResourceDiscoveries can be created. We will create one `ResourceDiscovery` to discover pods and another to discover services. The following example contains two YAML objects. The first, configures the discovery of pods. The second, configures the discovery of services.
+The `ResourceDiscovery` is a resource that configures how the RDA identifies which pods and services to discover. The `ResourceDiscovery` can discover pods and services by specifying the `spec.kind` field to either `Pod` or `Service`. Multiple ResourceDiscoveries can be created. We will create one `ResourceDiscovery` to discover pods and another to discover services. The following example contains two YAML objects. The first configures the discovery of pods. The second configures the discovery of services.
 
 Follow these steps to configure a resource discovery agent:
 
@@ -525,14 +514,14 @@ Follow these steps to configure a resource discovery agent:
 
 2. Update the `metadata.scope.name` field to reflect the same name given to the K8SCluster. This links the ResourceDiscoveries to the K8SCluster. To verify the K8SCluster name that is being used for the ADA, run:
 
-    ```bash
-    ~ » kubectl set env deployment/apic-hybrid-rda --list -n apic-control | grep CLUSTERNAME
-    CLUSTERNAME=mesh-env
-    ```
+   ```bash
+   ~ » kubectl set env deployment/apic-hybrid-rda --list -n apic-control | grep CLUSTERNAME
+   CLUSTERNAME=mesh-env
+   ```
 
-    Take the name from the output of the command, and place it in the `metadata.scope.name` field.
+   Take the name from the output of the command, and place it in the `metadata.scope.name` field.
 
-The `ResourceDiscovery` can be configured in many ways so that the RDA can identify which pods and services to match so that you can have visibility on what is running inside of your cluster within AMPLIFY Central. The RDA uses the `ResourceDiscovery` to identify which namespace to search and find pods and services. Once the agent knows the namespace to search, it will identify pods and services to match based on the labels of the pod, or by the name of the pod. The matching of the pod is done by comparing the pod labels to the `spec.resourceFilter.matchLabels` field, or the `spec.resourceFilter.names` field.
+The `ResourceDiscovery` can be configured in many ways so that the RDA can identify which pods and services to match so that you can have visibility on what is running inside of your cluster within AMPLIFY Central. The RDA uses the `ResourceDiscovery` to identify which namespace to search and find pods and services. Once the agent knows the namespace to search, it will identify pods and services to match based on the labels of the pod, or by the name of the pod. The matching of the pod is done by comparing the pod labels to the `spec.resourceFilter.matchLabels` field or the `spec.resourceFilter.names` field.
 
 Read through the description of the fields and update the `ResourceDiscovery` to make your pods and services correctly discovered in your cluster.
 
@@ -552,52 +541,48 @@ To discover pods and services, follow these steps:
 
 1. Verify that the `sunset` pod is running:
 
-    ```bash
-    ~ » kubectl get pods -n sunset-demo
-    NAME READY STATUS RESTARTS AGE
-    sunset-749ddd444-ncllr              2/2     Running   0          98m
-    ```
-
+   ```bash
+   ~ » kubectl get pods -n sunset-demo
+   NAME READY STATUS RESTARTS AGE
+   sunset-749ddd444-ncllr              2/2     Running   0          98m
+   ```
 2. Verify that the RDA is working:
 
-    ```bash
-    ~ » kubectl get pods -n apic-control
-    NAME                               READY   STATUS    RESTARTS   AGE
-    apic-hybrid-ada-6cdc497bdf-r2zht   1/1     Running   0          50m
-    apic-hybrid-rda-69ddfbd88c-9pws2   1/1     Running   0          50m
-    ```
+   ```bash
+   ~ » kubectl get pods -n apic-control
+   NAME                               READY   STATUS    RESTARTS   AGE
+   apic-hybrid-ada-6cdc497bdf-r2zht   1/1     Running   0          50m
+   apic-hybrid-rda-69ddfbd88c-9pws2   1/1     Running   0          50m
+   ```
 
-    You should see a pod named `apic-hybrid-rda` in a running status.
-
+   You should see a pod named `apic-hybrid-rda` in running status.
 3. To match the pod, add a label to the pod to make it discoverable by the discovery agent. This label must be defined in the `spec.resourceFilter.matchLabels` field so that the `ResourceDiscovery` agent can find it. In this example, we will add `discover=true` to the pod labels:
 
-    ```bash
-    ~ » kubectl label pod -n sunset-demo sunset-749ddd444-ncllr discover=true
-    pod/sunset-749ddd444-ncllr labeled
-    ```
-
+   ```bash
+   ~ » kubectl label pod -n sunset-demo sunset-749ddd444-ncllr discover=true
+   pod/sunset-749ddd444-ncllr labeled
+   ```
 4. You must label the service as well:
 
-    ```bash
-    ~ » kubectl label service -n sunset-demo sunset discover=true
-    service/sunset labeled
-    ```
+   ```bash
+   ~ » kubectl label service -n sunset-demo sunset discover=true
+   service/sunset labeled
+   ```
 
 After labeling the pod and the service, you must update two fields on each of the ResourceDiscoveries so that the RDA can find the `sunset` pod and the `sunset` service running in the `sunset-demo` namespace based on the newly added label.
 
 1. Update the `spec.namespaceFilter.names` array and provide the namespace, which the agent should watch when looking for new pods.
 
-    ```yaml
-    names:
-    - sunset-demo
-    ```
-
+   ```yaml
+   names:
+   - sunset-demo
+   ```
 2. Update `spec.resourceFilter.matchLabels` and provide the label, which the RDA will use to match pods or services.
 
-    ```yaml
-    matchLabels:
-      discover: "true"
-    ```
+   ```yaml
+   matchLabels:
+     discover: "true"
+   ```
 
 After the `ResourceDiscovery` is updated, you must create the resource, and the RDA will look for the `sunset` pod and service based on the new configuration.
 

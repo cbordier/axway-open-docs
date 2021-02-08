@@ -1,14 +1,14 @@
 ---
-title: Deploy your agents with AMPLIFY CLI
-linkTitle: Deploy your agents with AMPLIFY CLI
+title: Deploy your agents with Amplify CLI
+linkTitle: Deploy your agents with Amplify CLI
 draft: false
 weight: 10
-description: Learn how to deploy your agents using AMPLIFY CLI so that you can
-  manage your Azure Gateway environment within AMPLIFY Central.
+description: Learn how to deploy your agents using Amplify CLI so that you can
+  manage your Azure Gateway environment within Amplify Central.
 ---
 ## Before you start
 
-* Read [AMPLIFY Central Azure Gateway connected overview](/docs/central/connect-azure-gateway/)
+* Read [Amplify Central Azure Gateway connected overview](/docs/central/connect-azure-gateway/)
 * You will need information on Azure:
 
     * where the API Service management is located (resource group name / API Management service name)
@@ -19,16 +19,16 @@ description: Learn how to deploy your agents using AMPLIFY CLI so that you can
 
 ## Objectives
 
-Learn how to quickly install and run your Discovery and Traceability agents with basic configuration using AMPLIFY Central CLI.
+Learn how to quickly install and run your Discovery and Traceability agents with basic configuration using Amplify Central CLI.
 
-## AMPLIFY Central CLI prerequisites
+## Amplify Central CLI prerequisites
 
-* Node.js 8 LTS or later
-* Access to npm package (for installing AMPLIFY cli)
+* [Node.js](https://nodejs.org/en/download/) version 10.13.0 or later
+* Access to npm package (for installing Amplify cli)
 * Access to login.axway.com on port 443
-* Minimum AMPLIFY Central CLI version: 0.7.0 (check version using `amplify central --version`)
+* Minimum Amplify Central CLI version: 0.7.0 (check version using `amplify central --version`)
 
-For more information, see [Install AMPLIFY Central CLI](/docs/central/cli_central/cli_install/).
+For more information, see [Install Amplify Central CLI](/docs/central/cli_central/cli_install/).
 
 ## Azure prerequisistes
 
@@ -39,27 +39,27 @@ For more information, see [Install AMPLIFY Central CLI](/docs/central/cli_centra
 
 ### Step 1: Folder preparation
 
-Create an empty directory where AMPLIFY CLI will generate files. Run all AMPLIFY Central CLI from this directory.
+Create an empty directory where Amplify CLI will generate files. Run all Amplify Central CLI from this directory.
 
-### Step 2: Identify yourself to AMPLIFY Platform with AMPLIFY CLI
+### Step 2: Identify yourself to Amplify Platform with Amplify CLI
 
-To use Central CLI to log in with your AMPLIFY Platform credentials, run the following command:
+To use Central CLI to log in with your Amplify Platform credentials, run the following command:
 
 ```shell
 amplify auth login
 ```
 
 A browser automatically opens.
-Enter your valid credentials (email address and password). Once the “Authorization Successful” message is displayed, go back to AMPLIFY CLI. The browser may be closed at this point.
+Enter your valid credentials (email address and password). Once the “Authorization Successful” message is displayed, go back to Amplify CLI. The browser may be closed at this point.
 
-If you are a member of multiple AMPLIFY organizations, you may have to choose an organization.
+If you are a member of multiple Amplify organizations, you may have to choose an organization.
 
 {{< alert title="Note" color="primary" >}}If you do not have a graphical environment, forward the display to an X11 server (Xming or similar tools) using the `export DISPLAY=myLaptop:0.0` command.{{< /alert >}}
 
 ### Step 3: Run the agents' install procedure
 
-Azure agents are delivered in a Docker image provided by Axway. You can run them from any Docker container that can access the AMPLIFY Platform and Azure Gateway.
-The AMPLIFY Central CLI will guide you through the configuration of the agents.
+Azure agents are delivered in a Docker image provided by Axway. You can run them from any Docker container that can access the Amplify Platform and Azure Gateway.
+The Amplify Central CLI will guide you through the configuration of the agents.
 
 Agents configuration will be installed in the directory from where the CLI runs.
 
@@ -67,7 +67,7 @@ Agents configuration will be installed in the directory from where the CLI runs.
 amplify central install agents
 ```
 
-If your AMPLIFY subscription is hosted in the EU region, then the following installation command must be used to correctly configure the agents:
+If your Amplify subscription is hosted in the EU region, then the following installation command must be used to correctly configure the agents:
 
 ```shell
 amplify central install agents --region=EU
@@ -79,7 +79,7 @@ The installation procedure will prompt for the following:
 2. Platform connectivity:
    * **Environment**: can be an existing environment or a new one that will be created by the installation procedure
    * **Team**: can be an existing team or a new one that will be created by the installation procedure
-   * **Service account**: can be an existing service account or a new one that will be created by the installation procedure. If you choose an existing one, be sure you have the appropriate public and private keys, as they will be required for the agent to connect to the AMPLIFY Platform. If you choose to create a new one, the generated private and public keys will be provided.
+   * **Service account**: can be an existing service account or a new one that will be created by the installation procedure. If you choose an existing one, be sure you have the appropriate public and private keys, as they will be required for the agent to connect to the Amplify Platform. If you choose to create a new one, the generated private and public keys will be provided.
 3. Select the agent(s) you want to install: Discovery / Traceability / All Agents.
 4. Azure Discovery Agent Configuration Setup options:
    * **Tenant ID** can be found in the *Directory ID* box on the Properties page
@@ -110,7 +110,7 @@ public_key.pem           *newly created service account only
 
 `da_env_vars.env` / `ta_env_vars.env` contains the specific configuration you entered during the installation procedure. These files are required to start the agents.
 
-`private_key.pem` and `public_key.pem` are the generated key pair the agent will use to securely talk with the AMPLIFY Platform (if you choose to let the installation generate them).
+`private_key.pem` and `public_key.pem` are the generated key pair the agent will use to securely talk with the Amplify Platform (if you choose to let the installation generate them).
 
 ### Step 4: Deploy the agent in Docker Container
 
