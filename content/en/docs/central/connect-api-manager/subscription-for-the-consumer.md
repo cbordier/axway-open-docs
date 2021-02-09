@@ -28,7 +28,7 @@ Each API can define its own approval mode:
 
 * manual (default): an API provider has to approve the subscription before the consumer receives the API credentials.
 (Optional) the agent configuration contains webhook information that will be triggered on each subscription state change. The webhook implementation can, for instance, trigger an MS Teams card to a dedicated Teams channel where the API provider will approve the subscription.
-* automatic: the subscription is auto-approve without human intervention.
+* automatic: the subscription is auto-approved without human intervention.
 
 Agent configuration:
 
