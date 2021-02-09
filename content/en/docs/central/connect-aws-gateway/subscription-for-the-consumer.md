@@ -4,7 +4,7 @@ linkTitle: Feature - Manage subscription workflow
 draft: false
 weight: 45
 description: A subscription provides the consumer, or subscriber, with the
-  required security, quota and endpoint materials to correctly consume the API.
+  required security and endpoint materials to correctly consume the API.
   The security material and/or quota to access an API is configured inside the
   usage plan on AWS API Gateway.
 ---
@@ -16,7 +16,7 @@ description: A subscription provides the consumer, or subscriber, with the
 
 ## Supported use cases for issuing consumer credentials
 
-The property `AWS_SUBSCRIPTIONSISSUENEWCREDENTIALS` allows the API provider to issue new credentials each time a consumer subscribes to an API (default behavior) or reuses existing credentials.
+The property `AWS_SUBSCRIPTIONSISSUENEWCREDENTIALS` allows the API provider to issue new credentials each time a consumer subscribes to an API (default behavior) or reuse existing credentials.
 
 * **generate new credentials** (default): new ApiKey is generated per subscription and store within the selected usage plan.
 * **reuse existing credentials** (property `AWS_SUBSCRIPTIONSISSUENEWCREDENTIALS=false` set in the Discovery Agent configuration file): The agent sends the first non repudiated credentials available in the usage plan to the subscriber.
@@ -25,25 +25,67 @@ The property `AWS_SUBSCRIPTIONSISSUENEWCREDENTIALS` allows the API provider to i
 
 Each API can define its own approval mode:
 
-* manual (default): an API provider approves the subscription before the consumer receives the API credentials.
-(Optional) the agent configuration contains webhook information that is triggered on each subscription state change. The webhook implementation can, for instance, trigger an MS Teams card to a dedicated Teams channel where the API provider will approve the subscription.
+* manual (default): an API provider has to approve the subscription before the consumer receives the API credentials.
+(Optional) the agent configuration contains a webhook information that will be triggered on each subscription state change. The webhook implementation can, for instance, trigger an MS Teams card to a dedicated Teams channel where the API provider will approve the subscription.
 * automatic: the subscription is auto-approve without human intervention.
+
+Agent configuration:
+
+```yml
+CENTRAL_SUBSCRIPTIONS_APPROVAL_MODE={manual|auto|webhook}
+CENTRAL_SUBSCRIPTIONS_APPROVAL_WEBHOOK_URL={The webhook URL that subscription data will be posted tol}
+CENTRAL_SUBSCRIPTIONS_APPROVAL_WEBHOOK_HEADERS={The headers that will be used when posting data to the webhook url}
+```
 
 ## Supported use cases for receiving API credentials
 
-Once the subscription is approved, the agent catches the event from Amplify Central and, based on its configuration, can forward the credentials using either an SMTP server or a webhook.
+Once the subscription is approved, the agent catches this event from Amplify Central and, based on its configuration, can forward the credentials using either an SMTP server or a webhook.
 
-* **email**: the agent configuration contains the access details to an SMTP server (endpoint / port / credentials, if any) and the templates for the emails. Emails can be trigger when the subscription succeeds, fails or when unsubscribes to an API. The agent configuration allows you to customize the email template with several properties:
+* **email**: the agent configuration contains the access details to an SMTP server (endpoint / port / credentials, if any) and the templates for the emails. Emails can be triggered when the subscription succeeds, fails or when unsubscribes to an API. The agent configuration allows you to customize the email template with several properties:
 
-    * `${catalogItemUrl}`: url of the catalog item to help the consumer find it easily
+    * `${catalogItemUrl}`: url of the catalog item to help consumer find it easily
     * `${catalogItemName}`: name of the catalog item
     * `${keyHeaderName}` / `${key}`: apiKey header name and apiKey value
     * `${clientID}` /  `${clientSecret}`: oauth clientID and clientSecret to request the oauth token
-    * `${message}`: error message raised by the agent when subscription or unsubscribe fails.
+    * `${message}`: error message raised by the agent when the subscription fails or the unsubscribe fails
+
+Agent configuration:
+
+```yml
+# SMTP Server definition
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_HOST={SMTP server host}
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_PORT={SMTP server port}
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_AUTHTYPE={The authentication type based on the email server.  You may have to refer to the email server properties and specifications. This value defaults to NONE.}
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_USERNAME={The username used to authenticate to the SMTP server, if necessary}
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_PASSWORD={The password used to authenticate to the SMTP server, if necessary}
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_FROMADDRESS={The email address that will be listed in the from field}
+
+# emails template are defaulted to the following:
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_SUBSCRIBE_SUBJECT=Subscription Notification
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_SUBSCRIBE_BODY=Subscription created for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a><br/>${authtemplate}<br/>
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_SUBSCRIBE_OAUTH=Your API is secured using OAuth token. You can obtain your token using grant_type=client_credentials with the following client_id=<b>${clientID}</b> and client_secret=<b>${clientSecret}</b>
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_SUBSCRIBE_APIKEYS=Your API is secured using an APIKey credential: header: <b>${keyHeaderName}</b> / value: <b>${key}</b>
+
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_UNSUBSCRIBE_SUBJECT=Subscription Removal Notification
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_UNSUBSCRIBE_BODY=Subscription for Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a> has been unsubscribed
+
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_SUBSCRIBEFAILED_SUBJECT=Subscription Failed Notification
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_SUBSCRIBEFAILED_BODY=Could not subscribe to CatalogItem: <a href= ${catalogItemUrl}> ${catalogItemName}</a>
+
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_UNSUBSCRIBEFAILED_SUBJECT=Subscription Removal Failed Notification
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_SMTP_UNSUBSCRIBEFAILED_BODY=Could not unsubscribe to Catalog Item: <a href= ${catalogItemUrl}> ${catalogItemName}</a>
+```
 
 For more information about this configuration, see [Customizing SMTP notifications](/docs/central/connect-api-manager/gateway-administation/#customizing-smtp-notification-subscription).
 
 * **webhook**: the agent configuration contains the webhook details about where to send the payload (catalog asset url / catalog asset name / subscriber email / credentials / action=APPROVE / authtemplate=preconfigure security template sentence).
+
+Agent configuration:
+
+```yml
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_WEBHOOK_URL={The webhook URL that subscription notification data will be posted to}
+CENTRAL_SUBSCRIPTIONS_NOTIFICATIONS_WEBHOOK_HEADERS={The headers that will be used when posting data to the webhook url}
+```
 
 Webhook payload definition:
 
