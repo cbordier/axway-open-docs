@@ -26,14 +26,14 @@ The property `AWS_SUBSCRIPTIONSISSUENEWCREDENTIALS` allows the API provider to i
 Each API can define its own approval mode:
 
 * manual (default): an API provider has to approve the subscription before the consumer receives the API credentials.
-(Optional) the agent configuration contains a webhook information that will be triggered on each subscription state change. The webhook implementation can, for instance, trigger an MS Teams card to a dedicated Teams channel where the API provider will approve the subscription.
-* automatic: the subscription is auto-approve without human intervention.
+(Optional) the agent configuration contains webhook information that will be triggered on each subscription state change. The webhook implementation can, for instance, trigger an MS Teams card to a dedicated Teams channel where the API provider will approve the subscription.
+* automatic: the subscription is auto-approved without human intervention.
 
 Agent configuration:
 
 ```yml
 CENTRAL_SUBSCRIPTIONS_APPROVAL_MODE={manual|auto|webhook}
-CENTRAL_SUBSCRIPTIONS_APPROVAL_WEBHOOK_URL={The webhook URL that subscription data will be posted tol}
+CENTRAL_SUBSCRIPTIONS_APPROVAL_WEBHOOK_URL={The webhook URL that subscription data will be posted to}
 CENTRAL_SUBSCRIPTIONS_APPROVAL_WEBHOOK_HEADERS={The headers that will be used when posting data to the webhook url}
 ```
 
