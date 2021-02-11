@@ -87,7 +87,7 @@ Open the following ports so that agents can communicate to the Amplify platform:
 |        |                                                                                           | 13.36.27.97    |            |              |                                    |
 |        |                                                                                           | 13.36.33.229   |            |              |                                    |
 
-Note: _Region_ column is representing the region where your Amplify organization is deployed. EU means deployed in European data center and US meaning deployed in US data center. Be sure to use the corresponding _Host_/_Port_ for your agents to operate correctly.
+Note: _Region_ column is representing the region where your Amplify organization is deployed. EU means deployed in European data center and US means deployed in US data center. Be sure to use the corresponding _Host_/_Port_ for your agents to operate correctly.
 
 **Inbound**:
 
