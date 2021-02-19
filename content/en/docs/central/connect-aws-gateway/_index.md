@@ -45,15 +45,33 @@ For additional logging information, see <https://docs.aws.amazon.com/apigateway/
 
 ![Service Discovery](/Images/central/connect-aws-gateway/aws-traceability-agent_v2.png)
 
-## Minimum requirements
+## Prerequisites
 
-* An Axway Amplify Central subscription in the Amplify Platform. See [Get started with Amplify Central](/docs/central/quickstart/).
-* An Amplify Central Service Account. See Create Service Account step below.
+* An Axway Amplify Central subscription in the Amplify platform
+* (Optional) An Amplify Central Service Account. See [Create a service account](/docs/central/cli_central/cli_install/#option-2-authenticate-and-authorize-your-service-account)
+* (Optional) An Amplify Central environment. See [Create an environment](/docs/central/cli_central/cli_environments/)
 * API Key credentials on AWS. Allow for CLI access.
 * Amazon CloudWatch Service
 * Amazon Simple Queue Service (AWS SQS)
 * AWS Lambda
 * CloudFormation template. Download from [https://axway.jfrog.io/artifactory/ampc-public-generic-release/aws-agents/aws_apigw_agent_config/](<https://axway.jfrog.io/artifactory/ampc-public-generic-release/aws-agents/aws_apigw_agent_config/>).
+
+## System requirements
+
+## Region support
+
+Amplify Central supports two regions, US (default) and EU. The data (APIs, traffic) that the agents send to Amplify Central is stored in one of those regions based on the agent configuration.
+
+Use one of the following URLs to access the Amplify Central UI:
+
+* US: [https://apicentral.axway.com](https://apicentral.axway.com)
+* EU: [https://central.eu-fr.axway.com](https://central.eu-fr.axway.com)
+
+Update the following variables to move data to the EU region:
+
+* `CENTRAL_DEPLOYMENT`= **prod-eu**
+* `CENTRAL_URL`= **<https://central.eu-fr.axway.com>**
+* `TRACEABILITY_HOST`= **ingestion-lumberjack.visibility.eu-fr.axway.com:453**
 
 ## Connect AWS API Gateway to Amplify Central using CLI
 

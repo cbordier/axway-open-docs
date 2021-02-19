@@ -26,14 +26,40 @@ Open the following ports to benefit from all the Agent functionalities:
 
 **Outbound**:
 
-| Region | Host                                                                                    | IP address (static)  | Port               | Protocol     | Data                               |
-|--------|-----------------------------------------------------------------------------------------|----------------------|--------------------|--------------|------------------------------------|
-| US/EU  | platform.axway.com                                                                      | 34.211.114.227<br/>54.201.86.113 | 443                | HTTPS        | Platform user info                 |
-| US/EU  | login.axway.com                                                                         | 52.58.132.2<br/>52.29.4.35<br/>54.93.140.145  | 443                | HTTPS        | Authentication                     |
-| US     | apicentral.axway.com                                                                    | 3.94.245.118<br/>54.208.199.251<br/>3.212.78.217<br/>52.202.95.208<br/>107.23.176.64<br/>3.225.16.120  | 443                | HTTPS        | API definitions, Subscription info |
-| EU     | central.eu-fr.axway.com                                                                 | 52.47.84.198<br/>13.36.25.69<br/>35.181.21.87<br/>13.36.2.143<br/>13.36.52.216<br/>15.236.7.112  | 443                | HTTPS        | API definitions, Subscription info |
-| US     | ingestion-lumberjack.datasearch.axway.com<br/>or<br/>ingestion.datasearch.axway.com             | 54.225.171.111<br/>54.225.2.221<br/>54.146.97.250<br/>54.147.98.128<br/>52.206.193.184<br/>54.225.92.97    | 453<br/>or<br/>443         | TCP<br/>or<br/>HTTPS | API event data                     |
-| EU     | ingestion-lumberjack.visibility.eu-fr.axway.com<br/>or<br/>ingestion.visibility.eu-fr.axway.com | 15.236.125.123<br/>35.180.77.202<br/>13.36.27.97<br/>13.36.33.229 | 453<br/>or<br/>443         | TCP<br/>or<br/>HTTPS | API event data                     |
+| Region | Host                                                                                      | IP             | port       | Protocol     | data                               |
+|--------|-------------------------------------------------------------------------------------------|----------------|------------|--------------|------------------------------------|
+| EU/US  | platform.axway.com                                                                        | 34.211.114.227 | 443        | HTTPS        |                                    |
+|        |                                                                                           | 54.201.86.113  |            |              |                                    |
+|        |                                                                                           |                |            |              |                                    |
+| US/EU  | login.axway.com                                                                           | 52.58.132.2    | 443        | HTTPS        |                                    |
+|        |                                                                                           | 52.29.4.35     |            |              |                                    |
+|        |                                                                                           | 54.93.140.145  |            |              |                                    |
+|        |                                                                                           |                |            |              |                                    |
+| US     | apicentral.axway.com                                                                      | 3.94.245.118   | 443        | HTTPS        | API definitions, Subscription info |
+|        |                                                                                           | 54.208.199.251 |            |              |                                    |
+|        |                                                                                           | 3.212.78.217   |            |              |                                    |
+|        |                                                                                           | 52.202.95.208  |            |              |                                    |
+|        |                                                                                           | 107.23.176.64  |            |              |                                    |
+|        |                                                                                           | 3.225.16.120   |            |              |                                    |
+|        |                                                                                           |                |            |              |                                    |
+| EU     | central.eu-fr.axway.com                                                                   | 52.47.84.198   | 443        | HTTPS        | API definitions, Subscription info |
+|        |                                                                                           | 13.36.25.69    |            |              |                                    |
+|        |                                                                                           | 35.181.21.87   |            |              |                                    |
+|        |                                                                                           | 13.36.2.143    |            |              |                                    |
+|        |                                                                                           | 13.36.52.216   |            |              |                                    |
+|        |                                                                                           | 15.236.7.112   |            |              |                                    |
+|        |                                                                                           |                |            |              |                                    |
+| US     | ingestion-lumberjack.datasearch.axway.com or ingestion.datasearch.axway.com               | 54.225.171.111 | 453 or 443 | TCP or HTTPS | API event data                     |
+|        |                                                                                           | 54.225.2.221   |            |              |                                    |
+|        |                                                                                           | 54.146.97.250  |            |              |                                    |
+|        |                                                                                           | 54.147.98.128  |            |              |                                    |
+|        |                                                                                           | 52.206.193.184 |            |              |                                    |
+|        |                                                                                           | 54.225.92.97   |            |              |                                    |
+|        |                                                                                           |                |            |              |                                    |
+| EU     | ingestion-lumberjack.visibility.eu-fr.axway.com  or  ingestion.visibility.eu-fr.axway.com | 15.236.125.123 | 453 or 443 | TCP or HTTPS | API event data                     |
+|        |                                                                                           | 35.180.77.202  |            |              |                                    |
+|        |                                                                                           | 13.36.27.97    |            |              |                                    |
+|        |                                                                                           | 13.36.33.229   |            |              |                                    |
 
 Note: _Region_ column is representing the region where your Amplify organization is deployed. EU means deployed in European data center and US meaning deployed in US data center. Be sure to use the corresponding _Host_/_Port_ for your agents to operate correctly.
 

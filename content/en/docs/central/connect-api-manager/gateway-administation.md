@@ -9,7 +9,7 @@ description: Learn how to deploy your Discovery Agent and Traceability Agent so
 ## Before you start
 
 * Read [Amplify Central and Axway API Manager connected overview](/docs/central/connect-api-manager/)
-* Be sure you have [Prepared Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/)
+* Be sure you have [Prepared Amplify Central](/docs/central/connect-api-manager/#pre-requisites)
 * You will need a basic knowledge of Axway API Management solution:
 
     * Where the solution is running (host / port / path to the logs / users)
@@ -30,14 +30,13 @@ The Discovery Agent is used to discover new published APIs or any updated APIs. 
 
 The Discovery Agent only discovers APIs that have the tag(s) defined in the agent configuration file. See [Discover APIs](/docs/central/connect-api-manager/filtering-apis-to-be-discovered/). By default, the filter is empty and thus the agent will discover all published API.
 
-The binary agent can run in the following modes:
+The binary agent can run in the following mode:
 
 * With a yaml configuration file having the same name as the agent binary - `discovery_agent.yml`:
 
     * Default: located in the same directory as the agent binary.
     * Optional: use a dedicated folder where the configuration file is located (use the --pathConfig flag in the agent command line to access the file path).
     * Advanced configuration: properties inside the configuration file can reference environment variables. This enables you to set up only one configuration file that addresses different behaviors (depending on the environment variables). See [Discovery Agent variables](/docs/central/connect-api-manager/agent-variables/).
-* With command line arguments. See [Discovery Agent flags](/docs/central/connect-api-manager/discovery-agent-flags/).
 
 The containerized agent can run in the following mode:
 
@@ -61,7 +60,7 @@ unzip discovery_agent-latest.zip
 
 **Step 3**: Copy those 2 files into a folder (/home/APIC-agents for instance) on the machine where the API Manager environment is located.
 
-**Step 4**: Move the `private_key.pem` and `public_key.pem` files that were originally created when you set up your Service Account to the agent directory (APIC-agents). Note that the `public_key.pem` comes from Steps 3 or 4 of [Create a Service Account](/docs/central/connect-api-manager/prepare-amplify-central/#create-a-service-account) depending if you choose to use the `der` format or not.
+**Step 4**: Move the `private_key.pem` and `public_key.pem` files that were originally created when you set up your Service Account to the agent directory (APIC-agents). Note that the `public_key.pem` comes from Steps 3 or 4 of [Create a Service Account](/docs/central/cli_central/cli_install/#authorize-your-cli-to-use-the-amplify-central-apis) depending if you choose to use the `der` format or not.
 
 #### To install the Dockerized Discovery Agent
 
@@ -87,7 +86,7 @@ CENTRAL_AUTH_CLIENTID=<CLIENTID, ie. DOSA_12345...>
 
 * The value for *team* can be found in [Amplify Central > Access > Team Assets](https://apicentral.axway.com/access/teams/).
 * The value for *organizationID* can be found in Amplify Central Platform > Organization.
-* The value for *clientId* can be found in Service Account. See [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account).
+* The value for *clientId* can be found in Service Account. See [Create a service account](/docs/central/cli_central/cli_install/#authorize-your-cli-to-use-the-amplify-central-apis).
 
 Pull the latest image of the Discovery Agent:
 
@@ -152,7 +151,7 @@ This section connects the agent to Amplify Central and determines how to publish
 
 `organizationID`: The Organization ID from Amplify Central. Locate this at Platform > User > Organization > Org ID field.
 
-`environment`: The environment name you created when [preparing AMPLIFY Central](/docs/central/connect-api-manager/prepare-amplify-central/).
+`environment`: The environment name you created when [preparing AMPLIFY Central](/docs/central/cli_central/cli_install/).
 
 `apiServerVersion`: The version of AMPLIFY Central API the agent is using. Default value is **v1alpha1**.
 
@@ -164,11 +163,11 @@ This section connects the agent to Amplify Central and determines how to publish
 
 `auth.realm`: The Realm used to authenticate for Amplify Central. Default value is **Broker**.
 
-`auth.clientId`: The Client ID of the Service Account (DOSA_....) you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Locate this at AMPLIFY Central > Access > Service Accounts.
+`auth.clientId`: The Client ID of the Service Account (DOSA_....) you created when [preparing Amplify Central](/docs/central/cli_central/cli_install/). Locate this at AMPLIFY Central > Access > Service Accounts.
 
-`auth.privateKey`: The location of the private key file you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.
+`auth.privateKey`: The location of the private key file you created when [preparing Amplify Central](/docs/central/cli_central/cli_install/). Absolute file path is recommended to avoid confusion.
 
-`auth.publicKey`:  The location of the public key file you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.  
+`auth.publicKey`:  The location of the public key file you created when [preparing Amplify Central](/docs/central/cli_central/cli_install/). Absolute file path is recommended to avoid confusion.  
 
 `auth.keyPassword`: The key password to open the key. None set up by default.
 
@@ -599,14 +598,13 @@ cd /home/APIC-agents
 
 The traceability agent is used to filter the Axway API Gateway logs that are related to discovered APIs and prepare the transaction events that are sent to Amplify platform. Each time an already discovered API is called by a consumer, an event (summary + detail) is sent to Amplify Central and is visible in API Observer.
 
-The agent can run in the following modes:
+The agent can run in the following mode:
 
 * With a yaml configuration file having the same name as the agent binary - `traceability_agent.yaml`:
 
     * Default: located in the same directory as the agent binary.
     * Optional: use a dedicated folder where the configuration file is located (use the --path.config flag in the agent command line to access the file path).
     * Advanced configuration: properties inside the configuration file can reference environment variables. This enables you to set up only one configuration file that addresses different behaviors (depending on the environment variables). See [Discovery Agent variables](/docs/central/connect-api-manager/agent-variables/).
-* With command line argument. See [Traceability Agent flags](/docs/central/connect-api-manager/discovery-agent-flags/).
 
 ### Installing the Traceability Agent
 
@@ -626,7 +624,7 @@ unzip traceability_agent-latest.zip
 
 **Step 3**: Copy those 2 files into a folder (/home/APIC-agents for instance) on the machine where the API Manager environment is located.
 
-**Step 4**: If not done yet, move the `private_key.pem` and `public_key.pem` files that were originally created when you set up your Service Account to the agent directory (APIC-agents). Note that the `public_key` comes from Steps 3 or 4 of [Create a Service Account](/docs/central/connect-api-manager/prepare-amplify-central/#create-a-service-account) depending if you choose to use the `der` format or not.
+**Step 4**: If not done yet, move the `private_key.pem` and `public_key.pem` files that were originally created when you set up your Service Account to the agent directory (APIC-agents). Note that the `public_key` comes from Steps 3 or 4 of [Create a Service Account](/docs/central/cli_central/cli_install/#authorize-your-cli-to-use-the-amplify-central-apis) depending if you choose to use the `der` format or not.
 
 #### To install the Dockerized Traceability Agent
 
@@ -653,7 +651,7 @@ CENTRAL_ENVIRONMENT=<Environment>
 
 * The value for *team* can be found in [Amplify Central > Access > Team Assets](https://apicentral.axway.com/access/teams/).
 * The value for *organizationID* can be found in Amplify Central Platform > Organization.
-* The value for *clientId* can be found in Service Account. See [Create a service account](/docs/central/cli_central/cli_install/#create-a-service-account).
+* The value for *clientId* can be found in Service Account. See [Create a service account](/docs/central/cli_central/cli_install/#authorize-your-cli-to-use-the-amplify-central-apis).
 
 Pull the latest Docker image of the Traceability Agent:
 
@@ -715,17 +713,17 @@ This section connects the agent to Amplify Central and determine how to publishe
 
 `deployment`: The APIC deployment environment. Default value is **prod**.
 
-`environment`: The environment name you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/).
+`environment`: The environment name you created when [preparing Amplify Central](/docs/central/cli_central/cli_install/).
 
 `auth.url`: The Amplify login URL. Default value is **<https://login.axway.com/auth>**.
 
 `auth.realm`: The Realm used to authenticate for Amplify Central. Default value is **Broker**.
 
-`auth.clientId`: The name of the Service Account you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Locate this at Amplify Central > Access > Service Accounts.
+`auth.clientId`: The name of the Service Account you created when [preparing Amplify Central](/docs/central/cli_central/cli_install/). Locate this at Amplify Central > Access > Service Accounts.
 
-`auth.privateKey`: The location of the private key file you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.
+`auth.privateKey`: The location of the private key file you created when [preparing Amplify Central](/docs/central/cli_central/cli_install/). Absolute file path is recommended to avoid confusion.
 
-`auth.publicKey`:  The location of the public key file you created when [preparing Amplify Central](/docs/central/connect-api-manager/prepare-amplify-central/). Absolute file path is recommended to avoid confusion.  
+`auth.publicKey`:  The location of the public key file you created when [preparing Amplify Central](/docs/central/cli_central/cli_install/). Absolute file path is recommended to avoid confusion.  
 
 `auth.keyPassword`: The key password to open the key. None set up by default.
 

@@ -66,7 +66,7 @@ The AWS service usage cost for the agents is explain below.
 
 ### Minimum requirements
 
-* [Amplify Central Service Account](/docs/central/connect-aws-gateway/prepare-amplify-central-1/#create-a-service-account)
+* [Amplify Central Service Account](/docs/central/cli_central/cli_install/#option-2---authenticate-and-authorize-your-service-account)
 * [API Key credentials on AWS](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html). Allowing for CLI access.
 * [Amazon CloudWatch Service](https://aws.amazon.com/cloudwatch/)
 * [Amazon Simple Queue Service](https://aws.amazon.com/sqs/)
@@ -96,7 +96,7 @@ If deploying the EC2 instance within these templates, additionally create the fo
     |    ta_env_vars.env
 ```
 
-For the values in these **\*_env_var.env** files, see [Deploy your agents](/docs/central/connect-aws-gateway/deploy-your-agents-1).
+For the values in these **\*_env_var.env** files, see [Reference - Agent configuration](/docs/central/connect-aws-gateway/deploy-your-agents-1).
 
 For the list of minimum access rights for these CloudFormation templates, see [Minimum rights for CloudFormation deployment](#minimum-rights-for-cloudformation-deployment).
 
@@ -432,9 +432,9 @@ These outputs will be used as inputs for running both the Discovery and Traceabi
 * Validate messages received in AWS SQS
 * Validate logging in CloudWatch under the Log group named after the REST API ID/Stage
 
-### Connecting AWS API Gateway to Amplify Central QuickStart
+### Connecting AWS API Gateway to Amplify Central
 
-* [Deploy agents - quickstart](/docs/central/connect-aws-gateway/deploy-your-agents-quickstart)
+* [Deploy agents](/docs/central/connect-aws-gateway/deploy-your-agents-1/)
 
 ### Agents AWS Cost
 
@@ -493,7 +493,7 @@ Note that these privileges do not include those necessary for rollback, if the s
 | cloudformation:CreateStack            | The stacks being created                                                                        | both       | all                        |                              |
 | s3:ListBuckets                        | ConfigBucketName, AgentResourcesBucket                                                          | both       | all                        |                              |
 | s3:GetObject                          | traceability_lambda.zip, CloudFormation templates                                               | both       | amplify-agents-resources   |                              |
-| s3:CreateBucket                       | ConfigBucketName-<AWS::AccountID>-<AWS::Region>                                                 | continuous | amplify-agents-resources   | ConfigServiceSetup = true    |
+| s3:CreateBucket                       | ConfigBucketName-`<AWS::AccountID>-<AWS::Region>`                                                 | continuous | amplify-agents-resources   | ConfigServiceSetup = true    |
 | apigateway:PATCH                      | /account                                                                                        | both       | amplify-agents-resources   | APIGWCWRoleSetup = true      |
 | lambda:GetFunction                    | TraceabilityLambda                                                                              | both       | amplify-agents-resources   |                              |
 | lambda:GetFunctionConfiguration       | TraceabilityLambda                                                                              | both       | amplify-agents-resources   |                              |

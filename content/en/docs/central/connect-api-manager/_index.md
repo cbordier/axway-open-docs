@@ -36,8 +36,8 @@ The Traceability Agent sends log information about APIs that have been discovere
 ## Pre-requisites
 
 * An Axway Amplify Central subscription in the Amplify platform
-* (Optional) An Amplify Central Service Account. See [Create a service account](/docs/central/connect-api-manager/#create-a-new-service-account)
-* (Optional) An Amplify Central environment. See [Create an environment](/docs/central/connect-api-manager/prepare-amplify-central/#create-environment-using-the-UI)
+* (Optional) An Amplify Central Service Account. See [Create a service account](/docs/central/cli_central/cli_install/#authorize-your-cli-to-use-the-amplify-central-apis)
+* (Optional) An Amplify Central environment. See [Create an environment](/docs/central/cli_central/cli_environments)
 * An API Manager user having the role of API Manager administrator for the Discovery / Traceability agent to connect to API Manager
 * An API Gateway user having the role of API Gateway operator for Traceability Agent to connect to API Gateway
 

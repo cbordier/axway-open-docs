@@ -143,7 +143,7 @@ docker run -it --env-file $(pwd)/ta_env_vars.env -v $(pwd):/keys -v EVENT_LOG_PA
 
 The agent can be installed as a Linux service with systemd. The following commands will help you utilize the service. These commands install the service abilities and must be run as a root user.
 
-When running as a service, it is best to save your logging to a file rather than the console output. See [Customizing log section (log)](/docs/central/connect-api-manager/gateway-administration#customizing-log-section-log).
+When running as a service, it is best to save your logging to a file rather than the console output. See [Customizing log section (log)](/docs/central/connect-api-manager/gateway-administation/#customizing-log-section-logging).
 
 * Install the services and execute it as user axway and group axway:
 

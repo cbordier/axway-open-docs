@@ -3,7 +3,8 @@ title: Build and manage API services in your environments
 linkTitle: Build and manage API services in your environments
 weight: 110
 date: 2021-01-13T00:00:00.000Z
-description: Learn how your DevOps process can use AMPLIFY Central CLI to build and manage API services in your environments.
+description: Learn how your DevOps process can use AMPLIFY Central CLI to build
+  and manage API services in your environments.
 ---
 
 ## Before you start
@@ -88,6 +89,7 @@ awsdiscoveryagents        awsda        AWSDiscoveryAgent               true    E
 awstraceabilityagents     awsta        AWSTraceabilityAgent            true    Environment
 consumerinstances         consumeri    ConsumerInstance                true    Environment
 consumersubscriptiondefs  consumersd   ConsumerSubscriptionDefinition  true    Environment
+discoveryagents           da           DiscoveryAgent                  true    Environment
 edgedataplanes            edgedp       EdgeDataplane                   true    Environment
 edgediscoveryagents       edgeda       EdgeDiscoveryAgent              true    Environment
 edgetraceabilityagents    edgeta       EdgeTraceabilityAgent           true    Environment
@@ -95,13 +97,16 @@ environments              env          Environment                     false
 integrations              integ        Integration                     false
 k8sclusters               k8sc         K8SCluster                      false
 k8sresources              k8sr         K8SResource                     true    K8SCluster
+meshdiscoveries           meshd        MeshDiscovery                   true    Mesh
 meshes                    mesh         Mesh                            false
+meshservices              meshsvc      MeshService                     true    Mesh
 meshworkloads             meshwrk      MeshWorkload                    true    Mesh
 resourcediscoveries       resourced    ResourceDiscovery               true    K8SCluster
 resourcehooks             resourceh    ResourceHook                    true    Integration
 secrets                   secret       Secret                          true    Integration
 secrets                   secret       Secret                          true    Environment
 specdiscoveries           specd        SpecDiscovery                   true    K8SCluster
+traceabilityagents        ta           TraceabilityAgent               true    Environment
 webhooks                  webh         Webhook                         true    Integration
 webhooks                  webh         Webhook                         true    Environment
 ```
