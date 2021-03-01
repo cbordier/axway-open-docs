@@ -1,9 +1,9 @@
 {
 "title": "Update from API Gateway One Version",
-"linkTitle": "Update from API Gateway One Version",
-"weight": 25,
-"date": "2020-09-30",
-"description": "Learn how to update from API Gateway One Version to the latest delivery."
+  "linkTitle": "Update from API Gateway One Version",
+  "weight": 25,
+  "date": "2020-09-30",
+  "description": "Learn how to update from API Gateway One Version to the latest delivery."
 }
 
 After you **upgrade** your [API Gateway 7.5.x or 7.6.x](/docs/apim_installation/apigw_upgrade/upgrade_steps_extcass/) to [API Gateway One Version](https://community.axway.com/s/question/0D52X00008WUjgeSAD/introducing-one-version-for-api-management), follow the instructions on this page to **update** your API Gateway One Version to the latest delivery.
@@ -79,6 +79,22 @@ The `update_apigw.sh` script generates a trace file in the `update-output/trace`
 ### Specify a directory to back up your installation
 
 The script takes a backup of your entire API Gateway installation directory and places it in a `tar` file in the `update-output/backups` directory. Specify a different directory using the `--backup_dir` option. To manage your own backups, use the `--no_backup` option.
+
+### Back up customized files
+
+Ensure to back up any customized files from your `INSTALL_DIR` directory, and when you are restoring these files, ensure that you merge any updated files instead of copying them back directly to avoid any regex matching issues.
+
+The following is a list of directories that might contain customized files:
+
+```
+webapps/apiportal/vordel/apiportal
+webapps/emc/vordel/manager/app
+webapps/emc
+system/conf/apiportal/email
+system/conf
+samples/scripts/
+tools/filebeat-VERSION-PLATFORM
+```
 
 ## Install a Policy Studio update
 

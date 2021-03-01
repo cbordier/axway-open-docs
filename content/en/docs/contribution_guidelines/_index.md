@@ -107,12 +107,13 @@ Use the Netlify CMS **Workflow** view to easily keep track of the pages you have
 
 To make further changes to a page, for example, if you forgot to add a detail, or if you noticed a typo:
 
-1. If the page was already sent for review, drag it from the **In Review** column to the **Drafts** column. This lets the reviewer know that you are still working on the page.
+1. Log in to the [Netlify CMS dashboard](https://axway-open-docs.netlify.app/admin) with your GitHub account.
+2. If the page was already sent for review, drag it from the **In Review** column to the **Drafts** column. This lets the reviewer know that you are still working on the page.
 
    If the page is not listed in the **In Review** column, then it has been merged already and you will need to create a new PR to make further changes. See [Edit an existing page](#edit-an-existing-page).
-2. To make further changes, click the page in the **Drafts** column to open it.
-3. When you are finished making changes, **Save** the page and set its status to **In review**.
-4. Refresh the page and click **Check for Preview/View Preview** to see your changes on the preview website.
+3. To make further changes, click the page in the **Drafts** column to open it.
+4. When you are finished making changes, **Save** the page and set its status to **In review**.
+5. Refresh the page and click **Check for Preview/View Preview** to see your changes on the preview website.
 
 {{< alert title="Note" color="primary" >}}
 If you notice pages in the **Draft** column of the **Workflow** view that you are not currently working on, these are likely to be from previous contributions that have not been merged. For more information, see [Draft pages in Netlify CMS](#draft-pages-in-netlify-cms).

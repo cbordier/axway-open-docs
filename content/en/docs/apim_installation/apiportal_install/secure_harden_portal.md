@@ -81,13 +81,31 @@ To encrypt your database password, run:
 
 You will be prompted to enter a passphrase and your database password.
 
-The script uses the passphrase to encrypt the database password, which is now stored encrypted in the `<API_Portal_install_path>/configuration.php` file, and to decrypt the database password on each connection request.
+The script uses the passphrase to encrypt and decrypt the database password on each connection request. The database password is stored encrypted in the `<API_Portal_install_path>/configuration.php` file. Only the password is decrypted on each connection request, not the whole payload, so no significant performance impact is expected.
 
-Only the password is decrypted on each connection request, not the whole payload, so no significant performance impact is expected.
+Note that if you encrypt your database password, you cannot use the [database secure connection](/docs/apim_installation/apiportal_install/install_software_configure_database/#configure-the-database-server-for-secure-connection) option.
 
-If you need to update the encrypted password, you must first change the password for the database, then run the `apiportal_db_pass_encryption.sh` script again and provide the new database password to use.
+## Update the database password
 
-{{< alert title="Note" color="primary" >}}This option cannot be used in combination with [database secure connection](#disable-tls-1-0-and-tls-1-1-on-apache).{{< /alert >}}
+This section shows how you can update an encrypted database password.
+
+### Update an encrypted password
+
+To update an encrypted password:
+
+1. Change the database password in your database server.
+2. Run the `apiportal_db_pass_encryption.sh` script and provide the new database password to use.
+
+### Update an encrypted password to plaintext password
+
+To update an encrypted password to plaintext password:
+
+1. Change the database password in your database server.
+2. Edit your `configuration.php` file.
+3. Locate the line that starts with `public $password =` and replace its value with the plaintext MySQL password. Ensure to follow [PHP quoting rules](https://www.php.net/manual/en/language.types.string.php) for any special characters in the password.
+4. Locate the `public $dbtype = 'mysqli_encrypted'` line and replace it with `public $dbtype = 'mysqli'`.
+
+To encrypt your plaintext password, see [Encrypt database password](#encrypt-database-password).
 
 ## Limit the number of failed login attempts
 
