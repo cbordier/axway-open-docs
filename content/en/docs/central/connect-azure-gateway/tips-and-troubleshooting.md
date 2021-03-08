@@ -18,6 +18,7 @@ description: This section provides troubleshooting, known limitations
 | Why can't my agents connect to Amplify Central?            | Go to Amplify Central UI > Access > Service Accounts and make sure that the Service Account is correctly named and valid. Make sure that the organizationID and team are correct. |   |
 | I have the following error: `Amplify Central - FAIL (error creating request header. bad response from AxwayId: 400 Bad Request)`| Make sure that the Service Account set up is properly spelled (refer to `central.clientId` property). Verify that the public/private key pair is the one corresponding to the Service Account |   |
 | Why don't I see traffic in Amplify Central?                | Make sure that the Condor URL is accessible from the machine where Traceability Agent is installed.                                                                          |   |
+| Why my agent status is not displayed in the environment details page?   | It is possible that your agents and their corresponding resources are not linked together. Follow [this procedure](/docs/central/env_gw_mgmt/environment_agent_resources) to ensure the correct usage of agent resources. |   |
 
 ## Limitations
 

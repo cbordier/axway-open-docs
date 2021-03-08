@@ -17,6 +17,7 @@ description: This section provides troubleshooting, known limitations
 | Why can't my agents connect to AWS API Gateway?                                                                           | Go to AWS console / IAM service and make sure that AWS_REGION, AWS_AUTH_ACCESSKEY and AWS_AUTH_SECRETKEY are valid and not inactivated. |
 | Why can't my agents connect to Amplify Central?                                                                           | Go to Amplify Central UI > Access > Service Accounts and make sure that the Service Account is correctly named and valid. Make sure that the organizationID and team configuration are correct. |
 | Why don't I see traffic in Amplify Central?                                                                               | Make sure that the Condor URL is accessible from the machine where Traceability Agent is installed.                                     |
+| Why my agent status is not displayed in the environment details page?   | It is possible that your agents and their corresponding resources are not linked together. Follow [this procedure](/docs/central/env_gw_mgmt/environment_agent_resources) to ensure the correct usage of agent resources. |   |
 
 ## Error Codes and Mitigations
 
