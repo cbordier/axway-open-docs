@@ -5,35 +5,33 @@ weight: 50
 description: Adding your agent status to the environment detail page
 ---
 
-You are certainly wondering why your environment in AMPLIFY Cental / Topology view shows `Manual Sync.` whereas you already have an agents configured that have discovered APIs from your gateway and send the relative traffic to the API Observer.
+If your environment status in **AMPLIFY Cental / Topology** displays `Manual Sync.`, even though you have configured agents that have discovered APIs from your gateway and sent relative traffic to the API Observer, then you either installed the agents manually or with an older version of AMPLIFY Central CLI. Amplify Central CLI (0.12.0 and later) creates necessary resources for the known agents (AWS, v7, Azure) to report its environment status to AMPLIFY Central for you to view.
 
-It is maybe because you installed the agents manually or with a previous version of AMPLIFY Central CLI. Recent version of CLI (0.12.0 minimum) creates necessary resources for the known agents (AWS, v7, Azure) to report its status to AMPLIFY Central.
-
-In case you have an existing installation of agents that have not been done with AMPLIFY Central CLI v0.12.0 minimum or you have build your own agent, you are probably not able to see the agent status and definition in the Environment.
-
-For that, you will need new resources: a discovery agent resource and a traceability agent resource.
+If you installed the agents manually or with an older version of AMPLIFY Central CLI, you must:
+* Add new agent resources: Discovery Agent resource and Traceability Agent resource
+* Add your agent resources to the environment  
 
 ## Resources descriptions
 
 Refer to `amplify central get` to list the resources.
 
-**Discovery agent resource**:
+**Discovery Agent resource**:
 
 | RESOURCE                  | SHORT NAMES  | RESOURCE KIND                   | SCOPED  | SCOPE KIND    |
 |---------------------------|--------------|---------------------------------|---------|---------------|
 | discoveryagents           | da           | DiscoveryAgent                  | true    | Environment   |
 
-**Traceability agent resource**:
+**Traceability Agent resource**:
 
 | RESOURCE                  | SHORT NAMES  | RESOURCE KIND                   | SCOPED  | SCOPE KIND    |
 |---------------------------|--------------|---------------------------------|---------|---------------|
 | traceabilityagents        | ta           | TraceabilityAgent               | true    | Environment   |
 
-In the next samples, we will describe the resource for:
+The following samples describe the resources for:
 
-* an environment: my-amplify-central-environment
-* a discovery agent: my-discovery-agent-name
-* a traceability agent: my-traceability-agent-name
+* An environment: my-amplify-central-environment
+* A Discovery Agent: my-discovery-agent-name
+* A Traceability Agent: my-traceability-agent-name
 
 Environment sample:
 
@@ -58,7 +56,7 @@ spec:
     This is the environment for representing the gateway ZYZ.
 ```
 
-Discovery agent sample:
+Discovery Agent sample:
 
 ```yaml
 group: management
@@ -83,7 +81,7 @@ spec:
   dataplaneType: my-dataplane-name
 ```
 
-Traceability agent sample:
+Traceability Agent sample:
 
 ```yaml
 group: management
@@ -107,40 +105,40 @@ spec:
   dataplaneType: my-dataplane-name
 ```
 
-## How to tell the environment that agents are connected to it?
+## Add your agent resources to the environment?
 
-In the following section, we will guide you step by step to define the require agent resources in order to display the agent status associated to an environment.
+The following steps will guide you in defining the require agent resources in order to display the agent status associated to an environment.
 
-You will need to access the Axway central CLI. Refer to [Install Axway Central CLI](/docs/central/cli_central/cli_install)
+You must access the Axway Central CLI. See [Install Axway Central CLI](/docs/central/cli_central/cli_install).
 
-## Step 1: Authenticate yourself with Axway Central CLI
+### Step 1: Authenticate yourself with Axway Central CLI
 
-In a command line prompt, enter `axway auth login`
+In a command line prompt, enter `axway auth login`.
 
-A browser will popup asking you to enter your credentials and choose your platform organization. Once connected you can close the browser.
+A browser opens. You are prompted to enter your credentials and choose your platform organization. Once connected you can close the browser.
 
-## Step 2: create an environment
+### Step 2: Create an environment
 
 If you already have an environment, you can skip this step. Only the environment name will be require later.
 
-For that, you have 3 possibilities:
+Choose one of following to create an environment:
 
-* using the CLI: `amplify central create env my-environment-name`
-* using the CLI with a file: create a file (myEnvFile.yaml) containing the environment resource definition mentioned above and use `amplify central apply -f myEnvFile.yaml` to create it.
-* using the UI. Go to topology and use the "+ Environment" button
+* Use the CLI: `amplify central create env my-environment-name`.
+* Use the CLI with a file: create a file (myEnvFile.yaml) containing the environment resource definition mentioned above and use `amplify central apply -f myEnvFile.yaml` to create it.
+* Use the UI: Go to topology and use the "+ Environment" button.
 
-This should result in the following display after running `amplify central get env`:
+Run `amplify central get env`. You should see something similar to this:
 
 ```shell
 NAME                            AGE                TITLE                           RESOURCE KIND
 my-amplify-central-environment  a few seconds ago  My beautiful environment title  Environment
 ```
 
-## Step3: create the agent resources
+### Step 3: Create the agent resources
 
-Create a file `discovery-agent-res.yaml` with the content explained in "Resources description" section. Then execute `amplify central apply -f discovery-agent-res.yaml` to create the resource. Be sure to replace the environment name (`my-amplify-central-environment` in the sample) with your environment name in the resource.
+Create a file `discovery-agent-res.yaml` with the content explained in the above "Resources descriptions" section. Then execute `amplify central apply -f discovery-agent-res.yaml` to create the resource. Be sure to replace the environment name (`my-amplify-central-environment` in the sample) with your environment name in the resource.
 
-Create a file `traceability-agent-res.yaml` with the content explained in "Resources description" section. Then execute `amplify central apply -f traceability-agent-res.yaml` to create the resource. Be sure to replace the environment name (`my-amplify-central-environment` in the sample) with your environment name in the resource.
+Create a file `traceability-agent-res.yaml` with the content explained in "Resources descriptions" section. Then execute `amplify central apply -f traceability-agent-res.yaml` to create the resource. Be sure to replace the environment name (`my-amplify-central-environment` in the sample) with your environment name in the resource.
 
 Once you are done you can verify your work by running the commands `amplify central get da` or `amplify central get ta` or `amplify central get da,ta`
 
@@ -156,16 +154,16 @@ NAME                        STATUS   AGE                RESOURCE KIND          S
 my-traceability-agent-name           a few seconds ago  TraceabilityAgent      Environment  my-amplify-central-environment
 ```
 
-You can notice that each agent has a column named `STATUS` which is empty. This status column will be updated either with `running` when agent is running, `stopped` when agent is stopped or `failed` when agent cannot establish the connection with the gateway.
+Notice that each agent has an empty column named `STATUS`. This status column will be updated with either `running` when agent is running, `stopped` when agent is stopped or `failed` when the agent cannot establish the connection with the gateway.
 
-## Step4: update agent configuration
+### Step 4: Update agent configuration
 
-In order to link agent binary with the appropriate agent resource, you have to update the agent configuration file (env_vars). For that, you need to use `CENTRAL_AGENTNAME` variable and link the value to the resource name defined previously.
+In order to link agent binary with the appropriate agent resource, you have to update the agent configuration file (env_vars). Use the `CENTRAL_AGENTNAME` variable and link the value to the resource name defined previously.
 
 Sample: CENTRAL_AGENTNAME=my-discovery-agent-name
 
-Once the discovery agent starts correctly, you should be able to see that the environment status (AMPLIFY Central / Topology) should change from `Manual sync.` to `Connected`. In case the agent stops, the environment status will move to `Disconnected`. Finally, if the agent has difficulty to reach the Gateway, the status will be `Connection error`.
+Once the Discovery Agent starts correctly, you should see the environment status (AMPLIFY Central / Topology) change from `Manual sync.` to `Connected`. If the agent stops, the environment status will move to `Disconnected`. Finally, if the agent cannot reach the Gateway, the status will be `Connection error`.
 
-Opening the environment details page will display all agents and status linked to this environment.
+Opening the environment details page displays all agents and status linked to this environment.
 
 You can also check the status value in CLI using `amplify central get da` or `amplify central get ta`.
