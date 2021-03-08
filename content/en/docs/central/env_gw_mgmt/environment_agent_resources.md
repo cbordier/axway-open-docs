@@ -8,6 +8,7 @@ description: Adding your agent status to the environment detail page
 If your environment status in **AMPLIFY Cental / Topology** displays `Manual Sync.`, even though you have configured agents that have discovered APIs from your gateway and sent relative traffic to the API Observer, then you either installed the agents manually or with an older version of AMPLIFY Central CLI. Amplify Central CLI (0.12.0 and later) creates necessary resources for the known agents (AWS, v7, Azure) to report its environment status to AMPLIFY Central for you to view.
 
 If you installed the agents manually or with an older version of AMPLIFY Central CLI, you must:
+
 * Add new agent resources: Discovery Agent resource and Traceability Agent resource
 * Add your agent resources to the environment  
 
